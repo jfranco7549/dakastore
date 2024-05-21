@@ -1,0 +1,2 @@
+# dakastore
+catalogó inventario
