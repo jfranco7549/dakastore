@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <title>Tiendas Daka</title>
+  <style>
+    .color{
+        height: 30vh;
+        background-color: aqua;
+    }
+    .color1{
+      background-color: blueviolet;
+      color: black;
+      justify-content: center;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body class="noscroll">
+
+  <div id="app">
+    <v-app>
+      <v-main>
+        <v-app-bar style="position: sticky;" dense color="#FFDD00" elevate-on-scroll shrink-on-scroll fade-img-on-scroll
+        src="/img/banner/2.png" prominent scroll-target="#scrolling-techniques-3">
+        <template v-slot:img="{ props }">
+          <v-img contain v-bind="props"></v-img>
+        </template>
+
+
+
+        <v-app-bar-title> </v-app-bar-title>
+
+        <v-spacer></v-spacer>
+
+
+       
+
+
+
+
+        <template v-slot:extension>
+
+          <v-tabs align-with-title>
+
+            <v-tab>Garantia</v-tab>
+            <v-tab>Termino y Condiciones </v-tab>
+            <v-tab >Preguntas Frecuentes</v-tab>
+
+            <v-spacer></v-spacer> <v-spacer></v-spacer>
+
+            
+          </v-tabs>
+        </template>
+
+      </v-app-bar>
+        <v-container>
+            <v-row>
+              <v-col id="TerminoyCondiciones"  class="color1" cols="12">
+                <template>
+                  <v-item-group>
+                    <v-container>
+                      <v-row>
+                        <v-spacer></v-spacer>
+                        <v-col
+                          v-for="n in TerminoYCondiciones"
+                          :key="n"
+                          cols="12"
+                          md="4"
+                        >
+                          <v-item v-slot="{ active, toggle }">
+                            <v-card
+                              :color="active ? 'primary' : ''"
+                              class="d-flex align-center"
+                              dark
+                              height="200"
+                              @click="toggle"
+                            >
+                              <v-scroll-y-transition>
+                                <div
+                                  v-if="active"
+                                  class="text-h2 flex-grow-1 text-center"
+                                >
+                                  {{n.nombre}}
+                                </div>
+                                <div
+                                v-if="!active"
+                                
+                              >
+                               <v-img height="60"  wight="100" contain :src="n.imagen"></v-img>
+                              </div>
+                              </v-scroll-y-transition>
+                            </v-card>
+                          </v-item>
+                        </v-col>
+                        <v-spacer></v-spacer>
+                      </v-row>
+                    </v-container>
+                  </v-item-group>
+                </template>
+              </v-col>
+                <v-col v-if="false" align="center" justify="center" cols="12" class="color">
+                    <h1>Seleccione la Marca de su producto..</h1>
+                    <template>
+                        <v-sheet
+                          class="mx-auto"
+                          elevation="8"
+                          max-width="800"
+                        >
+                          <v-slide-group
+                            v-model="model"
+                            class="pa-4"
+                            center-active
+                            show-arrows
+                          >
+                            <v-slide-item
+                              v-for="n in 15"
+                              :key="n"
+                              v-slot="{ active, toggle }"
+                            >
+                              <v-card
+                                :color="active ? 'primary' : 'white'"
+                                class="ma-4"
+                               
+                               width="150"
+                                @click="toggle"
+                              >
+                               
+                               
+                                    <h2 transition="fade-transition" style="color: oldlace" v-if="active"> LG</h2>
+                                    <v-img 
+                                    transition="fade-transition"
+                                v-if="!active"
+                                  contain
+                                  max-width="80"
+                                  src="./img/marca/lg.png"
+                                  >
+
+                                  </v-img>
+                                 
+                           
+                                
+                               
+                              </v-card>
+                            </v-slide-item>
+                          </v-slide-group>
+                        </v-sheet>
+                      </template>
+                </v-col>
+                <v-col  v-if="false" align="center" justify="center" cols="12" >
+                    <v-container>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-window v-model="vista">
+                                 
+                                    <v-window-item
+                                      key="card2"
+                                    >
+                                  hola
+                                    </v-window-item>
+                                    <v-window-item
+                                      key="card1"
+                                    >
+                                hola2
+                                  </v-window-item>
+                                  </v-window>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-col>
+            </v-row>
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+
+  <script src='./dist/main2.js'>
+
+  </script>
+</body>
+
+</html>

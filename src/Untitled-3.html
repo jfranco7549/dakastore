@@ -1,0 +1,147 @@
+     <v-col>
+        <v-dialog
+        scrollable
+        persistent
+        v-model="modal.servicios"
+        transition="dialog-bottom-transition"
+      
+      >
+      
+        <template v-slot:default="dialog">
+          <v-card>
+            <v-toolbar
+               color="#143E8F"
+              dark
+            >Nuestro Servicios ....</v-toolbar>
+            <v-card-text>
+             <v-row>
+              <v-col cols="4">
+                
+                 
+                    <v-row>
+                      <v-col
+                        v-for="n in servicios"
+                        :key="n"
+                        cols="12"
+                      >
+                      <v-img src="./img/banner/serv-banner.png"   >
+                        <v-scroll-y-transition>
+                          <div class="bg-primary text-h3 flex-grow-1 text-center">{{n.nombre}}</div>
+                        </v-scroll-y-transition>
+                      </v-img>
+                     
+                      </v-col>
+                    </v-row>
+                  
+              
+              </v-col>
+              <v-col cols="8">
+                <video height="300" class="p-5" src="video/servicio1.mp4"></video>
+              </v-col>
+             </v-row>
+            </v-card-text>
+            <v-card-actions class="justify-end">
+              <v-btn
+                text
+                @click="modal.servicios = false"
+              >Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>
+     
+      
+      <v-dialog
+      persistent
+      v-model="modal.quienes"
+      transition="dialog-bottom-transition"
+      max-width="600"
+    >
+    
+      <template v-slot:default="dialog">
+        <v-card>
+          <v-toolbar
+          color="#143E8F"
+            dark
+          >Opening from the bottom</v-toolbar>
+          <v-card-text>
+         
+            
+        
+          
+          </v-card-text>
+          <v-card-actions class="justify-end">
+          
+            <v-btn
+                text
+                @click="modal.quienes = false"
+              >Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </template>
+    </v-dialog>
+        
+      </v-col>
+      <v-col v-if="buscador !=''" >
+        
+      </v-col>
+      <v-col >
+        <v-row>
+            <v-col v-for="articulo of articulos"  v-if="articulo.view" xs="6" md="4" lg="4" xl="3">
+                
+              <v-card  :color="colorPromo(articulo.familia)" :dark="articulo.familia=='PROMO'">
+                
+             
+                    <v-img
+                    max-height="250"
+                    src="img/fondo/fondo.jpg"
+                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                  >
+                  <v-img
+                 
+                  max-height="250"
+                 
+                  :src="'img/producto/'+articulo.sap+'.jpg'"
+                 
+                      class="white--text align-end"
+                   
+                    
+                  
+                    >
+                    <v-img 
+                    v-if="articulo.familia=='PROMO'"
+                    src="img/promo/promo.png"
+                    max-height="120"
+                    contain
+                    class="ps-16"
+                    >
+
+                    </v-img>
+                     
+                    </v-img>
+                   
+                  </v-img>
+              
+        <v-card-body>
+            <v-card-title> 
+                
+                {{articulo.descripcion}}
+            </v-card-title>
+        </v-card-body>
+                    <v-card-actions>
+                        ${{articulo.precio}}
+                      <v-spacer></v-spacer>
+                      <v-btn @click="RemoveCarrito(articulo)" v-if="articulo.carrito" icon>
+                      <v-icon>mdi-cart-off</v-icon>  
+                      </v-btn>
+                      <v-btn  @click="addCarrito(articulo)"  v-else icon>
+                        <v-icon>mdi-cart-plus</v-icon>
+                      </v-btn>
+                    </v-card-actions>
+                  
+                   
+                  </v-card>
+                 
+              </v-col>
+        </v-row>
+      </v-col>

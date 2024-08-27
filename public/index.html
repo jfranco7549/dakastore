@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <title>Tiendas Daka</title>
+  <style>
+ 
+ @font-face {
+    font-family: "AktivGrotesk";
+    src: url("AktivGrotesk-Regular.ttf")  format('truetype');
+}
+body{
+  font-family: "AktivGrotesk";
+}
+   
+    .closeb{
+      position: absolute !important;
+    right: 0;
+    transform: translate(0%, 0%);
+   
+    }
+    .colorgray{
+      color:gray
+    }
+    .bluDaka{
+      color: #192b55;
+    }
+    .bodyCard{
+     overflow-y: scroll;
+    height: 35vh;
+     }
+    .bannerCard{
+     
+    bottom: 0;
+    transform: translate(0%, 0%);
+    }
+    
+
+    .noscroll {
+      overflow: hidden;
+     
+    }
+    .invertDaka{
+      background-color: #192b55;
+      color: #f8e000;
+
+    }
+    .Daka{
+      background-color: #f8e000 ;
+      color: #192b55;
+
+    }
+    .whiteDaka{
+      background-color: #192b55;
+      color: #ffffff;
+
+    }
+    .modal3{
+      overflow: hidden;
+    }
+
+    .noscroll::-webkit-scrollbar {
+      display: none;
+    }
+    .bannerAzul{
+      background-color: #192b55;
+      color: white;
+    }
+.precio{
+  color:#192b55;
+}
+    .bodyf {
+      
+     
+      font-family:  "Comic Sans";
+    }
+
+    .buscador{
+      opacity: 0.7;
+      border-radius: 1;
+      border-color: white;
+      color: black;
+      
+    }
+
+    .map {
+      height:  50vh;;
+
+    }
+
+    .hides {
+      visibility: none;
+      display: none;
+    }
+
+    .load {
+      height: 100vh;
+      width: 100vw;
+     
+      position: fixed;
+      z-index: 2;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    * {
+      border: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --hue: 5663;
+      --bg: hsl(var(--hue), 10%, 90%);
+      --fg: hsl(var(--hue), 10%, 10%);
+      --primary: hsl(var(--hue), 90%, 55%);
+      --trans-dur: 0.3s;
+      font-size: calc(16px + (20 - 16) * (100vw - 320px) / (1280 - 320));
+    }
+    .centeC{
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-left: auto;
+  margin-right: auto;
+
+    }
+
+    .preloader {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      max-width: 20em;
+      width: 100%;
+    }
+
+    .preloader__text {
+      position: relative;
+      height: 1.5em;
+    }
+
+    .preloader__msg {
+      color: white;
+      animation: msg 0.3s 13.7s linear forwards;
+      position: absolute;
+      width: 100%;
+    }
+
+    .preloader__msg--last {
+      color: white;
+      animation-direction: reverse;
+      animation-delay: 14s;
+      visibility: hidden;
+    }
+
+    .cart {
+      display: block;
+      margin: 0 auto 1.5em auto;
+      width: 12em;
+      height: 12em;
+    }
+
+    .cart__lines,
+    .cart__top,
+    .cart__wheel1,
+    .cart__wheel2,
+    .cart__wheel-stroke {
+      animation: cartLines 2s ease-in-out infinite;
+    }
+
+    .cart__lines {
+      stroke: var(--primary);
+    }
+
+    .cart__top {
+      animation-name: cartTop;
+    }
+
+    .cart__wheel1 {
+      animation-name: cartWheel1;
+      transform: rotate(-0.25turn);
+      transform-origin: 43px 111px;
+   
+    }
+    .daki{
+      animation: myAnim2 2s cubic-bezier(0.32, 0, 0.67, 0) 0s infinite  normal forwards;
+    }
+    .daki:hover{
+      animation: myAnim 2s cubic-bezier(0.32, 0, 0.67, 0) 0s infinite  normal forwards;
+    }
+   
+    @keyframes myAnim {
+	0% {
+    animation-timing-function: ease-out;
+		
+    transform: rotate(0deg);
+	}
+
+	38% {
+    animation-timing-function:  ease-in;
+    transform: rotate(45deg);
+  
+	}
+
+	55% {
+    animation-timing-function: ease-out;
+		transform: rotate(0deg);
+	}
+
+	72% {
+    animation-timing-function:  ease-in;
+    transform: rotate(-45deg);
+	}
+
+	
+
+	95% {
+    animation-timing-function: ease-out;
+    transform: rotate(0deg);
+	}
+
+	100% {
+    animation-timing-function:  ease-in;
+    transform: rotate(0deg);
+	}
+}
+
+@keyframes myAnim2 {
+
+	0% {
+		animation-timing-function: ease-out;
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	25% {
+		animation-timing-function: ease-in;
+		transform: translateY(-65px);
+	}
+
+	50% {
+		animation-timing-function: ease-out;
+		transform: translateY(0);
+	}
+
+	75% {
+		animation-timing-function: ease-in;
+		transform: translateY(-28px);
+	}
+
+	90% {
+		animation-timing-function: ease-out;
+		transform: translateY(0);
+	}
+
+	95% {
+		animation-timing-function: ease-in;
+		transform: translateY(-8px);
+	}
+
+	100% {
+		animation-timing-function: ease-out;
+		transform: translateY(0);
+	}
+}
+
+@media (width <= 1400px) {
+  .nav43{
+    height: 38vh;
+  }
+  .bodyCard{
+     
+    height: 28vh;
+      }
+      .closeb{
+      position: relative !important;
+    right: 0;
+    transform: translate(0%, 0%);
+   
+    }
+
+}
+@media (width <= 750px) {
+  .imgcard{
+    height: 30vh;
+    width: 15vw;
+  }
+  .bodyCard{
+     
+     height: 23vh;
+      }
+      .closeb{
+      position: relative !important;
+    right: 0;
+    transform: translate(0%, 0%);
+   
+    }
+
+}
+
+  </style>
+
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body class="noscroll">
+
+  <div id="loads" class="invertDaka load">
+
+    <div class="preloader">
+      <img class="cart daki" src="/img/daki/daki-min.png"  width="400px"      height="400px" />
+      <div class="preloader__text">
+        <h2>Iniciando</h2>
+       
+      </div>
+    </div>
+
+  </div>
+  <div id="app">
+    <v-app>
+      <v-main>
+
+        <v-app-bar absolute   height='60' style="position: sticky;" dense  color="#FFDD00" >
+
+          <v-app-bar-title  @click="filtro()" class="pt-4 m-2" >
+            <v-img   width="80"   @click="filtro()" class="mb-4 m-2 p-4"  src="img/logoF.png"></v-img>
+          </v-app-bar-title>
+       
+               <v-spacer></v-spacer>
+          
+          <v-text-field class="pt-9 p-4 mb-4 buscador rounded-xxl"    flat dense   outlined  filled v-model="buscador" @keyup="filtro()"   append-icon="mdi-magnify">
+          </v-text-field>
+         
+          <v-spacer></v-spacer>
+
+          <v-btn @click.stop="drawer = !drawer" icon>
+            <v-badge :value="carrito.length > 0" overlap color="#192b55" :content="carrito.length">
+              <v-icon>mdi-cart</v-icon>
+            </v-badge>
+          </v-btn>
+
+
+
+
+          <template v-slot:extension>
+
+            <v-tabs background-color="#FFFF" align-with-title>
+
+              <v-tab @click="filtro()">Inicio</v-tab>
+              <v-tab @click="menuSelect('PROMO')">Promociones</v-tab>
+            
+             <v-tab>
+              <v-menu  offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                   
+                    text
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    Categoria
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item
+                  height="20"
+                    v-for="(item, index) in categoria"
+                    :key="index"
+                  >
+                    <v-list-item-title  @change="filtroC()"> <v-btn text @click="filtroC(item)">{{ item }}</v-btn></v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            
+             
+            </v-tab>
+            <v-spacer></v-spacer>
+          <v-tab>
+             <!--   <v-btn @click="openModal('servicio')"   color="#192b55" text>Acerca de nosotros</v-btn> -->
+          </v-tab>
+            <!--
+               <v-tab @click="openModal('quienes')">Ubicanos </v-tab>
+                 <v-tab @click="openModal('servicio')">Servicios</v-tab>-->
+
+            </v-tabs>
+          </template>
+
+        </v-app-bar>
+     <!--   <v-app-bar v-if="buscador !=''" color="#143E8F" dense dark>
+
+
+  
+
+          <v-btn v-for="(item,i) in menus" @click="menuSelect(item)" plain>
+            {{item}}
+          </v-btn>
+
+
+          <v-spacer></v-spacer>
+          
+        </v-app-bar> -->
+     <!--   <v-app-bar v-if="buscador !=''" color="#143E8F" dense dark>
+
+
+          <v-spacer></v-spacer>
+         
+          <v-btn plain>
+            Area Casa 
+          </v-btn>
+          <v-btn plain>
+            Area Familia 
+          </v-btn>
+          <v-btn plain>
+            Area Digital 
+          </v-btn>
+          <v-btn plain>
+            Area Hogar 
+          </v-btn>
+          <v-btn plain>
+            Area Lenceria 
+          </v-btn>
+          <v-btn plain>
+            Area Blanca 
+          </v-btn>
+          <v-btn plain>
+            Area Marron 
+          </v-btn>
+          <v-btn plain>
+            Area Ferretera 
+          </v-btn>
+          <v-btn plain>
+            Area Deporte y Jugueteria 
+          </v-btn>
+          
+          <v-btn plain>
+            Area Innovar 
+          </v-btn>
+        
+
+
+          <v-spacer></v-spacer>
+        </v-app-bar>
+-->
+        <v-sheet id="scrolling-techniques-3" class="overflow-y-auto" max-height="1080">
+          
+
+
+
+            <v-row>
+
+
+              <v-col cols="12">
+
+                <v-row>
+
+                  <v-navigation-drawer  right  v-model="drawer" bottom temporary fixed>
+                    <v-list v-if="comprar" nav dense>
+                      <v-subheader ><h1  class="bluDaka">PRODUCTOS</h1></v-subheader>
+                      <v-list-item-group active-class="deep-purple--text text--accent-4">
+
+                        <v-list-item v-for="articulo of carrito">
+                          <v-list-item-avatar>
+                            <v-img :src="'img/producto/'+articulo.sap+'.jpg'"></v-img>
+                          </v-list-item-avatar>
+
+                          <v-list-item-content>
+                            <v-list-item-title v-html="articulo.descripcion"></v-list-item-title>
+                            <v-list-item-subtitle v-html="articulo.precio+' $'"></v-list-item-subtitle>
+
+                          </v-list-item-content>
+                          <v-list-item-icon>
+                            <v-icon @click="RemoveCarrito(articulo)">
+                              mdi-delete
+                            </v-icon>
+                          </v-list-item-icon>
+                        </v-list-item>
+                        <v-row>
+                          <v-spacer></v-spacer>
+                          <v-col>
+                              <h5 class="bluDaka">  Total</h5>
+                          </v-col>
+                          <v-col>
+                            <h3 class="bluDaka">{{totalCarro+"$"}} </h3>
+                          </v-col>
+                          <v-spacer></v-spacer>
+                        </v-row>
+                      
+                        <v-btn block  color="#192b55" dark  @click="comprar = false"> Comprar {{" "}}  <v-icon>mdi-cart-plus</v-icon></v-btn>
+                      </v-list-item-group>
+                    </v-list>
+                    <v-list v-else nav dense>
+                      <v-subheader ></v-subheader>
+                      <v-list-item-group >
+
+                        <v-list-item>
+                         
+
+                          <v-list-item-content>
+                            <v-list-item-title >Cedula</v-list-item-title>
+                            <v-list-item-subtitle> <v-text-field   filled v-model="cliente.cedula"></v-text-field></v-list-item-subtitle>
+                          </v-list-item-content>
+                         
+                       
+                        </v-list-item>
+                    
+                        <v-list-item>
+                         
+
+                      
+                          <v-list-item-content>
+                            <v-list-item-title  >Nombre Completo</v-list-item-title>
+                            <v-list-item-subtitle> <v-text-field filled v-model="cliente.nombre"></v-text-field></v-list-item-subtitle>
+                          </v-list-item-content>
+                       
+                        </v-list-item>
+                        <v-list-item>
+                         
+
+                      
+                          <v-list-item-content>
+                            
+                            <v-select
+                            v-model="metodoSelect"
+                            :items="metodos"
+                            label="Metodo de entrega"
+                          ></v-select>
+                            <v-list-item-subtitle v-if="metodoSelect =='Delivery'">
+                               <v-text-field label="Direccion De envio" v-model="cliente.direccion">
+
+                               </v-text-field>
+                              </v-list-item-subtitle>
+                            <v-list-item-subtitle v-if="metodoSelect =='Retiro En tienda'">  
+                                <v-select
+                              v-model="cliente.direccion"
+                              label="Tienda a retirar" 
+                              :items="tiendas"
+                              label="Standard"
+                            ></v-select>
+                          </v-list-item-subtitle>
+                        
+                          </v-list-item-content>
+
+                     
+                       
+                        </v-list-item>
+                        <v-row>
+                          <v-col cols="">
+                            <v-spacer></v-spacer>
+                            <v-btn color="success" dark block @click=" SendWhs()"    >Confirmar</v-btn>
+                            <v-spacer></v-spacer>
+                          </v-col>
+                          <v-col cols="">
+                            <v-spacer></v-spacer>
+                            <v-btn    color="blue-grey darken-2" dark  block    @click="comprar = true"> cancelar</v-btn>
+                            <v-spacer></v-spacer>
+                          </v-col>
+                        </v-row>
+                      
+                        
+                      </v-list-item-group>
+                    </v-list>
+                  </v-navigation-drawer>
+
+                  <v-col v-if="buscador ==''" cols="12">
+                  
+                    <v-row>
+                      
+                      <v-col cols="12">
+                        
+                        <v-img src="/img/banner/banner.jpg"></v-img>
+    
+                      </v-col>
+                  
+                     
+                    </v-row>
+                  
+                  </v-col>
+                  <v-col class="p-2"  cols="12" >
+                 <v-container>
+                  <v-row>
+                     
+                    <v-col v-for="Linea of MenuCategoria" id="lateralder" cols="3">
+                      <v-card
+                      class="m-auto"
+                     width="280"
+                    
+                     
+                      outlined
+                      tile
+                    >
+                   
+                    <v-card-title>{{Linea.Nombre}}</v-card-title>
+                      <v-container fluid>
+                        <v-row dense>
+                          <v-col v-for="articulo of Linea.producto">
+                            <v-card 
+                            elevation="0"
+                             height="125"
+                            width="100">
+                              <v-img  xa contain :src="'/img/producto/'+articulo+'.jpg'"></v-img>
+                            </v-card>
+                          </v-col>
+                         
+                        </v-row>
+                      </v-container>
+                    <v-card-actions>
+                      <v-btn color='primary' text>
+                        ver mas
+                      </v-btn>
+                      <v-spacer></v-spacer>
+                    </v-card-actions>
+                    </v-card>
+                    </v-col>
+
+                  
+                 
+                  </v-row>
+
+                 </v-container>
+                  </v-col>
+                  <v-col   v-if="buscador ==''" class="bannerAzul"  cols="12" >
+                    <v-row>
+                      <v-spacer></v-spacer> <v-col class="text-center"> PRODUCTOS DESTACADOS </v-col>      <v-spacer></v-spacer> 
+                    </v-row>
+                  
+                  </v-col>
+                  <v-col  v-if="buscador ==''" cols="12">
+                    <v-row>
+                      <v-spacer></v-spacer>
+                      <v-col>
+                        <v-sheet>
+                          <v-slide-group
+                            
+                            class="pa-4"
+                          
+                            show-arrows
+                          >
+                            <v-slide-item
+                              v-for="n in Pdestacado"
+                              :key="n"
+                              v-slot="{active,toggle}"
+                            >
+                              <v-card
+                                
+                                class="ma-4"
+                                height="250"
+                                width="200"
+                               
+                              >
+                                <v-row
+                                  class="fill-height"
+                                  align="center"
+                                  justify="center"
+                                >
+                                          <v-col cols="12">
+                                        
+                                            <v-img @click="openModal('producto',n.sap)" xa contain :src="'/img/producto/'+n.sap+'.jpg'"></v-img>
+                                          </v-col>
+                                </v-row>
+                              </v-card>
+                            </v-slide-item>
+                          </v-slide-group>
+                        </v-sheet>
+                      </v-col>
+                      <v-spacer></v-spacer>
+                    
+                    </v-row>
+                    
+                  </v-col>
+                  <v-col cols="12">
+                    <v-row>
+
+                      <v-col cols="12">
+                        
+                        <v-dialog   max-width="800" class=" modal3"  persistent v-model="modal.producto" transition="dialog-bottom-transition">
+                          
+                          <template v-slot:default="dialog">
+                            
+                            <v-card  class="modal3 rounded-xl"  color="#F2F2F2">
+                             
+                              <v-btn class="closeb"  icon  @click="modal.producto = false"><v-icon>mdi-close-circle-outline</v-icon></v-btn>
+                                <v-row>
+                                  <v-col   xs="6" sm="6" cols="12">
+                                    <v-card   width="100%" height="100%" color="#FFFFFF" >
+                                       <v-img class="imgcard"  width="400"   contain  :src="'img/producto/'+modelProd.sap+'.jpg'">
+                                       <v-img  class="imgcard" width="400"   contain   v-if="modelProd.familia=='PROMO'" src="img/banner/promoM.png" ></v-img>
+    
+                                    </v-img>
+                                    </v-card>
+                                   
+                                  </v-col>
+                                  <v-col  xs="6" sm="6" cols="12"   >
+            
+                                   
+                                    <v-container class=" colorgray" >
+                                        <v-row>
+                                         
+                                          <v-col cols="12">
+                                            <v-container>
+                                              <v-row>
+                                                <v-col cols="12">
+                                                  <h4 class="  font-weight-bold">
+                                                    {{modelProd.marca}}
+
+                                                </v-col>
+                                                <v-col cols="12">
+                                                  <h5 class=" font-weight-medium">
+                                                    {{modelProd.descripcion}}
+                                                  </h5>
+
+                                                </v-col>
+                                              </v-row>
+                                            </v-container>
+                                            
+                                            
+                                          </v-col>
+                                       
+
+                                        
+                                        <v-col class="bodyCard" cols="12">
+                                        
+                                       
+                                       <v-row>
+                                        
+                                        <v-col cols="12">
+
+                                          <v-list   class="font-weight-light"  disabled  color="#F2F2F2" >
+                                            <v-subheader>Caracteristica</v-subheader>
+                                            <v-list-item-group>
+                                              <v-list-item    v-for="(caract, i) in modelProd.caracteristica"  :key="i">
+                                                <v-list-item-icon>
+                                                  <v-icon>{{categoriaico[caract.atributo]}}</v-icon>
+                                                </v-list-item-icon>
+                                                <v-list-item-content>
+                                                   <v-list-item-title class="caption"><h5>  {{caract.caracter+"  "}} {{caract.unidad}}</h5></v-list-item-title>
+                                                   <v-list-item-subtitle class="subtitle-2"> <h6>{{caract.atributo}}</h6></v-list-item-subtitle>
+                                                </v-list-item-content>
+                                              </v-list-item>
+                                           
+                                              
+                                            </v-list-item-group>
+                                          </v-list>
+                                        </v-col>
+                                       </v-row>
+                                    
+                                        </v-col>
+                                       
+                                    </v-container>
+                                  
+                                  </v-col>
+                                  
+                                  <v-col class="bannerCard" cols="12">
+                                    <v-row>
+                                      <v-col>
+                                        <h3 class="bluDaka">{{modelProd.precio}}$</h3>
+                                        
+                                      </v-col>
+                                      <v-spacer></v-spacer>
+                                      <v-col>
+                                       <v-btn @click="addCarrito(modelProd)"   dark color="#004390">Añadir{{" "}}  <v-icon>mdi-cart-plus</v-icon></v-btn>
+                                      </v-col>
+                                    </v-row>
+                                  </v-col>
+                                </v-row>
+                            </v-card>
+                          </template>
+                        </v-dialog>
+
+                        <v-dialog scrollable persistent v-model="modal.servicios" transition="dialog-bottom-transition">
+
+                          <template v-slot:default="dialog">
+                            <v-card>
+                              <v-toolbar color="#143E8F" dark>Nuestro Servicios ....</v-toolbar>
+                              <v-card-text>
+                                <v-row>
+                                  <v-col cols="4">
+
+                                    <v-list fat>
+                                      <v-list-item-group
+                                       
+                                        mandatory
+                                        color="indigo"
+                                      >
+                                        <v-list-item
+                                          v-for="(n, i) in servicios"
+                                          :key="i"
+                                          @click="setvideo(n.url)" 
+                                        >
+                                          <v-list-item-icon>
+                                        <v-icon>  {{n.ico}} </v-icon> 
+                                          </v-list-item-icon>
+                                
+                                          <v-list-item-content>
+                                            <v-list-item-title  >{{n.nombre}}</v-list-item-title>
+                                          </v-list-item-content>
+                                        </v-list-item>
+                                      </v-list-item-group>
+                                    </v-list>
+                                
+
+
+                                  </v-col>
+                                  <v-col class="p-2" cols="8">
+                                    <video width="100%" height="100%"  contain :src="videoP" controls autoplay></video>
+                                  </v-col>
+                                </v-row>
+                              </v-card-text>
+                              <v-card-actions class="justify-end">
+                                <v-btn text @click="modal.servicios = false">Close</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </template>
+                        </v-dialog>
+
+
+                        <v-dialog persistent v-model="modal.quienes" transition="dialog-bottom-transition"
+                          max-width="600">
+
+                          <template v-slot:default="dialog">
+                            <v-card>
+                              <v-toolbar color="#143E8F" dark>Ubicanos</v-toolbar>
+                              <v-card-text>
+
+                              <div id="map" class="map">
+                                <v-card id="popup">
+                                  <v-img
+                                    src="https://fastly.4sqi.net/img/general/200x200/n00MvB_u5Kn2QW_qAIcDMnrsNekBFiw4mSEKLvaWFDA.jpg"
+                                    class="white--text align-end"
+                                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                                    height="3rem"
+                                  >
+                                    <v-card-title >Naguanagua</v-card-title>
+                                  </v-img>
+                      
+                                  <v-card-actions>
+                                    <v-spacer></v-spacer>
+                      
+                                    <v-btn icon>
+                                      <v-icon>mdi-heart</v-icon>
+                                    </v-btn>
+                      
+                                    <v-btn icon>
+                                      <v-icon>mdi-bookmark</v-icon>
+                                    </v-btn>
+                      
+                                    <v-btn icon>
+                                      <v-icon>mdi-share-variant</v-icon>
+                                    </v-btn>
+                                  </v-card-actions>
+                                </v-card>
+                              </div>
+
+                              <div id="info"></div>
+                              </v-card-text>
+                              <v-card-actions class="justify-end">
+                                <v-btn text @click="modal.quienes = false">Close</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </template>
+                        </v-dialog>
+
+                      </v-col>
+
+                      
+
+                      <v-col cols="12">
+                        <v-container>
+                        <v-row justify="center">
+                          
+                          <v-col    align-self="center"   v-for="articulo of articulos" v-if="articulo.view">
+                           <v-container>
+                          <v-row>
+                            <v-spacer></v-spacer>
+                            <v-col>
+                              <v-card width="300" >
+
+
+                              
+                                <v-img @click="openModal('producto',articulo)" width="300"  height="200" contain  :src="'img/producto/'+articulo.sap+'.jpg'">
+                                  <v-img width="300"  height="200" contain   v-if="articulo.promo=='PROMO'" src="img/banner/promoM.png" >
+
+                                  </v-img>
+
+                                </v-img>
+
+                            <v-divider></v-divider>
+                            <v-card-subtitle class="m-5">
+                              <h6> {{articulo.marca}}</h6> 
+                                
+                            </v-card-subtitle>
+                           
+                           
+                            <v-card-text>
+                              <v-row  height="520px">
+                                <v-col  cols="12">
+                                  <p>{{articulo.descripcion}}</p> 
+                                </v-col>
+                              </v-row>
+                            </v-card-text>
+                                
+                           
+                              <v-card-actions>
+                               <h4 class="precio"> ${{" "+articulo.precio}} </h4> 
+                                <v-spacer></v-spacer>
+                                <v-btn @click="RemoveCarrito(articulo)"    color="error" v-if="articulo.carrito"  x-small  fab>
+                                  <v-icon  color="white">mdi-cart-off</v-icon>
+                                </v-btn>
+                                <v-btn @click="addCarrito(articulo)"   color="#143E8F" v-else   fab x-small    >
+                                  <v-icon  color="white" >mdi-cart-plus</v-icon>
+                                </v-btn>
+                              </v-card-actions>
+
+                             
+                            </v-card>
+
+                            </v-col>
+                            <v-spacer></v-spacer>
+                          </v-row>
+                          </v-col>
+                        
+                        </v-row>
+                      </v-container>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+
+                </v-row>
+
+                </v-card>
+                <v-col cols="12">
+                  <template>
+                    <div class="text-center">
+                      <v-pagination
+                      total-visible="5"
+                       v-if="pag.cant>20"
+                       v-model="pag.actual"
+                       @next="nextp('up')"
+                      @input="nextp('click')"
+                       @previous="nextp('down')"
+                        :length="Math.round(pag.cant/20)"
+                        prev-icon="mdi-menu-left"
+                        next-icon="mdi-menu-right"
+                      ></v-pagination>
+                     
+                    </div>
+                  </template>
+                </v-col>
+              </v-col>
+            </v-row>
+
+
+
+<v-col cols="12">
+ <v-footer
+    dark
+    padless
+    color="#192b55"
+  >
+    <v-card
+      flat
+      tile
+      color="#192b55"
+      width="100%"
+      class=" lighten-1 white--text text-center"
+    >
+      <v-card-text>
+        <v-btn
+          v-for="icon in icons"
+          :key="icon"
+          class="mx-4 white--text"
+          icon
+        >
+          <v-icon size="24px">
+            {{ icon }}
+          </v-icon>
+        </v-btn>
+      </v-card-text>
+
+      <v-card-text class="white--text pt-0">
+      </v-card-text>
+
+      <v-divider></v-divider>
+
+      <v-card-text class="white--text">
+        {{ new Date().getFullYear() }} — <strong>Daka</strong>
+      </v-card-text>
+    </v-card>
+  </v-footer>
+</v-col>
+            </v-col>
+            </v-row>
+          
+        </v-sheet>
+      </v-main>
+    </v-app>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+
+  <script src='./dist/main.js'>
+
+  </script>
+</body>
+
+</html>

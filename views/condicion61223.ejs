@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <title>Tiendas Daka</title>
+  <style>
+    .color{
+        height: 30vh;
+        background-color: aqua;
+    }
+    .color1{
+    text-align: justify;
+      color: black;
+      justify-content: center;
+    }
+    .loading{
+      height: 100vh;
+      width: 100vw;
+      background-color:rgb(26, 19, 96);
+      position: fixed;
+      z-index: 2;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+    }
+    .imglod{
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body class="noscroll">
+  <div class="loading" id="loading">
+    <img class="imglod" src="../img/load.gif"/>
+  </div>
+  <div id="app">
+    <v-app>
+      <v-main>
+       
+        <v-dialog
+      v-model="dialog"
+      width="500"
+      overlay-opacity="2"
+      persistent
+      dark
+    >
+     
+
+      <v-card>
+      
+
+        <v-img src="../img/principal.png"></v-img>
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+           Entendido
+          </v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+        <v-app-bar style="position: sticky;" dense color="#FFDD00" elevate-on-scroll shrink-on-scroll fade-img-on-scroll
+        src="../img/banner/2.png" prominent scroll-target="#scrolling-techniques-3">
+        <template v-slot:img="{ props }">
+          <v-img contain v-bind="props"></v-img>
+        </template>
+
+
+
+        <v-app-bar-title> </v-app-bar-title>
+
+        <v-spacer></v-spacer>
+
+
+       
+
+
+
+
+        <template v-slot:extension>
+
+          <v-tabs   icons-and-text  Grow show-arrows >
+
+            <v-tab @click="Activ('terminoC')">   termino y Condiciones</v-tab>
+            <v-tab @click="Activ('garantia')">¿Como activo la Garantia?. </v-tab>
+            <v-tab @click="Activ('pregunta')" >Preguntas Frecuentes</v-tab>
+        
+            <v-spacer></v-spacer> <v-spacer></v-spacer>
+
+            
+          </v-tabs>
+        </template>
+
+      </v-app-bar>
+        <v-container>
+            <v-row>
+              <v-col v-if="vista.terminoC" id="TerminoyCondiciones"  class="color1" cols="12">
+                <template>
+                  <v-item-group>
+                    <v-container>
+                      <v-row>
+                        <v-spacer></v-spacer>
+                        <v-col
+                          v-for="n in TerminoYCondiciones"
+                          :key="n"
+                          cols="12"
+                          md="4"
+                        >
+                          <v-item v-slot="{ active, toggle }">
+                            <v-card
+                              :color="active ? '' : ''"
+                              class="d-flex align-center"
+                              
+                              height="200"
+                              @click="eclick(toggle,n)"
+                            >
+                            <v-img  max-height="200"  v-if="!active" :src="'../'+n.imagen"></v-img>
+                              <v-expand-x-transition  v-if="active">
+                                <div
+                                 
+                                  class="text-h2 flex-grow-1 text-center"
+                                >
+                                  {{n.nombre}}
+                                </div>
+                              
+                               
+                             
+                              </v-expand-x-transition>
+                             
+                              
+                            </v-card>
+                          </v-item>
+                        </v-col>
+                        <v-spacer></v-spacer>
+                      </v-row>
+                    </v-container>
+                  </v-item-group>
+                </template>
+                <v-row>
+                  <v-col v-if="TerminoYCondiciones[1].status" id="detalle" cols="12">
+                
+                   <v-container>
+                    <v-row>
+                      <v-col xs="12">
+                     
+<ul>
+  <li> La Garantía de tiendas Daka es válida únicamente en el territorio de la República Bolivariana de Venezuela y por el tiempo que indica la factura de compra.
+  </li>
+  <br>
+  <li>Los productos reacondicionados o con detalle están garantizados únicamente contra defectos de fábrica; es decir; cuando el defecto sea imputable a los materiales, partes o mano de obra empleada en el proceso de fabricación y/o reacondicionamiento y su uso se haga de acuerdo al propósito para el cual fue diseñado, según el manual de usuario.
+
+  </li>
+  <br>
+  <li> Se requiere como condición de activación de garantía presentar: factura de compra, cédula del titular de la factura, el producto con su caja original y con todos los accesorios, con excepción de aquellos productos de línea blanca que tengan una instalación especial. (empotrados, tuberías y kit de conexión y/o que el producto sea de gran volumen)
+
+  </li>
+    <br>
+  <li> En caso de que el detalle del producto comprado indique la ausencia de caja o de accesorios, se permite la activación de la garantía del mismo. • La factura debe presentar el sello de “despachado” y el sello de “Entregado en Perfectas Condiciones Físicas”.
+   </li>
+  <br>
+  <li> Los productos retirados en tienda, deberán ser revisados en su totalidad, al momento de comprar, en el área de despacho y/o módulo de prueba.
+  </li>
+  <br>
+  <li> Los productos recibidos por el cliente o por la persona autorizada para la recepción del mismo, a través del servicio de Envío Gratis, deberán ser revisados en presencia del transportista y ser firmada por el cliente o por la persona autorizada la guía de despacho en señal de conformidad.
+    <br></li><br>
+  <li> Los productos reacondicionados o con detalle no poseen cambio inmediato durante el periodo de Garantía. En caso de presentarse algún inconveniente técnico con el producto, y siempre que la falla no corresponda a una o varias de las razones por las que la garantía pierde validez, se procederá a activar la garantía Daka.
+    <br></li><br>
+  <li> Tiendas Daka garantiza el reemplazo de cualquier componente o parte que afecte el buen funcionamiento del producto, durante el periodo establecido en la factura de compra, el cual comenzará a correr a partir de la fecha del despacho que aparece en la Factura. <br></li>
+
+</ul>
+                      </v-col>
+                      <v-col xs="12" >
+                       <ul>
+                          <li>
+                            En caso de que no sea el titular de la factura el responsable de retirar el producto, de ser el caso, deberá presentar una autorización debidamente firmada por el titular y la cédula de identidad de ambos.
+                          </li>
+                          <br>
+                          <li>
+                            En aquellos casos en los que Tiendas Daka no posea un reemplazo de la pieza dañada y/o del producto en cuestión, el cliente se ajustará a las políticas internas de tiendas Daka, las que de seguidas se indican:
+<br>
+<p class="p-2">    1) Cambio de producto por uno similar (reacondicionado o con detalle) y de igual valor.
+  <br>
+       2) Cambio de producto por uno o varios (reacondicionados o con detalles) que representen el mismo valor.
+  <br>
+        3) Cambio de producto similar con valor superior, siempre que el cliente cancele la diferencia.
+  </p>
+
+
+                          </li>
+                          <li>
+                            El servicio de diagnóstico y reparación durante el periodo de garantía es totalmente gratuito y con estricto apego a estos términos y condiciones.
+
+
+                          </li>
+                          <br>
+                          <li> Solo para Electrodomésticos que Requieren Instalación: Si el producto presenta defectos de funcionamiento una vez instalado, el cliente no deberá desinstalar el producto, pues deberá solicitar una visita técnica para el diagnóstico.
+
+
+                          </li>
+                          <br>
+                          <li>
+                            Los gastos inherentes al traslado por activación de garantía, desinstalación, mantenimiento e instalación de productos, no están cubiertos por Garantías Daka, por lo tanto, son entera responsabilidad del cliente.
+
+                          </li>
+                          <br>
+                          <li>
+                            En caso de que el cliente deje su producto en las instalaciones de TIENDAS DAKA para ser reparado y dicha reparación se haga efectiva, el cliente será notificado a los fines del retiro del producto, contando para ello con treinta (30) días continuos a partir la fecha de notificación, de lo contrario se entenderá que EL CLIENTE hizo abandono del mismo a favor de TIENDAS DAKA C.A. Quedando facultada TIENDAS DAKA C.A. para disponer del producto de la manera que estime conveniente y sin que tenga que indemnizar en forma alguna a EL CLIENTE.
+                          </li>
+                          <br>
+                         
+                       </ul>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-row>
+                          <v-col cols="12">
+                            <h1>¿Cuándo Esta Garantía Pierde Validez??</h1> 
+                          </v-col>
+                          <v-col cols="12">
+                            <v-row>
+                              <v-col cols="6">
+                                <ul>
+                                  <li>
+                                    Cuando el cliente no presente la factura y/o la caja original del producto con todos sus accesorios (si aplica). 
+
+
+                                  </li> <br>
+                                  <li>
+                                     Cuando el producto tenga daño funcional aparente como consecuencia de golpes y caídas, mal ensamblaje, entre otros.
+
+                                  </li> <br>
+                                  <li>
+                                     Por desgaste de los accesorios, por el uso normal del mismo o por efecto del mal uso.
+<br>
+EN LOS TRES CASOS ANTERIORES. Se permite la activación de la garantía siempre y cuando se constate en la factura que el producto se vendió en ausencia de caja y/o accesorios  o con golpes específicos
+
+                                  </li> <br>
+                                  <li>
+                                    Cuando el producto es fabricado para el uso del hogar y se le ha dado un uso distinto
+                                  </li> <br>
+                                  <li>
+                                     Cuando el producto se intentó reparar o fue reparado por una persona y/o empresa no autorizada por el Servicio Técnico de la Red de Tiendas Daka.
+
+                                  </li> <br>
+                                  <li>
+                                     Cuando los daños sean causados por operación o uso inadecuado, diferente al recomendado en el manual de instrucciones.
+
+
+                                  </li> <br>
+                                  <li>
+                                    Cuando el daño sea causado por transporte inapropiado del producto.
+
+                                  </li> <br>
+                                  <li>
+                                    Cuando el producto haya sido utilizado con un propósito diferente al que fue diseñado.
+
+                                  </li> <br>
+                                  <li>
+                                     Cuando los daños sean causados por mala práctica al momento de la instalación del equipo o por problemas causados en la instalación por personal ajeno a TIENDAS DAKA.
+
+                                  </li> <br>
+                                  <li>
+                                     Por desgaste de los accesorios, por el uso normal del mismo o por efecto del mal uso.
+                                  </li> <br>
+                                </ul>
+                              </v-col>
+                              <v-col cols="6">
+                                <ul>
+                                  <li>
+                                     Cuando los daños ocasionados en el producto sean consecuencia de fenómenos naturales como: terremotos, tsunamis, inundaciones, tormentas eléctricas, acción del salitre, fuego, intemperie,  condiciones ambientales deficientes, casos fortuitos y de fuerza mayor.
+
+                                  </li> <br>
+                                  <li>
+                                     Cuando el daño sea causado por la invasión de elementos extraños al producto como agua, arena, insectos, roedores o cualquier otro objeto.
+
+                                  </li> <br>
+                                  <li>
+                                    Cuando el daño sea a consecuencia de falta de mantenimiento, por mantenimiento inapropiado y/o alteraciones e instalaciones de accesorios no originales que modifiquen la funcionalidad para la cual el producto fue diseñado.
+
+                                  </li> <br>
+                                  <li>
+                                    Cuando el serial del producto haya sido alterado o removido.
+
+                                  </li> <br>
+                                  <li>
+                                    Cuando el daño sea causado por condiciones accidentales o provocadas como humedad, incendios, fluctuaciones de voltaje, cortocircuito, vandalismo, robo, hurto o similares.
+
+                                  </li> <br>
+                                  <li>
+                                     Cuando los equipos sean conectados a la línea sin el protector o estabilizador de voltaje o hayan sido conectados a un voltaje distinto al indicado en el manual de instrucciones.
+
+                                  </li> <br>
+                                  <li>
+                                     Cuando se trate de accesorios o partes plásticas, metálicas, eléctricas, caucho, tela o cosméticas, tales como: cuchillas, aspas, mangos, carbones, etc.; que pueden sufrir desgaste por uso normal o regular.
+	
+
+                                  </li> <br>
+                                  <li>
+                                     Cuando el mal funcionamiento sea generado a causa de una modificación del sistema operativo o por un virus informático.
+                                  </li> <br>
+                                </ul>
+                              </v-col>
+                            </v-row>
+                          </v-col>
+                        </v-row>
+                      </v-col>
+                    </v-row>
+                 </v-container>
+                  </v-col>
+                  <v-col  v-if="TerminoYCondiciones[0].status" id="comun" cols="12">
+                    <v-container>
+                      <v-row>
+                        <v-col xs="12" sm="12"  md="6" lg="6">
+                          <ul>
+                              <li>
+                                La Garantía de tiendas Daka es válida únicamente en el territorio de la República Bolivariana de Venezuela y por el tiempo que indica la factura de compra
+
+                              </li>
+                              <br>
+                              <li>
+                                Los productos cubiertos por garantías Daka, están garantizados únicamente contra defectos de fábrica, es decir, cuando el defecto sea imputable a los materiales, partes o mano de obra empleada en el proceso de fabricación y su uso se haga de acuerdo al propósito para el cual fue diseñado, según el manual de usuario.
+
+                              </li>
+                              <br>
+                              <li>
+                                Es condición de activación de garantía presentar: factura de compra, cédula del titular de la factura, el producto con su caja original y con todos los accesorios; con excepción de aquellos productos de línea blanca que tengan una instalación especial (empotrados, tuberías y kit de conexión y/o que el producto sea de gran volumen)
+
+                              </li>
+                              <br>
+                              <li>
+                                 La factura debe presentar el sello de “despachado” y el sello de “Entregado en Perfectas Condiciones Físicas”.
+
+                              </li>
+                              <br>
+                              <li>
+                                 Los productos retirados en tienda, deberán ser revisados en su totalidad, al momento de comprar, en el área de despacho y/o módulo de prueba.• Los productos recibidos por el cliente o por la persona autorizada para la recepción del mismo, a través del servicio de Envío Gratis, deberán ser revisados en presencia del transportista y ser firmada por el cliente o por la persona autorizada la guía de despacho en señal de conformidad.
+
+                              </li>
+                              <br>
+                              <li>
+                                 Los productos adquiridos en nuestras tiendas DAKA con garantía mayor a diez (10) días, cuentan con siete (07) días continuos de cambio inmediato, los cuales comenzarán a correr a partir de la fecha del despacho que aparece en la Factura. Este cambio inmediato solo es aplicable en caso de que el producto presente daños funcionales y siempre que la falla no corresponda a una o varias de las razones por las que la garantía pierde validez.
+
+                              </li>
+                            
+                          </ul>
+                        </v-col>
+                        <v-col xs="12" sm="12"  md="6" lg="6">
+                          <ul>
+                            <li>
+                              Tiendas Daka garantiza el reemplazo de cualquier componente o parte que afecte el buen funcionamiento del producto, durante el periodo de garantía establecido en la factura de compra, el cual comenzará a correr a partir de la fecha del despacho que aparece en la Factura.
+
+                            </li> <br>
+                            <li>
+                               En caso de que no sea el titular de la factura el responsable de retirar el producto o de efectuar el cambio, de ser el caso, deberá presentar una autorización debidamente firmada por el titular y la cédula de identidad de ambos.
+
+                            </li><br>
+                            <li>
+                              En aquellos casos en los que Tiendas Daka no posea un reemplazo de la pieza dañada y/o del producto en cuestión, el cliente se ajustará a las políticas internas de tiendas Daka, las que de seguidas se indican:
+<br>
+1)Cambio de producto por uno similar y de igual valor 
+<br>
+2)Cambio de producto por uno o varios que representen el mismo valor
+<br>
+3)Cambio de producto similar con valor superior, siempre que el cliente cancele la diferencia
+
+                            
+                            </li><br>
+                            <li>
+                               El servicio de diagnóstico y reparación durante el periodo de garantía es totalmente gratuito y con estricto apego a estos términos y condiciones.
+
+
+                            </li><br>
+                            <li>
+                              Solo para Electrodomésticos que Requieren Instalación: Si el producto presenta defectos de funcionamiento una vez instalado, el cliente no deberá desinstalar el producto, deberá solicitar una visita técnica para el diagnóstico.
+
+                            </li><br>
+                            <li>
+                              Los gastos inherentes al traslado por activación de garantía, desinstalación, mantenimiento e instalación de productos, no están cubiertos por Garantías Daka, por lo tanto, son de entera responsabilidad del cliente.
+
+                            </li><br>
+                            <li>
+                              En caso de que el cliente deje su producto en las instalaciones de TIENDAS DAKA para ser reparado y dicha reparación se haga efectiva, el cliente será notificado a los fines del retiro del producto, contando para ello con treinta (30) días continuos a partir la fecha de notificación, de lo contrario se entenderá que EL CLIENTE hizo abandono del mismo a favor de TIENDAS DAKA C.A. Quedando facultada TIENDAS DAKA C.A. para disponer del producto de la manera que estime conveniente y sin que tenga que indemnizar en forma alguna a EL CLIENTE.
+
+                            </li><br>
+                            </ul>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-row>
+                            <v-col cols="12">
+                              <h1>¿Cuándo Esta Garantía Pierde Validez??</h1> 
+                            </v-col>
+                            <v-col cols="6">
+                           <ul>
+                            <li>
+                              Cuando el cliente no presente la factura y/o la caja original del producto con todos sus accesorios (si aplica).
+
+                            </li><br>
+                            <li>
+                              Cuando el producto es fabricado para el uso del hogar y se le ha dado un uso distinto
+
+                            </li><br>
+                            <li>
+                              Cuando el producto se intentó reparar o fue reparado por una persona y/o empresa no autorizada por el Servicio Técnico de la Red de Tiendas Daka.
+
+                            </li><br>
+                            <li>
+                              Cuando   los daños sean causados por operación o uso inadecuado, diferente al recomendado en el manual de instrucciones.
+
+                            </li><br>
+                            <li>
+                              Cuando el producto tenga daño físico aparente como consecuencia de golpes y caídas, mal ensamblaje, entre otros.
+
+                            </li><br>
+                            <li>
+                              Cuando el daño sea causado por transporte inapropiado del producto.
+
+                            </li><br>
+                            <li>
+                              Cuando los daños sean causados por mala práctica al momento de la instalación del equipo o por problemas causados en la instalación por personal ajeno a TIENDAS DAKA.
+
+                            </li><br>
+                            <li>
+                              Por desgaste de los accesorios, por el uso normal del mismo o por efecto del mal uso.
+
+                            </li><br>
+                            <li>
+                              Cuando los daños ocasionados en el producto sean consecuencia de fenómenos naturales como: terremotos, tsunamis, inundaciones, tormentas eléctricas, acción del salitre, fuego, intemperie, condiciones ambientales deficientes, casos fortuitos y de fuerza mayor. 
+
+                            </li><br>
+                            <li>
+                              Cuando el daño sea causado por la invasión de elementos extraños al producto como agua, arena, insectos, roedores o cualquier otro elemento.
+                            </li><br>
+                           </ul>
+                            </v-col>
+                            <v-col cols="6">
+<ul>
+  <li>
+    Cuando el daño sea a consecuencia de falta de mantenimiento, por mantenimiento inapropiado y/o alteraciones e instalaciones de accesorios no originales que modifiquen la funcionalidad para la cual el producto fue diseñado
+  </li><br>
+  <li>
+    Cuando el serial del producto haya sido alterado o removido.
+
+  </li><br>
+  <li>
+    Cuando el daño sea causado por condiciones accidentales o provocadas como humedad, incendios, fluctuaciones de voltaje, cortocircuito, vandalismo, robo, hurto o similares.
+
+  </li><br>
+  <li>
+    Cuando los equipos sean conectados a la línea sin el protector o estabilizador de voltaje, o hayan sido conectados a un voltaje distinto al indicado en el manual de instrucciones.
+
+  </li><br>
+  <li>
+    Cuando se trate de accesorios o partes plásticas, metálicas, eléctricas, caucho, tela o cosméticas, tales como: cuchillas, aspas, mangos, carbones, etc. Que pueden sufrir desgaste por uso normal o regular.
+  </li><br>
+  <li>
+    Cuando el mal funcionamiento sea generado a causa de una modificación del sistema operativo o por un virus informático.
+
+  </li><br>
+</ul>
+                                </v-col>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                   </v-container>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col v-if="vista.garantia" id="garantia"  class="color1" cols="12">
+                <v-container>
+                  <v-row>
+                   
+                
+                    <v-col cols="12">
+                      <h1>Seleccione la Marca de su producto?</h1>
+                      <v-overflow-btn
+                      class="my-2"
+                      :items="marca"
+                      item-text="nombre"
+                      label="Seleccione su Marca"
+                      return-object
+                      v-model="marcas"
+                     editable
+                    ></v-overflow-btn>
+                  
+                    </v-col>
+                    
+                    <v-col cols="12">
+
+                      <v-card v-if="marcas">
+                        <v-card-text>{{'Marca: '+marcas.nombre}}</v-card-text>
+                        
+                        <v-card-subtitle v-if="marcas.tipo == 'Aliados Comerciales'" >
+                         <v-row>
+                          <v-col  v-if="marcas.telefono" cols="12">
+                            
+                          <p>Para Activar su Garantia debe de Comunicase a traves :</p>
+                          <p v-if="marcas.tipo == 'Aliados Comerciales'"> <v-icon>mdi-card-account-phone-outline</v-icon> Telefono: {{marcas.telefono}}</p>
+                      
+                          <v-expansion-panels >
+                            <v-expansion-panel                            
+                            >
+                              <v-expansion-panel-header>
+                               ¿ No pudo comunicarse ?
+                              </v-expansion-panel-header>
+                              <v-expansion-panel-content>
+                                <p > <v-btn
+                                  text
+                                  target="_blank"
+                                  href="https://api.whatsapp.com/send?phone=584244624218&text=hola%20Clara!%F0%9F%98%84"
+                                > <v-icon>mdi-whatsapp</v-icon> Ir al Chat</v-btn>  
+                                <v-input error disabled>
+                                Opcion 2 (GARANTIA,ENVIOS Y SERVICIO TECNICO)
+                                </v-input>   </p>
+                                <p>O</p>
+                                <v-input error disabled>
+                                    Acudir a cualquiera de nuestras tiendas ubicadas a nivel nacional <v-icon>mdi-store</v-icon>
+                                  </v-input> 
+                              </v-expansion-panel-content>
+                            </v-expansion-panel>
+                          </v-expansion-panels>
+                          </v-col>
+                          <v-col v-else cols="12">
+                            <v-input error disabled>
+                              Ingrese al siguiente enlace para continuar..
+                              </v-input> 
+                            <v-btn
+                            text
+                            target="_blank"
+                            :href="marcas.web"
+                            > <v-icon>mdi-web</v-icon> Ingresar Aqui</v-btn>  
+                            
+                          <v-expansion-panels >
+                            <v-expansion-panel                            
+                            >
+                              <v-expansion-panel-header>
+                               ¿ No pudo comunicarse ?
+                              </v-expansion-panel-header>
+                              <v-expansion-panel-content>
+                                <p > <v-btn
+                                  text
+                                  target="_blank"
+                                  href="https://api.whatsapp.com/send?phone=584244624218&text=hola%20Clara!%F0%9F%98%84"
+                                > <v-icon>mdi-whatsapp</v-icon> Ir al Chat</v-btn>  
+                                <v-input error disabled>
+                                Opcion 2 (GARANTIA,ENVIOS Y SERVICIO TECNICO)
+                                </v-input> 
+                                <p>O</p>
+                                <v-input error disabled>
+                                    Acudir a cualquiera de nuestras tiendas ubicadas a nivel nacional <v-icon>mdi-store</v-icon>
+                                  </v-input> 
+                                  </p>
+                                
+                              </v-expansion-panel-content>
+                            </v-expansion-panel>
+                          </v-expansion-panels>
+                          </v-col>
+                         </v-row>
+                         
+                        </v-card-subtitle>
+                      
+                        
+                        <v-card-text v-if="marcas.tipo != 'Aliados Comerciales'">
+                          <v-row>
+                            <v-col cols="12">
+                              <p>¿Su producto tiene una Instalación Especial?</p>
+                              <p>(empotrados, tuberías y kit de conexión y/o que el producto sea de gran volumen)</p>
+                              <v-radio-group
+                              v-model="Iespecial"
+                              row
+                            >
+
+                              <v-radio
+                                label="Si"
+                                :value="true"
+                              ></v-radio>
+                              <v-radio
+                                label="No"
+                                :value="false"
+                              ></v-radio>
+                            </v-radio-group>
+                            </v-col>
+                            <v-col  v-if="Iespecial"  cols="12">
+                              <b>Recuerde no desinstalar el producto. comunicarse vía WhatsApp: 0424-4624218 y de seguida marque la opción 2 (Garantía,
+                                Envío gratis, Servicio de instalación o Servicio Técnico.</b>
+                            </v-col>
+                            <v-col cols="12">
+                                <h1>¿Cómo Activar su garantía Daka?</h1>
+                            </v-col>
+                            <v-col cols="12"  v-if="!Iespecial" >
+                  <p >
+                                De manera presencial acudiendo a cualquiera de nuestras tiendas ubicadas a nivel nacional, sin importar en cuál sucursal realizó la compra.
+                              </p>
+<p>
+   Es condición de activación de garantía y/o acceso al cambio inmediato (si aplica) presentar: factura de compra, cédula del titular de la factura, el producto con su caja original y con todos los accesorios, con excepción de aquellos productos de línea blanca que tengan una instalación especial.
+</p>
+                            </v-col>
+                            <v-col cols="12"  v-else >
+                             
+            <p>
+              En caso de productos ya instalados de línea blanca (empotrados, tuberías y kit de conexión y/o que sean de gran Volumen) usted puede comunicarse vía WhatsApp: 0424-4624218 y de seguida marque la opción 2 (Garantía, Envío gratis, Servicio de instalación o Servicio Técnico)
+</p><p>
+              En este caso, nuestro horario de atención es de lunes a viernes de 8:00 am a 5:00 pm, por lo que usted será contactado dentro de un plazo no mayor 72 horas para que uno de nuestros servicios técnicos acuda al lugar donde se encuentra el producto y proceda a realizar el diagnóstico correspondiente.
+             </p>
+             <p>
+              Al momento de la visita de nuestros servicios técnicos en el lugar donde se encuentre instalado el producto, usted deberá presentar factura de compra y cédula del titular de la factura.
+             
+            </p>
+            
+
+                            </v-col>
+
+                          </v-row>
+
+        
+<h3>Contacto</h3>
+<p v-if="marcas.tipo == 'Aliados Comerciales'"> <v-icon>mdi-card-account-phone-outline</v-icon> Telefono: {{marcas.telefono}}</p>
+<p v-else> <v-btn
+  text
+  href="https://api.whatsapp.com/send?phone=584244624218&text=hola%20Clara!%F0%9F%98%84"
+> <v-icon>mdi-whatsapp</v-icon> Ir al Chat</v-btn>  
+<v-input error disabled>
+Opcion 2 (GARANTIA,ENVIOS Y SERVICIO TECNICO)
+</v-input>   </p>
+</v-card-subtitle>
+
+                        </v-card-text>
+                       
+                       <v-card-actions >
+                       
+                       </v-card-actions>
+                       
+                       <v-card-actions >
+                      <v-spacer></v-spacer>
+                      <v-btn @click="Activ('terminoC')"  text>Ver  Terminos y Condiciones</v-btn>
+                      <v-spacer></v-spacer>
+                    </v-card-actions>
+                      </v-card>
+                    </v-col>
+                  
+                  </v-row>
+                </v-container>
+              </v-col>
+              <v-col v-if="vista.pregunta" id="pregunta"  class="color1" cols="12">
+                <template>
+                  <v-expansion-panels>
+                    <v-expansion-panel
+                      v-for="(item,i) in preguntas"
+                      :key="i"
+                    >
+                      <v-expansion-panel-header>
+                        {{item.pregunta}}
+                      </v-expansion-panel-header>
+                      <v-expansion-panel-content>
+                        {{item.repuesta}}
+                      </v-expansion-panel-content>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
+                </template>
+              </v-col>
+                <v-col v-if="false" align="center" justify="center" cols="12" class="color">
+                    <h1>Seleccione la Marca de su producto..</h1>
+                    <template>
+                        <v-sheet
+                          class="mx-auto"
+                          elevation="8"
+                          max-width="800"
+                        >
+                          <v-slide-group
+                            v-model="model"
+                            class="pa-4"
+                            center-active
+                            show-arrows
+                          >
+                            <v-slide-item
+                              v-for="n in 15"
+                              :key="n"
+                              v-slot="{ active, toggle }"
+                            >
+                              <v-card
+                                :color="active ? 'primary' : 'white'"
+                                class="ma-4"
+                               
+                               width="150"
+                                @click="toggle"
+                              >
+                               
+                               
+                                    <h2 transition="fade-transition" style="color: oldlace" v-if="active"> LG</h2>
+                                    <v-img 
+                                    transition="fade-transition"
+                                v-if="!active"
+                                  contain
+                                  max-width="80"
+                                  src="../img/marca/lg.png"
+                                  >
+
+                                  </v-img>
+                                 
+                           
+                                
+                               
+                              </v-card>
+                            </v-slide-item>
+                          </v-slide-group>
+                        </v-sheet>
+                      </template>
+                </v-col>
+                <v-col  v-if="false" align="center" justify="center" cols="12" >
+                    <v-container>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-window v-model="vista">
+                                 
+                                    <v-window-item
+                                      key="card2"
+                                    >
+                                  hola
+                                    </v-window-item>
+                                    <v-window-item
+                                      key="card1"
+                                    >
+                                hola2
+                                  </v-window-item>
+                                  </v-window>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-col>
+            </v-row>
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+
+  <script src='../dist/main2.js'>
+
+  </script>
+</body>
+
+</html>

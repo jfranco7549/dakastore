@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <title>Tiendas Daka</title>
+  <style>
+    @import "./ol/ol.css";
+    @font-face {
+      font-family: 'Gotham';
+      src: url('fonts/Gotham-Bold.eot');
+      /* IE9 Compat Modes */
+      src: url('fonts/Gotham-Bold.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('fonts/Gotham-Bold.woff') format('woff'),
+        /* Modern Browsers */
+        url('fonts/Gotham-Bold.ttf') format('truetype'),
+        /* Safari, Android, iOS */
+        url('fonts/Gotham-Bold.svg#svgFontName') format('svg');
+      /* Legacy iOS */
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gotham';
+      src: url('fonts/Gotham-Medium.eot');
+      /* IE9 Compat Modes */
+      src: url('fonts/Gotham-Medium.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('fonts/Gotham-Medium.woff') format('woff'),
+        /* Modern Browsers */
+        url('fonts/Gotham-Medium.ttf') format('truetype'),
+        /* Safari, Android, iOS */
+        url('fonts/Gotham-Medium.svg#svgFontName') format('svg');
+      /* Legacy iOS */
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gotham';
+      src: url('fonts/Gotham-Thin.eot');
+      /* IE9 Compat Modes */
+      src: url('fonts/Gotham-Thin.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('fonts/Gotham-Thin.woff') format('woff'),
+        /* Modern Browsers */
+        url('fonts/Gotham-Thin.ttf') format('truetype'),
+        /* Safari, Android, iOS */
+        url('fonts/Gotham-Thin.svg#svgFontName') format('svg');
+      /* Legacy iOS */
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    .noscroll {
+      overflow: hidden;
+      font-family: 'Gotham';
+    }
+
+    .noscroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .bodyf {
+      
+     
+      font-family:  "Comic Sans";
+    }
+
+    .map {
+      height:  50vh;;
+
+    }
+
+    .hides {
+      visibility: none;
+      display: none;
+    }
+
+    .load {
+      height: 100vh;
+      width: 100vw;
+      background-color: darkslategray;
+      position: fixed;
+      z-index: 2;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    * {
+      border: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --hue: 5663;
+      --bg: hsl(var(--hue), 10%, 90%);
+      --fg: hsl(var(--hue), 10%, 10%);
+      --primary: hsl(var(--hue), 90%, 55%);
+      --trans-dur: 0.3s;
+      font-size: calc(16px + (20 - 16) * (100vw - 320px) / (1280 - 320));
+    }
+
+    .preloader {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      max-width: 20em;
+      width: 100%;
+    }
+
+    .preloader__text {
+      position: relative;
+      height: 1.5em;
+    }
+
+    .preloader__msg {
+      color: white;
+      animation: msg 0.3s 13.7s linear forwards;
+      position: absolute;
+      width: 100%;
+    }
+
+    .preloader__msg--last {
+      color: white;
+      animation-direction: reverse;
+      animation-delay: 14s;
+      visibility: hidden;
+    }
+
+    .cart {
+      display: block;
+      margin: 0 auto 1.5em auto;
+      width: 8em;
+      height: 8em;
+    }
+
+    .cart__lines,
+    .cart__top,
+    .cart__wheel1,
+    .cart__wheel2,
+    .cart__wheel-stroke {
+      animation: cartLines 2s ease-in-out infinite;
+    }
+
+    .cart__lines {
+      stroke: var(--primary);
+    }
+
+    .cart__top {
+      animation-name: cartTop;
+    }
+
+    .cart__wheel1 {
+      animation-name: cartWheel1;
+      transform: rotate(-0.25turn);
+      transform-origin: 43px 111px;
+    }
+
+    .cart__wheel2 {
+      animation-name: cartWheel2;
+      transform: rotate(0.25turn);
+      transform-origin: 102px 111px;
+    }
+
+    .cart__wheel-stroke {
+      animation-name: cartWheelStroke
+    }
+
+    .cart__track {
+      stroke: hsla(var(--hue), 10%, 10%, 0.1);
+      transition: stroke var(--trans-dur);
+    }
+
+    /* Dark theme */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: hsl(var(--hue), 10%, 10%);
+        --fg: hsl(var(--hue), 10%, 90%);
+      }
+
+      .cart__track {
+        stroke: hsla(var(--hue), 10%, 90%, 0.1);
+      }
+    }
+
+    /* Animations */
+    @keyframes msg {
+      from {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      99.9% {
+        opacity: 0;
+        visibility: visible;
+      }
+
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes cartLines {
+
+      from,
+      to {
+        opacity: 0;
+      }
+
+      8%,
+      92% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes cartTop {
+      from {
+        stroke-dashoffset: -338;
+      }
+
+      50% {
+        stroke-dashoffset: 0;
+      }
+
+      to {
+        stroke-dashoffset: 338;
+      }
+    }
+
+    @keyframes cartWheel1 {
+      from {
+        transform: rotate(-0.25turn);
+      }
+
+      to {
+        transform: rotate(2.75turn);
+      }
+    }
+
+    @keyframes cartWheel2 {
+      from {
+        transform: rotate(0.25turn);
+      }
+
+      to {
+        transform: rotate(3.25turn);
+      }
+    }
+
+    @keyframes cartWheelStroke {
+
+      from,
+      to {
+        stroke-dashoffset: 81.68;
+      }
+
+      50% {
+        stroke-dashoffset: 40.84;
+      }
+    }
+  </style>
+
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body class=" bodyf noscroll">
+
+  <div id="loads" class="load">
+
+    <div class="preloader">
+      <svg class="cart" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px"
+        height="128px" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+          <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+            <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+            <circle cx="43" cy="111" r="13" />
+            <circle cx="102" cy="111" r="13" />
+          </g>
+          <g class="cart__lines" stroke="currentColor">
+            <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80"
+              stroke-dasharray="338 338" stroke-dashoffset="-338" />
+            <g class="cart__wheel1" transform="rotate(-90,43,111)">
+              <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68"
+                stroke-dashoffset="81.68" />
+            </g>
+            <g class="cart__wheel2" transform="rotate(90,102,111)">
+              <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68"
+                stroke-dashoffset="81.68" />
+            </g>
+          </g>
+        </g>
+      </svg>
+      <div class="preloader__text">
+        <p class="preloader__msg">Inciando...</p>
+        <p class="preloader__msg preloader__msg--last">CARGANDO DKSTORE....</p>
+      </div>
+    </div>
+
+  </div>
+  <div id="app">
+    <v-app>
+      <v-main>
+
+        <v-app-bar absolute   height='50' style="position: sticky;" dense  color="#FFDD00" >
+
+          <v-app-bar-title class="pt-4" >
+            <v-img   width="200"   src="img/banner/2-01.jpg"></v-img>
+          </v-app-bar-title>
+       
+                 
+<v-spacer></v-spacer>
+          <v-text-field class="pt-9" outlined dense rounded black filled
+             v-model="buscador" @keydown="filtro()" 
+           label="Que te gustaria comprar?" background-color="whiter" append-icon="mdi-magnify"></v-text-field>
+         
+<v-spacer></v-spacer>
+
+          <v-btn @click.stop="drawer = !drawer" icon>
+            <v-badge :value="carrito.length > 0" overlap color="green" :content="carrito.length">
+              <v-icon>mdi-cart</v-icon>
+            </v-badge>
+          </v-btn>
+
+
+
+
+          <template v-slot:extension>
+
+            <v-tabs align-with-title>
+
+              <v-tab @click="filtro()">Productos</v-tab>
+              <v-tab @click="menuSelect('PROMO')">PROMO</v-tab>
+            
+             <v-tab>
+              <v-select
+              :items="categoria"
+              label="Categoria"
+              v-model="catselect"
+              @change="filtroC()"
+            ></v-select>
+            </v-tab>
+            <!--
+               <v-tab @click="openModal('quienes')">Ubicanos </v-tab>
+                 <v-tab @click="openModal('servicio')">Servicios</v-tab>-->
+
+            </v-tabs>
+          </template>
+
+        </v-app-bar>
+        <v-app-bar v-if="buscador !=''" color="#143E8F" dense dark>
+
+
+
+
+          <v-btn v-for="(item,i) in menus" @click="menuSelect(item)" plain>
+            {{item}}
+          </v-btn>
+
+
+          <v-spacer></v-spacer>
+        </v-app-bar>
+     <!--   <v-app-bar v-if="buscador !=''" color="#143E8F" dense dark>
+
+
+          <v-spacer></v-spacer>
+         
+          <v-btn plain>
+            Area Casa 
+          </v-btn>
+          <v-btn plain>
+            Area Familia 
+          </v-btn>
+          <v-btn plain>
+            Area Digital 
+          </v-btn>
+          <v-btn plain>
+            Area Hogar 
+          </v-btn>
+          <v-btn plain>
+            Area Lenceria 
+          </v-btn>
+          <v-btn plain>
+            Area Blanca 
+          </v-btn>
+          <v-btn plain>
+            Area Marron 
+          </v-btn>
+          <v-btn plain>
+            Area Ferretera 
+          </v-btn>
+          <v-btn plain>
+            Area Deporte y Jugueteria 
+          </v-btn>
+          
+          <v-btn plain>
+            Area Innovar 
+          </v-btn>
+        
+
+
+          <v-spacer></v-spacer>
+        </v-app-bar>
+-->
+        <v-sheet id="scrolling-techniques-3" class="overflow-y-auto" max-height="1080">
+          <v-container fluid>
+
+
+
+            <v-row>
+
+
+              <v-col cols="12">
+
+                <v-row>
+
+                  <v-navigation-drawer right app v-model="drawer" bottom temporary fixed>
+                    <v-list v-if="comprar" nav dense>
+                      <v-list-item-group active-class="deep-purple--text text--accent-4">
+
+                        <v-list-item v-for="articulo of carrito">
+                          <v-list-item-avatar>
+                            <v-img :src="'img/producto/'+articulo.sap+'.jpg'"></v-img>
+                          </v-list-item-avatar>
+
+                          <v-list-item-content>
+                            <v-list-item-title v-html="articulo.descripcion"></v-list-item-title>
+                            <v-list-item-subtitle v-html="articulo.precio"></v-list-item-subtitle>
+
+                          </v-list-item-content>
+                          <v-list-item-icon>
+                            <v-icon @click="RemoveCarrito(articulo)">
+                              mdi-delete
+                            </v-icon>
+                          </v-list-item-icon>
+                        </v-list-item>
+                        total:{{totalCarro}} $
+                        <v-btn block outlined rounded @click="comprar = false"> COMPRAR</v-btn>
+                      </v-list-item-group>
+                    </v-list>
+                    <v-list v-else nav dense>
+                      <v-list-item-group >
+
+                        <v-list-item>
+                         
+
+                          <v-list-item-content>
+                            <v-list-item-title >Numero de Cedula</v-list-item-title>
+                            <v-list-item-subtitle> <v-text-field  v-model="cliente.cedula"></v-text-field></v-list-item-subtitle>
+                          </v-list-item-content>
+                         
+                       
+                        </v-list-item>
+                    
+                        <v-list-item>
+                         
+
+                      
+                          <v-list-item-content>
+                            <v-list-item-title  >Nombre Completo</v-list-item-title>
+                            <v-list-item-subtitle> <v-text-field v-model="cliente.nombre"></v-text-field></v-list-item-subtitle>
+                          </v-list-item-content>
+                       
+                        </v-list-item>
+                        <v-list-item>
+                         
+
+                      
+                          <v-list-item-content>
+                            
+                            <v-select
+                            v-model="metodoSelect"
+                            :items="metodos"
+                            label="Metodo de entrega"
+                          ></v-select>
+                            <v-list-item-subtitle v-if="metodoSelect =='Delivery'">
+                               <v-text-field label="Direccion De envio" v-model="cliente.direccion">
+
+                               </v-text-field>
+                              </v-list-item-subtitle>
+                            <v-list-item-subtitle v-if="metodoSelect =='Retiro En tienda'">  
+                                <v-select
+                              v-model="cliente.direccion"
+                              label="Tienda a retirar" 
+                              :items="tiendas"
+                              label="Standard"
+                            ></v-select>
+                          </v-list-item-subtitle>
+                        
+                          </v-list-item-content>
+
+                     
+                       
+                        </v-list-item>
+                      <v-btn  @click=" SendWhs()" block outlined rounded >Comfirmar Comprar</v-btn>
+                        <v-btn block outlined rounded @click="comprar = true"> cancelar</v-btn>
+                      </v-list-item-group>
+                    </v-list>
+                  </v-navigation-drawer>
+
+                  <v-col v-if="buscador ==''" cols="12">
+                    <v-container>
+                    <v-row>
+                      <v-col cols="12">
+                        <v-carousel height="300" hide-delimiters>
+                          <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" contain></v-carousel-item>
+                        </v-carousel>
+    
+                      </v-col>
+                      <v-col cols="12">
+                       
+                        <v-img src="\img\banner\enviog.jpg"></v-img>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-row>
+
+                      <v-col>
+                        <v-dialog scrollable persistent v-model="modal.servicios" transition="dialog-bottom-transition">
+
+                          <template v-slot:default="dialog">
+                            <v-card>
+                              <v-toolbar color="#143E8F" dark>Nuestro Servicios ....</v-toolbar>
+                              <v-card-text>
+                                <v-row>
+                                  <v-col cols="4">
+
+                                    <v-list fat>
+                                      <v-list-item-group
+                                       
+                                        mandatory
+                                        color="indigo"
+                                      >
+                                        <v-list-item
+                                          v-for="(n, i) in servicios"
+                                          :key="i"
+                                          @click="setvideo(n.url)" 
+                                        >
+                                          <v-list-item-icon>
+                                        <v-icon>  {{n.ico}} </v-icon> 
+                                          </v-list-item-icon>
+                                
+                                          <v-list-item-content>
+                                            <v-list-item-title  >{{n.nombre}}</v-list-item-title>
+                                          </v-list-item-content>
+                                        </v-list-item>
+                                      </v-list-item-group>
+                                    </v-list>
+                                
+
+
+                                  </v-col>
+                                  <v-col class="p-2" cols="8">
+                                    <video width="100%" height="100%"  contain :src="videoP" controls autoplay></video>
+                                  </v-col>
+                                </v-row>
+                              </v-card-text>
+                              <v-card-actions class="justify-end">
+                                <v-btn text @click="modal.servicios = false">Close</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </template>
+                        </v-dialog>
+
+
+                        <v-dialog persistent v-model="modal.quienes" transition="dialog-bottom-transition"
+                          max-width="600">
+
+                          <template v-slot:default="dialog">
+                            <v-card>
+                              <v-toolbar color="#143E8F" dark>Ubicanos</v-toolbar>
+                              <v-card-text>
+
+                              <div id="map" class="map">
+                                <v-card id="popup">
+                                  <v-img
+                                    src="https://fastly.4sqi.net/img/general/200x200/n00MvB_u5Kn2QW_qAIcDMnrsNekBFiw4mSEKLvaWFDA.jpg"
+                                    class="white--text align-end"
+                                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                                    height="3rem"
+                                  >
+                                    <v-card-title >Naguanagua</v-card-title>
+                                  </v-img>
+                      
+                                  <v-card-actions>
+                                    <v-spacer></v-spacer>
+                      
+                                    <v-btn icon>
+                                      <v-icon>mdi-heart</v-icon>
+                                    </v-btn>
+                      
+                                    <v-btn icon>
+                                      <v-icon>mdi-bookmark</v-icon>
+                                    </v-btn>
+                      
+                                    <v-btn icon>
+                                      <v-icon>mdi-share-variant</v-icon>
+                                    </v-btn>
+                                  </v-card-actions>
+                                </v-card>
+                              </div>
+
+                              <div id="info"></div>
+                              </v-card-text>
+                              <v-card-actions class="justify-end">
+                                <v-btn text @click="modal.quienes = false">Close</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </template>
+                        </v-dialog>
+
+                      </v-col>
+
+                      <v-col v-if="buscador !=''">
+
+                      </v-col>
+
+
+                      <v-col cols="12">
+                        <v-row>
+                          <v-col v-for="articulo of articulos" v-if="articulo.view" xs="6" md="4" lg="4" xl="3">
+
+                            <v-card :color="colorPromo(articulo.familia)" :dark="articulo.familia=='PROMO'">
+
+
+                              <v-img max-height="150" src="img/fondo/fondo.jpg"
+                                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
+                                <v-img max-height="150" :src="'img/producto/'+articulo.sap+'.jpg'"
+                                  class="white--text align-end">
+                                  <v-img v-if="articulo.familia=='PROMO'" src="img/promo/promo.png" max-height="120"
+                                    contain class="ps-16">
+
+                                  </v-img>
+
+                                </v-img>
+
+                              </v-img>
+
+                              <v-card-body>
+                                <v-card-title>
+
+                                  {{articulo.descripcion}}
+                                </v-card-title>
+                                <v-card-subtitle>
+                                  {{articulo.marca}}
+                                </v-card-subtitle>
+                              </v-card-body>
+                              <v-card-actions>
+                                ${{articulo.precio}}
+                                <v-spacer></v-spacer>
+                                <v-btn @click="RemoveCarrito(articulo)" v-if="articulo.carrito" icon>
+                                  <v-icon>mdi-cart-off</v-icon>
+                                </v-btn>
+                                <v-btn @click="addCarrito(articulo)" v-else icon>
+                                  <v-icon>mdi-cart-plus</v-icon>
+                                </v-btn>
+                              </v-card-actions>
+
+                              </v-card-actions>
+                            </v-card>
+
+                          </v-col>
+                        </v-row>
+
+                      </v-col>
+                    </v-row>
+                  </v-col>
+
+                </v-row>
+
+                </v-card>
+
+              </v-col>
+            </v-row>
+
+
+
+
+            </v-col>
+            </v-row>
+          </v-container>
+        </v-sheet>
+      </v-main>
+    </v-app>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+
+  <script src='./dist/main.js'>
+
+  </script>
+</body>
+
+</html>
