@@ -69,8 +69,7 @@ var controller = {
                     //guardar
                     
                     user.save().then((userStored) => {
-                        //Devolver respuesta
-                        console.log('user', userStored)
+                        //Devolver respuestas
                         res.status(200).send({
                             message: 'El usuario se ha guardado con éxito',
                             user: user
@@ -115,8 +114,6 @@ var controller = {
         var user = new User();
         user.email = params.email.toLowerCase();
         const userData = await User.findOne({ email: params.email.toLowerCase() })
-
-        console.log('user----', userData)
         if(userData){
             bcrypt.compare(params.password, userData.password, function (err, resp) {
 
@@ -141,11 +138,6 @@ var controller = {
                 })
         
         }
-           
-
-           
-    
-
 
     },
 
@@ -191,11 +183,11 @@ var controller = {
 
             res.status(202).send({
                 status: 'success',
-                message: 'No hay usuarios que mostrar',
+                message: 'Datos actualizados exitosamente',
                 res: response.value
             })
         }
-        console.log('doc', doc._id, req.user.sub)
+      
         if (doc !== null && doc._id == req.user.sub) {
             const response = await User.findOneAndUpdate(filter, update, {
                 new: true,
@@ -205,7 +197,7 @@ var controller = {
             });
             res.status(202).send({
                 status: 'success',
-                message: 'Usuario actualizado exitosamente',
+                message: 'Datos actualizados exitosamente',
                 res: response.value
             })
         } else {
@@ -240,7 +232,6 @@ var controller = {
 
         User.findById(userId).exec()
             .then(user => {
-                console.log('user', userId, user)
                 if (user) {
                     res.status(200).send({
                         status: 'success',
@@ -282,14 +273,10 @@ var controller = {
 
         }
 
-        console.log('pass', req.user, params.oldPassword)
         const userData = await User.findOne({ email: params.email.toLowerCase() })
 
-        console.log('user----', userData.password)
         bcrypt.compare(params.oldPassword, userData.password, async function (err, resp) {
-            console.log('res', resp)
             if (err) {
-                console.log('err', err)
                 res.status(400).send({
                     message: 'Error al validar'
                 })
