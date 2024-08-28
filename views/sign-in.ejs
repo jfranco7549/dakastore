@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>Tiendas Daka</title>
+    <style>
+        .color {
+            height: 30vh;
+            background-color: aqua;
+        }
+
+        .invertDaka {
+            background-color: #192b55;
+            color: #f8e000;
+
+        }
+
+        .color1 {
+            text-align: justify;
+            color: black;
+            justify-content: center;
+        }
+
+        .loading {
+            height: 100vh;
+            width: 100vw;
+            background-color: rgb(26, 19, 96);
+            position: fixed;
+            z-index: 2;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .cart {
+            display: block;
+            margin: 0 auto 1.5em auto;
+            width: 12em;
+            height: 12em;
+        }
+
+        .imglod {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+        }
+
+        .theme--light.v-sheet {
+     background-color: transparent !important; 
+    /* border-color:#fff; */
+     color: none !important; 
+}
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body class="noscroll invertDaka">
+
+    <div id="app" class="invertDaka">
+        <v-app class="invertDaka">
+
+            <div class="invertDaka fill-height">
+                <v-container class="mb-6 invertDaka fill-height">
+                    <v-row class="fill-height invertDaka" align="center" justify="start">
+                        <v-col cols="8" v-for="n in 1" :key="n">
+                            <v-sheet style="background: whitesmoke !important; width: 60%;">
+                                <v-card class="elevation-12 invertDaka" style="padding-top: 30px;">
+                                    <div style="display: flex; justify-content: center">
+                                        <v-toolbar-title>Register form</v-toolbar-title>
+
+                                    </div>
+
+                                    <v-card-text>
+                                        <input type="text" name="first" v-validate.continues="'required|alpha|min:5'">
+
+                                        <input type="text" name="second" v-validate.continues="'required|alpha|min:5'">
+
+                                        <ul>
+                                            <li v-for="error in errors.all()">{{ error }}</li>
+                                        </ul>
+                                        <form ref="form" @submit.prevent="register()" class="w-full">
+
+                                            <v-text-field v-validate.continues="'required|alpha|min:5'"
+                                                v-model="username" name="username" label="Username" type="text"
+                                                placeholder="username" required></v-text-field>
+                                            <v-text-field v-validate.continues="'required|alpha|min:5'"
+                                                v-model="lastname" name="lastname" label="Lastname" type="text"
+                                                placeholder="lastname" required></v-text-field>
+                                            <v-text-field v-model="email" name="email" label="Lastname" type="text"
+                                                placeholder="email" required></v-text-field>
+
+                                            <v-text-field v-validate="'required'" ref="password" v-model="password"
+                                                name="password" label="Password" type="text" placeholder="password"
+                                                required></v-text-field>
+                                            <v-text-field v-validate="'required|confirmed:password'"
+                                                v-model="passwordcheck" name="passwordcheck" label="Repeat Password"
+                                                type="text" placeholder="passwordcheck" required>
+                                                <span v-show="errors.has('password_confirmation')"
+                                                    class="help is-danger">{{ errors.first('password_confirmation')
+                                                    }}</span></v-text-field>
+                                            <v-btn type="submit" class="mt-4" color="primary"
+                                                value="log in">Registrar</v-btn>
+                                        </form>
+                                    </v-card-text>
+                                </v-card>
+                            </v-sheet>
+                        </v-col>
+                        <v-col cols="4" v-for="n in 1" :key="n" class="invertDaka"  style="background-color: none;">
+                            <v-sheet class=" invertDaka" style="margin: 0;">
+                                <img class="cart daki invertDaka" src="../img/daki/daki-min.webp" width="400px" height="400px" />
+                            </v-sheet>
+                        </v-col>
+                    </v-row>
+                </v-container>
+
+            </div>
+            <!--v-main  class="invertDaka">
+                <v-row
+                align="start"
+                style="height: 800px;"
+                no-gutters
+              >
+                    <v-col cols="8" class="invertDaka">
+                        <v-sheet class="invertDaka">
+                            <v-layout row wrap align-center justify class="invertDaka" style="display:flex;padding: 25px;align-items: center;">
+                                <v-flex xs12 sm8 md4>
+                                <v-card class="elevation-12">
+                                    <v-toolbar dark color="primary">
+                                        <v-toolbar-title>Login form</v-toolbar-title>
+                                    </v-toolbar>
+                                    <v-card-text>
+                                        <form ref="form" @submit.prevent="login()">
+                                            <v-text-field v-model="username" name="username" label="Username" type="text"
+                                                placeholder="username" required></v-text-field>
+    
+                                            <v-text-field v-model="password" name="password" label="Password"
+                                                type="password" placeholder="password" required></v-text-field>
+                                            <v-btn type="submit" class="mt-4" color="primary" value="log in">Login</v-btn>
+                                        </form>
+                                    </v-card-text>
+                                </v-card>
+    
+                            </v-flex>
+                                <v-flex xs12 sm8 md4>
+                                    <v-card class="elevation-12" style="padding: 10px;">
+                                        <div class="pa-2" style="display: flex; justify-content: center" >
+                                            <v-toolbar-title>Register form</v-toolbar-title>
+
+                                        </div>
+                                        
+                                        <v-card-text>
+                                            <input type="text" name="first"
+                                                v-validate.continues="'required|alpha|min:5'">
+
+                                            <input type="text" name="second"
+                                                v-validate.continues="'required|alpha|min:5'">
+
+                                            <ul>
+                                                <li v-for="error in errors.all()">{{ error }}</li>
+                                            </ul>
+                                            <form ref="form" @submit.prevent="register()" class="w-full">
+
+                                                <v-text-field v-validate.continues="'required|alpha|min:5'"
+                                                    v-model="username" name="username" label="Username" type="text"
+                                                    placeholder="username" required></v-text-field>
+                                                <v-text-field v-validate.continues="'required|alpha|min:5'"
+                                                    v-model="lastname" name="lastname" label="Lastname" type="text"
+                                                    placeholder="lastname" required></v-text-field>
+                                                <v-text-field v-model="email" name="email" label="Lastname" type="text"
+                                                    placeholder="email" required></v-text-field>
+
+                                                <v-text-field v-validate="'required'" ref="password" v-model="password"
+                                                    name="password" label="Password" type="text" placeholder="password"
+                                                    required></v-text-field>
+                                                <v-text-field v-validate="'required|confirmed:password'"
+                                                    v-model="passwordcheck" name="passwordcheck" label="Repeat Password"
+                                                    type="text" placeholder="passwordcheck" required>
+                                                    <span v-show="errors.has('password_confirmation')"
+                                                        class="help is-danger">{{ errors.first('password_confirmation')
+                                                        }}</span></v-text-field>
+                                                <v-btn type="submit" class="mt-4" color="primary"
+                                                    value="log in">Registrar</v-btn>
+                                            </form>
+                                        </v-card-text>
+                                    </v-card>
+
+                                </v-flex>
+
+                            </v-layout>
+                        </v-sheet>
+                    </v-col>
+                    <v-col cols="4">
+                        <v-sheet class="pa-2">
+                            <v-layout align-center>
+
+                            </v-layout>
+                        </v-sheet>
+                    </v-col>
+                </v-row>
+            </v-main-->
+        </v-app>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/2.2.9/vee-validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.4.7/dist/vee-validate-rules.min.js"></script>
+    <script>
+        Vue.use(VeeValidate); // good to go.
+    </script>
+    <script>
+        new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data() {
+                return {
+                    username: "",
+                    password: "",
+                    lastname: "",
+                    password: "",
+                    passwordcheck: "",
+                    email: ""
+                };
+            },
+            methods: {
+                async register() {
+                    const { username, lastname, password, email, } = this;
+                    console.log(username + "logged in")
+                    fetch('http://localhost:81/user/register', {
+                        method: "POST",
+                        body: JSON.stringify({
+                            "name": username,
+                            "lastname": lastname,
+                            "email": email,
+                            "password": password,
+                            "oldPassword": "20242024",
+                            "newPassword": "20242024"
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+
+                        },
+                    })
+                        .then((response) => {
+                            response.json().then((data) => {
+                                this.fact = data[0].fact;
+                            });
+
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                },
+                async login() {
+                    const { username, password } = this;
+                    console.log(username + "logged in")
+                    fetch('http://localhost:81/user/login', {
+                        method: "POST",
+                        body: JSON.stringify({
+                            "name": "Mariana Virginia",
+                            "lastname": "Juarez",
+                            "email": "marthaa2sa@gmail.com",
+                            "password": "12345678",
+                            "oldPassword": "20242024",
+                            "newPassword": "20242024"
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+
+                        },
+                    })
+                        .then((response) => {
+                            response.json().then((data) => {
+                                this.fact = data[0].fact;
+                            });
+
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                },
+            },
+            checkForm: function (e) {
+                if (this.name && this.password) {
+                    return true;
+                }
+
+                this.errors = [];
+
+                if (!this.name) {
+                    this.errors.push('Name required.');
+                }
+                if (!this.age) {
+                    this.errors.push('Password required.');
+                }
+
+                e.preventDefault();
+            }
+        })
+    </script>
+
+
+    </script>
+</body>
+
+</html>

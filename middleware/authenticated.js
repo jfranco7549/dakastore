@@ -31,3 +31,33 @@ exports.authenticated = function(req, res, next){
     console.log("estas pasando por el middleware")
     
 }
+
+
+exports.authenticatedSpareParts = function(req, res, next){
+
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({ message: 'No token provided' });
+    }
+    const secretKey = 'mySecretKey';
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: 'Invalid token' });
+      }
+  
+      req.user = decoded;
+      next();
+    });
+
+    //Comprobar si el token ha expirado
+
+
+
+    //Adjuntar usuario identificado a request
+
+    //Hacer el next
+
+    console.log("estas pasando por el middleware")
+    
+}

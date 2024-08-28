@@ -22,7 +22,7 @@ var controller = {
         })
     },
 
-    save: function (req, res) {
+    save: async function (req, res) {
         //Recoger los parametros de la peticion
         var params = req.body;
 
@@ -45,51 +45,43 @@ var controller = {
             //Asignar valores al usuario
             user.name = params.name;
             user.lastname = params.lastname;
-            bcrypt.hash(params.password, null, null, (err, hash) => {
-                user.password = hash;
-            })
             user.role = params.role;
             user.email = params.email.toLowerCase();
             //Comprobar si el usuario existe, 
-            User.findOne({ email: user.email }).then(issetUser => {
+            const userData = await User.findOne({ email: params.email.toLowerCase() })
 
-                if (issetUser) {
-                    res.status(500).send({
-                        message: 'Error al comprobar duplicidad de usuario'
+            if (!userData) {
+                bcrypt.hash(params.password, null, null, (err, hash) => {
+                    user.password = hash;
+                })
+
+                //guardar
+
+                user.save().then((userStored) => {
+                    //Devolver respuestas
+                    res.status(200).send({
+                        message: 'El usuario se ha guardado con éxito',
+                        user: user
                     })
-                }
-
-
-                if (!issetUser) {
-                    //si no existe cifrar la contraseña
-                    bcrypt.hash(params.password, null, null, (err, hash) => {
-                        user.password = hash;
-                    })
-
-                    //guardar
-                    
-                    user.save().then((userStored) => {
-                        //Devolver respuestas
-                        res.status(200).send({
-                            message: 'El usuario se ha guardado con éxito',
-                            user: user
+                }).catch((err) => {
+                    console.log('err')
+                    if (err) {
+                        res.status(500).send({
+                            message: 'Error al guardar usuario'
                         })
-                    }).catch((err) => {
-                        console.log('err')
-                        if (err) {
-                            res.status(500).send({
-                                message: 'Error al guardar usuario'
-                            })
-                        }
+                    }
 
-                    })
-                } else {
-                    res.status(500).send({
-                        message: 'Usuario ya existe'
-                    })
-                }
+                })
 
-            })
+            } else {
+
+                res.status(500).send({
+                    message: 'Error al comprobar duplicidad de usuario'
+                })
+
+
+
+            }
 
         } else {
             res.status(500).send({
@@ -114,7 +106,7 @@ var controller = {
         var user = new User();
         user.email = params.email.toLowerCase();
         const userData = await User.findOne({ email: params.email.toLowerCase() })
-        if(userData){
+        if (userData) {
             bcrypt.compare(params.password, userData.password, function (err, resp) {
 
                 if (err) {
@@ -131,12 +123,12 @@ var controller = {
 
             })
         }
-        else{
-            
-                res.status(400).send({
-                    message: 'El usuario no existe'
-                })
-        
+        else {
+
+            res.status(400).send({
+                message: 'El usuario no existe'
+            })
+
         }
 
     },
@@ -187,7 +179,7 @@ var controller = {
                 res: response.value
             })
         }
-      
+
         if (doc !== null && doc._id == req.user.sub) {
             const response = await User.findOneAndUpdate(filter, update, {
                 new: true,
