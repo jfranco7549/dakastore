@@ -1,40 +1,24 @@
 'use strict'
-var jwt = require('jwt-simple');
+const jwt = require('jsonwebtoken');
 var moment = require('moment');
 var secret= 'clave-secreta-para-generar-el-token-9999';
 
 exports.authenticated = function(req, res, next){
 
-    //Comprobar si nos llega autorización
-        if(!req.headers.authorization){
-           return  res.status(403).send({
-                message: 'La petición no tiene la cabecera de autorización'
-            })
-        }
-    //Limpiar el token y quitar comillas
-        var token = req.headers.authorization.replace(/['"]+/g, '');
+    const token = req.headers.authorization;
 
-   
-
-    try{
-        //Decodificar el token
-        var payload = jwt.decode(token, secret)
-
-        if(payload.exp <= moment().unix()){
-            return  res.status(403).send({
-                message: 'El token ha expirado'
-            })     
-        }
-
-        req.user = payload;
-        
-    }catch(ex){
-
-        return  res.status(403).send({
-            message: 'El token no es válido'
-        })
+    if (!token) {
+      return res.status(401).json({ message: 'No token provided' });
     }
-
+    const secretKey = 'mySecretKey';
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: 'Invalid token' });
+      }
+  
+      req.user = decoded;
+      next();
+    });
 
     //Comprobar si el token ha expirado
 
@@ -46,5 +30,4 @@ exports.authenticated = function(req, res, next){
 
     console.log("estas pasando por el middleware")
     
-    next();
 }

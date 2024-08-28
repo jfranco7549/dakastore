@@ -5,7 +5,7 @@ var User = require('../models/user');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../services/jwt');
 const user = require('../models/user');
-
+const mongoose = require('mongoose')
 
 var controller = {
 
@@ -25,17 +25,15 @@ var controller = {
     save: function (req, res) {
         //Recoger los parametros de la peticion
         var params = req.body;
-        console.log('body', req.params)
-        //Validar los datos
 
+        //Validar los datos
         try {
             var validate_name = !validator.isEmpty(params.name);
             var validate_surname = !validator.isEmpty(params.lastname);
             var validate_email = !validator.isEmpty(params.email) && validator.isEmail(params.email);
             var validate_password = !validator.isEmpty(params.password);
-            console.log("params", req.body)
         } catch (err) {
-            return res.status(200).send({
+            res.status(200).send({
                 message: 'Faltan datos por enviar'
             })
         }
@@ -47,15 +45,16 @@ var controller = {
             //Asignar valores al usuario
             user.name = params.name;
             user.lastname = params.lastname;
-            user.password = params.password;
+            bcrypt.hash(params.password, null, null, (err, hash) => {
+                user.password = hash;
+            })
             user.role = params.role;
             user.email = params.email.toLowerCase();
-            console.log("params", params)
             //Comprobar si el usuario existe, 
             User.findOne({ email: user.email }).then(issetUser => {
 
                 if (issetUser) {
-                    return res.status(500).send({
+                    res.status(500).send({
                         message: 'Error al comprobar duplicidad de usuario'
                     })
                 }
@@ -68,24 +67,25 @@ var controller = {
                     })
 
                     //guardar
-
+                    
                     user.save().then((userStored) => {
                         //Devolver respuesta
-                        return res.status(200).send({
+                        console.log('user', userStored)
+                        res.status(200).send({
                             message: 'El usuario se ha guardado con éxito',
-                            user: userStored
+                            user: user
                         })
                     }).catch((err) => {
                         console.log('err')
                         if (err) {
-                            return res.status(500).send({
+                            res.status(500).send({
                                 message: 'Error al guardar usuario'
                             })
                         }
 
                     })
                 } else {
-                    return res.status(500).send({
+                    res.status(500).send({
                         message: 'Usuario ya existe'
                     })
                 }
@@ -93,8 +93,8 @@ var controller = {
             })
 
         } else {
-            return res.status(500).send({
-                message: 'Oops',
+            res.status(500).send({
+                message: 'Oops error en los parametros enviados',
                 params: params
             })
 
@@ -103,78 +103,53 @@ var controller = {
 
     },
 
-    login: function (req, res) {
+    login: async function (req, res) {
         var params = req.body
         var validate_email = !validator.isEmpty(params.email);
         var validate_password = !validator.isEmpty(params.password);
         if (!validate_email || !validate_password) {
-            return res.status(500).send({
+            res.status(500).send({
                 message: 'Parametros incorrectos'
             })
         }
         var user = new User();
         user.email = params.email.toLowerCase();
-        user.password = params.password;
-        User.findOne({ email: params.email.toLowerCase() }).then((check) => {
+        const userData = await User.findOne({ email: params.email.toLowerCase() })
 
-
-            bcrypt.compare(params.password, check.password, function (err, resp) {
+        console.log('user----', userData)
+        if(userData){
+            bcrypt.compare(params.password, userData.password, function (err, resp) {
 
                 if (err) {
-                    return res.status(400).send({
+                    res.status(400).send({
                         message: 'Error al validar'
                     })
                 }
 
-                if (check) {
-                    if (params.gettoken) {
-                        return res.status(200).send({
-                            token: jwt.createToken(user)
-                        })
-                    } else {
-
-                        user.password = undefined;
-
-                        const JWT = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NmNkZmI4YTJkZTAwZDAyOTRjYjM5YzgiLCJlbWFpbCI6Imp1bEBnbWFpbC5jb20iLCJpYXQiOjE3MjQ3NzUzMDYsImV4cCI6MTcyNDc4OTcwNn0.tUgWgzW8-e2FuPH3CXqoDeP1KgyJqcNG2A_p_qec96U`;
-                        const decodedJwt = JSON.parse(atob(JWT.split(".")[1]));
-                        console.log('decode', decodedJwt)
-                        if (decodedJwt.exp * 1000 < Date.now()) {
-                            console.log('expiro')
-                        } else {
-                            console.log('no expiro')
-                        }
-                        return res.status(200).send({
-                            status: "success",
-                            user,
-                            token: jwt.createToken(user)
-                        })
-                    }
-                } else {
-                    return res.status(500).send({
-                        message: 'El usuario no existe'
-                    })
-                }
-            })
-
-        }).catch((err) => {
-
-            if (err) {
-                return res.status(400).send({
-                    message: 'Error al intentar identificarse'
+                res.status(200).send({
+                    status: "success",
+                    userData,
+                    token: jwt.createToken(userData)
                 })
-            }
 
-            if (!user) {
-                return res.status(500).send({
+            })
+        }
+        else{
+            
+                res.status(400).send({
                     message: 'El usuario no existe'
                 })
-            }
-        })
+        
+        }
+           
+
+           
+    
 
 
     },
 
-    update: function (req, res) {
+    update: async function (req, res, next) {
         //Crear middleware para comprobar el jwt token, ponerselo a la ruta
         var params = req.body;
         //Recoger datos del usuario
@@ -184,112 +159,74 @@ var controller = {
             var validate_email = !validator.isEmpty(params.email) && validator.isEmail(params.email);
 
         } catch (err) {
-            return res.status(200).send({
-                message: 'Faltan datos por enviar'
+
+            res.status(400).send({
+                status: 'success',
+                message: 'Faltan datos por enviar',
             })
+
         }
+
 
         //Eliminar propiedades innecesarias
         delete params.password;
-        console.log("hey", req.user.sub)
-        var userId = params._id;
-
-        console.log("params", params, userId)
+        var userId = new mongoose.Types.ObjectId(req.user.sub);
         //Buscar y actualizar documento
 
+
+        const filter = { _id: userId };
+        const filterExist = { email: params.email };
+        const update = { name: params.name, lastname: params.lastname, email: params.email };
+
         //Comprobar si el email es unico
+        var doc = await User.findOne(filterExist);
 
-        if (req.user.email !== params.email) {
-            //Comprobar si el usuario existe, 
-            User.findOne({ email: params.email.toLowerCase() })
-                .then(issetUser => {
-                    if (issetUser && issetUser.email == params.email) {
-                        return res.status(200).send({
-                            message: 'El email no puede ser modificado 1'
-                        })
+        if (!doc) {
+            const response = await User.findOneAndUpdate(filter, update, {
+                new: true,
+                upsert: true,
+                // Return additional properties about the operation, not just the document
+                includeResultMetadata: true
+            });
 
-                    } else {
-                        User.findByIdAndUpdate({ _id: userId }, params, { new: true }).then(userUpdated => {
-                            if (!userUpdated) {
-                                return res.status(200).send({
-                                    status: 'success',
-                                    message: 'Error al actualizar usuario'
-                                })
-                            }
-
-
-                            //Devolver respuesta
-                            return res.status(200).send({
-                                status: 'success',
-                                user: userUpdated,
-                            })
-                        }).catch((err) => {
-                            if (err) {
-                                return res.status(500).send({
-                                    status: 'error',
-                                    message: 'Error al actualizar usuario'
-                                })
-                            }
-                        })
-                    }
-
-                }).catch((err) => {
-                    if (err) {
-                        return res.status(500).send({
-                            message: 'Error al comprobar duplicidad de usuario'
-                        })
-                    }
-                })
-        } else {
-            User.findByIdAndUpdate({ _id: userId }, params, { new: true }).then(userUpdated => {
-
-                if (err) {
-                    return res.status(500).send({
-                        status: 'error',
-                        message: 'Error al actualizar usuario'
-                    })
-                }
-
-                if (!userUpdated) {
-                    return res.status(200).send({
-                        status: 'success',
-                        message: 'Error al actualizar usuario'
-                    })
-                }
-
-
-                //Devolver respuesta
-                return res.status(200).send({
-                    status: 'success',
-                    user: userUpdated,
-                    message: "Hey"
-                })
+            res.status(202).send({
+                status: 'success',
+                message: 'No hay usuarios que mostrar',
+                res: response.value
             })
-                .catch((err) => {
-
-                    if (err) {
-                        return res.status(500).send({
-                            status: 'error',
-                            message: 'Error al actualizar usuario'
-                        })
-                    }
-                })
         }
-
-
+        console.log('doc', doc._id, req.user.sub)
+        if (doc !== null && doc._id == req.user.sub) {
+            const response = await User.findOneAndUpdate(filter, update, {
+                new: true,
+                upsert: true,
+                // Return additional properties about the operation, not just the document
+                includeResultMetadata: true
+            });
+            res.status(202).send({
+                status: 'success',
+                message: 'Usuario actualizado exitosamente',
+                res: response.value
+            })
+        } else {
+            res.status(400).send({
+                status: 'error',
+                message: 'El email ingresado ya existe',
+            })
+        }
 
 
     },
     getUsers: function (req, res) {
         User.find().exec()
             .then(users => {
-                return res.status(200).send({
+                res.status(200).send({
                     status: 'success',
                     users: users
                 })
             }).catch((err) => {
                 if (err || !users) {
-                    return res.status(404).send({
+                    res.status(404).send({
                         status: 'error',
                         message: 'No hay usuarios que mostrar'
                     })
@@ -302,21 +239,87 @@ var controller = {
         var userId = req.params.userId
 
         User.findById(userId).exec()
-        .then(user => {
-          
-            return res.status(200).send({
-                status: 'success',
-                user: user
+            .then(user => {
+                console.log('user', userId, user)
+                if (user) {
+                    res.status(200).send({
+                        status: 'success',
+                        user: user
+                    })
+                } else {
+                    res.status(404).send({
+                        status: 'error',
+                        message: 'No existe el usuario'
+                    })
+                }
+
             })
-        })
-        .catch((err)=>{
-            if (err || !user) {
-                return res.status(404).send({
-                    status: 'error',
-                    message: 'No existe el usuario'
+            .catch((err) => {
+                if (err || !user) {
+                    res.status(404).send({
+                        status: 'error',
+                        message: 'No existe el usuario'
+                    })
+                }
+
+            })
+
+    },
+    changePassword: async function (req, res) {
+        var params = req.body;
+
+        try {
+            var validate_oldPassword = !validator.isEmpty(params.oldPassword);
+            var validate_newPassword = !validator.isEmpty(params.newPassword);
+            var email = !validator.isEmpty(params.email);
+
+        } catch (err) {
+
+            res.status(400).send({
+                status: 'success',
+                message: 'Faltan datos por enviar',
+            })
+
+        }
+
+        console.log('pass', req.user, params.oldPassword)
+        const userData = await User.findOne({ email: params.email.toLowerCase() })
+
+        console.log('user----', userData.password)
+        bcrypt.compare(params.oldPassword, userData.password, async function (err, resp) {
+            console.log('res', resp)
+            if (err) {
+                console.log('err', err)
+                res.status(400).send({
+                    message: 'Error al validar'
                 })
             }
 
+            if (resp) {
+                const filter = { email: params.email };
+                var newPassword;
+                await bcrypt.hash(params.newPassword, null, null, (err, hash) => {
+                    newPassword = hash
+                })
+                const update = { password: newPassword };
+                const response = await User.findOneAndUpdate(filter, update, {
+                    new: true,
+                    upsert: true,
+                    // Return additional properties about the operation, not just the document
+                    includeResultMetadata: true
+                });
+
+                res.status(202).send({
+                    status: 'success',
+                    message: 'Password actualizado exitosamente',
+                    res: response.value
+                })
+            } else {
+                res.status(202).send({
+                    status: 'error',
+                    message: 'Password incorrecto',
+                })
+            }
         })
 
     }

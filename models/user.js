@@ -13,9 +13,10 @@ var UserSchema = Schema({
 })
 
 UserSchema.methods.toJSON = function () {
-    var obj = this.toObject();
-    delete obj.password;
-    return obj;
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+    
 }
 module.exports = mongoose.model('user',UserSchema,'user');
 // lowercase y pluralizar el nombre

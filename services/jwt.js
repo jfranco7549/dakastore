@@ -1,21 +1,23 @@
 'use strict'
 
-var jwt = require('jwt-simple');
+const jwt = require('jsonwebtoken');
 var moment = require('moment');
 
-exports.createToken = function(user){
+exports.createToken = function (user) {
+    console.log('token', user)
 
     var payload = {
-        sub : user._id,
+        sub: user._id,
         name: user.name,
-        surname: user.surname,
+        surname: user.lastname,
         email: user.email,
         role: user.role,
         image: user.image,
-        iat: moment().unix(),
-        exp: moment().add(4, 'hours').unix()
+        password: user.password
     }
-
-    return jwt.encode(payload, 'clave-secreta-para-generar-el-token-9999');
+    const secretKey = 'mySecretKey';
+    const options = { expiresIn: '1h' };
+    const token = jwt.sign(payload, secretKey, options);
+    return token;
 }
 
