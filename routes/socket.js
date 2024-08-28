@@ -8,6 +8,7 @@ let valor= 0
 
 const multer  = require('multer');
 const upload = multer({ dest: "/img" });
+var md_auth = require('../middleware/authenticated');
 
 router.get('/c2p',  async (req,res)=>{
   res.render('c2p')
@@ -21,7 +22,7 @@ router.get('/',  async (req,res)=>{
      })
 
 
-     router.get('/repuestos/',  async (req,res)=>{
+     router.get('/repuestos/',md_auth.authenticated,  async (req,res)=>{
       valor = valor+1
       console.log("intervalo"+valor)
       res.render('repuesto',{menu:''})
