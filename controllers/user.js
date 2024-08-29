@@ -5,7 +5,8 @@ var User = require('../models/user');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../services/jwt');
 const user = require('../models/user');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const speakeasy = require('speakeasy');
 
 var controller = {
 
@@ -47,6 +48,7 @@ var controller = {
             user.lastname = params.lastname;
             user.role = params.role;
             user.email = params.email.toLowerCase();
+            user.temp =  speakeasy.generateSecret();
             //Comprobar si el usuario existe, 
             const userData = await User.findOne({ email: params.email.toLowerCase() })
 

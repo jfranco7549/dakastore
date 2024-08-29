@@ -9,6 +9,7 @@ var UserSchema = Schema({
     password: String,
     image: String,
     role: String,
+    temp: Object,
     date: { type: Date, default: Date.now },
 })
 

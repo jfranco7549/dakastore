@@ -43,8 +43,6 @@
             width: 100px;
             border-radius: 50%;
         }
-
-      
     </style>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
@@ -54,62 +52,147 @@
 
 <body class="noscroll invertDaka">
 
-    <div id="app" class="invertDaka">
-        <v-app class="invertDaka">
+    <div id="app">
+        <v-app>
 
-            <div class="invertDaka fill-height">
-                <v-container class="mb-6 invertDaka fill-height">
-                    <v-row class="fill-height invertDaka" align="center" justify="start">
-                        <v-col cols="8" v-for="n in 1" :key="n">
-                            <v-sheet style="background: whitesmoke !important; width: 60%;">
-                                <v-card class="elevation-12 invertDaka" style="padding-top: 30px;">
-                                    <div style="display: flex; justify-content: center">
-                                        <v-img   width="80"   @click="filtro('inicio')" class="mb-4 m-2 p-4"  src="../img/logoF.webp"></v-img>
+            <div class="fill-height">
+                <v-container class="mb-6 fill-height">
+                    <v-row class="fill-height" align="center" justify="center">
+                        <v-col cols="6" v-for="n in 1" :key="n">
+                            <v-sheet style="background: whitesmoke !important; width: 100%;">
+                                <v-card class="elevation-12">
+                                    <v-img src="../img/channels4_banner.jpg" contain></v-img>
+                                    <div class="d-flex justify-center pa-2">
 
-                                        <v-toolbar-title>Register form</v-toolbar-title>
-
+                                        <v-card-title>
+                                            Registro
+                                        </v-card-title>
                                     </div>
 
-                                    <v-card-text>
-                                        <input type="text" name="first" v-validate.continues="'required|alpha|min:5'">
 
-                                        <input type="text" name="second" v-validate.continues="'required|alpha|min:5'">
+                                    <v-divider></v-divider>
+
+                                    <v-card-text>
+
 
                                         <ul>
                                             <li v-for="error in errors.all()">{{ error }}</li>
                                         </ul>
+
+
                                         <form ref="form" @submit.prevent="register()" class="w-full">
 
-                                            <v-text-field v-validate.continues="'required|alpha|min:5'"  prepend-icon="mdi-account"
-                                                v-model="username" name="username" label="Username" type="text"
-                                                placeholder="username" required></v-text-field>
-                                            <v-text-field v-validate.continues="'required|alpha|min:5'"  prepend-icon="mdi-account"
-                                                v-model="lastname" name="lastname" prepend-icon="mdi-account" label="Lastname" type="text"
-                                                placeholder="lastname" required></v-text-field>
-                                            <v-text-field v-model="email"  prepend-icon="mdi-mail" name="email" label="Lastname" type="text"
-                                                placeholder="email" required></v-text-field>
-
-                                            <v-text-field v-validate="'required'" prepend-icon="mdi-lock" ref="password" v-model="password"
-                                                name="password" label="Password" type="text" placeholder="password"
+                                            <v-text-field v-validate.continues="'required|alpha|min:5'"
+                                                prepend-icon="mdi-account" v-model="username" name="username"
+                                                label="Username" type="text" placeholder="username"
                                                 required></v-text-field>
-                                            <v-text-field v-validate="'required|confirmed:password'" prepend-icon="mdi-lock"
-                                                v-model="passwordcheck" name="passwordcheck" label="Repeat Password"
-                                                type="text" placeholder="passwordcheck" required>
+                                            <v-text-field v-validate.continues="'required|alpha|min:5'"
+                                                prepend-icon="mdi-account" v-model="lastname" name="lastname"
+                                                prepend-icon="mdi-account" label="Lastname" type="text"
+                                                placeholder="lastname" required></v-text-field>
+                                            <v-text-field v-model="email" prepend-icon="mdi-mail" name="email"
+                                                label="Lastname" type="text" placeholder="email"
+                                                required></v-text-field>
+
+                                            <v-text-field v-validate="'required'" prepend-icon="mdi-lock" ref="password"
+                                                v-model="password" name="password" label="Password" type="text"
+                                                placeholder="password" required></v-text-field>
+                                            <v-text-field v-validate="'required|confirmed:password'"
+                                                prepend-icon="mdi-lock" v-model="passwordcheck" name="passwordcheck"
+                                                label="Repeat Password" type="text" placeholder="passwordcheck"
+                                                required>
                                                 <span v-show="errors.has('password_confirmation')"
                                                     class="help is-danger">{{ errors.first('password_confirmation')
                                                     }}</span></v-text-field>
-                                            <v-btn type="submit" class="mt-4" color="primary"
-                                                value="log in">Registrar</v-btn>
+
+                                            <v-col cols="auto" align="center" justify="center">
+
+                                                <v-btn type="submit" class="mt-4"
+                                                    style="background-color: #192b55; color: white; width: 100%;"
+                                                    value="log in" size="x-large">Registrar</v-btn>
+                                            </v-col>
+
+                                            <div class="d-flex flex-colum"
+                                                style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 100%;">
+                                                <v-sheet>
+                                                    <span>Iniciar Sesión</span>
+                                                </v-sheet>
+
+
+
+                                            </div>
                                         </form>
                                     </v-card-text>
                                 </v-card>
                             </v-sheet>
                         </v-col>
-                        <v-col cols="4" v-for="n in 1" :key="n" class="invertDaka" style="background-color: none;">
-                            <v-sheet class=" invertDaka" style="margin: 0;">
-                                <img class="cart daki invertDaka" src="../img/daki/daki-min.webp" width="400px"
-                                    height="400px" />
-                            </v-sheet>
+
+
+                    </v-row>
+                    <v-row class="fill-height" align="center" justify="center">
+                        <v-col cols="6" class="invertDaka">
+
+
+                            <v-card class="elevation-12">
+                                <v-img src="../img/channels4_banner.jpg" contain></v-img>
+                                <div class="d-flex justify-center pa-2">
+
+                                    <v-card-title>
+                                        Iniciar Sesión
+                                    </v-card-title>
+                                </div>
+
+
+                                <v-divider></v-divider>
+
+                                <v-card-text>
+                                    <input type="text" name="first" v-validate.continues="'required|alpha|min:5'">
+
+                                    <input type="text" name="second" v-validate.continues="'required|alpha|min:5'">
+
+                                    <ul>
+                                        <li v-for="error in errors.all()">{{ error }}</li>
+                                    </ul>
+
+                                    <form ref="form" @submit.prevent="login()">
+                                        <v-text-field v-model="username" name="username" label="Username" type="text"
+                                            placeholder="username" required></v-text-field>
+
+                                        <v-text-field v-model="password" name="password" label="Password"
+                                            type="password" placeholder="password" required></v-text-field>
+
+                                        <div class="d-flex flex-colum w-100 align-end justify-end">
+                                            <v-sheet>
+                                                <span style="color: #192b55;">Cambiar contraseña</span>
+                                            </v-sheet>
+
+                                        </div>
+
+
+                                        <v-col cols="auto" align="center" justify="center">
+
+                                            <v-btn type="submit" class="mt-4"
+                                                style="background-color: #192b55; color: white; width: 100%;"
+                                                value="log in" size="x-large">Login</v-btn>
+                                        </v-col>
+
+
+                                    </form>
+                                    <div class="d-flex flex-colum"
+                                        style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 100%;">
+                                        <v-sheet>
+                                            <span>Crear cuenta</span>
+                                        </v-sheet>
+
+
+
+                                    </div>
+
+
+                                </v-card-text>
+                            </v-card>
+
+
                         </v-col>
                     </v-row>
                 </v-container>
