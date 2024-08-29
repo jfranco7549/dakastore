@@ -9,6 +9,7 @@ var User = require('../models/user');
 const nodemailer = require("nodemailer");
 var moment = require('moment');
 const speakeasy = require('speakeasy');
+var bcrypt = require('bcrypt-nodejs');
 var router = express.Router();
 
 router.get('/probando', UserController.probando);
@@ -26,6 +27,11 @@ router.post("/resetPasssword", async (req, res) => {
     try {
 
         const user = await User.findOne({ email: req.body.email });
+      
+       
+        if (!user)
+            return res.status(400).send({message: "El email ingresado no se encuentra registrado", status: 400 });
+
         const secret = user.temp;
         var token = req.body.otp
 
@@ -38,11 +44,6 @@ router.post("/resetPasssword", async (req, res) => {
             // encoding format for the secret key
             encoding: 'base32'
         });
-        console.log('tokenValidates', code)
-        if (!user)
-            return res.status(400).send("user with given email doesn't exist");
-
-
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -59,9 +60,9 @@ router.post("/resetPasssword", async (req, res) => {
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
-            console.log('eeeeeey', error)
+            
         });
-
+        
 
         res.send("password reset link sent to your email account");
     } catch (error) {
@@ -90,8 +91,11 @@ router.post('/newPassword', async (req, res) => {
 
         console.log('valid', secret, otp, tokenValidates)
         if (tokenValidates) {
-
-            const user = await User.findOneAndUpdate({ email: req.body.email }, { password: password });
+            var newPassword;
+            await bcrypt.hash(password, null, null, (err, hash) => {
+                newPassword = hash
+            })
+            const user = await User.findOneAndUpdate({ email: req.body.email }, { password: newPassword });
 
             res.json({ validated: true, user, })
         } else {
@@ -111,19 +115,25 @@ router.post('/newPassword', async (req, res) => {
 }),
 
 router.post("/validate", async (req, res) => {
-        const { email, token } = req.body;
+        const { email, otp, password } = req.body;
         try {
             // Retrieve user from database
             const user = await User.findOne({ email: email });
+            const secret = user.temp.base32;
             console.log({ user })
-            const { secret } = user.temp;
+    
             // Returns true if the token matches
+    
+            console.log('tokenValidates', secret, otp)
+    
             const tokenValidates = speakeasy.totp.verify({
-                secret,
+                secret: secret,
                 encoding: 'base32',
-                token,
+                token: otp,
                 window: 1
             });
+    
+            console.log('valid', secret, otp, tokenValidates)
             if (tokenValidates) {
                 res.json({ validated: true })
             } else {
@@ -133,6 +143,10 @@ router.post("/validate", async (req, res) => {
             console.error(error);
             res.status(500).json({ message: 'Error retrieving user' })
         };
+    
+    
+    
+    
 })
 
 

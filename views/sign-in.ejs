@@ -56,7 +56,79 @@
         <v-app>
 
             <div class="fill-height">
+                <v-dialog persistent v-model="modal.quienes" transition="dialog-bottom-transition" max-width="600">
+
+                    <template v-slot:default="dialog">
+                        <v-card>
+                            <v-toolbar color="#143E8F" dark>Verifica tu identidad</v-toolbar>
+                            <v-card-text>
+
+                                <div id="map" class="map">
+                                    <form ref="form" @submit.prevent="forgotPassword()">
+                                        <div style="display: flex;justify-content: center;align-items: center;">
+                                            <v-text-field v-model="email" name="email" label="Email" type="text"
+                                                placeholder="Email" required></v-text-field>
+                                            <v-col cols="auto" align="center" justify="center">
+
+                                                <v-btn type="submit" class="mt-4"
+                                                    style="background-color: #192b55; color: white; width: 100%;"
+                                                    value="log in" size="x-large">Enviar token</v-btn>
+                                            </v-col>
+                                        </div>
+
+                                        <span> {{ respVerification }}</span>
+
+
+                                    </form>
+
+                                    <v-card-actions>
+                                        <div class="d-flex flex-colum w-100 align-end justify-end">
+                                            <!--v-sheet>
+                                                    <span style="color: #192b55;"
+                                                        @click.self="recoveryPassword($event)">Ingresar token</span>
+                                                </v-sheet-->
+                                            <template>
+                                                <v-otp-input v-model="otp" :length="length" filled></v-otp-input>
+                                            </template>
+
+
+                                        </div>
+                                    </v-card-actions>
+                                    <form ref="form" @submit.prevent="newPassword()" v-if="seeChangePassword">
+                                        <v-text-field v-model="password" name="password" label="New Password"
+                                            type="text" placeholder="password" required></v-text-field>
+
+                                        <v-text-field v-model="passwordcheck" name="passwordcheck"
+                                            label="Confirm Password" type="password" placeholder="password"
+                                            required></v-text-field>
+
+
+                                        <v-col cols="auto" align="center" justify="center">
+                                            <v-btn type="submit" class="mt-4"
+                                                style="background-color: #192b55; color: white; width: 100%;"
+                                                value="log in" size="x-large">Cambiar contraseña</v-btn>
+                                        </v-col>
+
+                                    </form>
+                                </div>
+
+
+                                <div id="info"></div>
+                            </v-card-text>
+                            <v-card-actions class="justify-end">
+                                <v-btn text @click="modal.quienes = false">Close</v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </template>
+                </v-dialog>
                 <v-container class="mb-6 fill-height">
+                    <template>
+                        <v-badge
+                        color="success"
+                        content="Se ha actualizado la constraseña exitosamente"
+                        inline
+                      ></v-badge>
+                      </template>
                     <v-row class="fill-height" align="center" justify="center">
                         <v-col cols="6" v-for="n in 1" :key="n">
                             <v-sheet style="background: whitesmoke !important; width: 100%;">
@@ -130,9 +202,8 @@
 
                     </v-row>
                     <v-row class="fill-height" align="center" justify="center">
+                      
                         <v-col cols="6" class="invertDaka">
-
-
                             <v-card class="elevation-12">
                                 <v-img src="../img/channels4_banner.jpg" contain></v-img>
                                 <div class="d-flex justify-center pa-2">
@@ -153,19 +224,20 @@
                                     <ul>
                                         <li v-for="error in errors.all()">{{ error }}</li>
                                     </ul>
-
+                                    <span>{{ messageProcess }}</span>
+                                 
                                     <form ref="form" @submit.prevent="login()">
-                                        <v-text-field v-model="username" name="username" label="Username" type="text"
-                                            placeholder="username" required></v-text-field>
+                                        <v-text-field v-model="email" name="email" label="Email" type="text"
+                                            placeholder="Email" required></v-text-field>
 
                                         <v-text-field v-model="password" name="password" label="Password"
                                             type="password" placeholder="password" required></v-text-field>
 
                                         <div class="d-flex flex-colum w-100 align-end justify-end">
                                             <v-sheet>
-                                                <span style="color: #192b55;">Cambiar contraseña</span>
+                                                <span style="color: #192b55;"
+                                                    @click.self="recoveryPassword($event)">Olvidé mi contraseña</span>
                                             </v-sheet>
-
                                         </div>
 
 
@@ -302,10 +374,46 @@
                     lastname: "",
                     password: "",
                     passwordcheck: "",
-                    email: ""
+                    email: "",
+                    seeChangePassword: false,
+                    messageProcess: "",
+                    viewMessage: false,
+                     otp: "",
+                    respVerification: "",
+                    length: 6,
+                    modal: {
+                        servicios: false,
+                        quienes: false
+                    },
                 };
             },
+            computed: {
+                isActive() {
+
+                    if (this.otp.length === this.length) {
+                        this.seeChangePassword = true
+                        this.sendToken()
+                    }
+
+                },
+            },
+            watch: {
+                otp: function () {
+                    if (this.otp.length === this.length) {
+                        this.seeChangePassword = true
+                        this.sendToken()
+                    }
+
+                },
+            },
             methods: {
+                recoveryPassword() {
+                    this.modal.quienes = !this.modal.quienes
+                },
+                setMessageProcess(message) {
+                    this.messageProcess = message
+                    this.viewMessage = true
+                },
                 async register() {
                     const { username, lastname, password, email, } = this;
                     console.log(username + "logged in")
@@ -334,16 +442,99 @@
                             console.error(err);
                         });
                 },
+                async sendToken() {
+                    const { otp, email } = this;
+                    console.log(email + "logged in")
+                    fetch('http://localhost:81/user/validate', {
+                        method: "POST",
+                        body: JSON.stringify({
+                            "email": email,
+                            "otp": otp
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+
+                        },
+                    })
+                        .then((response) => {
+                            console.log('response', JSON.parse(response.status))
+                            this.seeChangePassword = true
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                },
+                async forgotPassword() {
+                    const { email } = this;
+                    console.log(email + "logged in")
+
+                    try {
+                        const req = await fetch('http://localhost:81/user/resetPasssword', {
+                            method: "POST",
+                            body: JSON.stringify({
+                                "email": email,
+                            }),
+                            headers: {
+                                "Content-Type": "application/json",
+
+                            },
+                        })
+
+                        this.respVerification = req.status == 400 ? 'El email ingresado no fue encontrado' : 'Se ha enviado el token...';
+                    } catch (err) {
+                        consol.elog('err')
+
+                    }
+
+                },
+                async newPassword() {
+                    const { email, otp, password } = this;
+
+                     await fetch('http://localhost:81/user/newPassword', {
+                        method: "POST",
+                        body: JSON.stringify({
+                            "email": email,
+                            "otp": otp,
+                            "password": password
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+
+                        },
+                    }).then((
+                        response
+                    ) => {
+                        console.log('response', response, response.ok)
+                        let that = this
+                        if (response.ok) {
+
+                            this.setMessageProcess('Se cambio la contraseña exitosamente')
+                            setTimeout(() => {
+                                this.recoveryPassword()
+                            }, 2000);
+
+                        } else {
+                            messageProcess = 'Error en el cambio de contraseña'
+                        }
+
+                    });
+
+
+
+
+
+
+
+
+                },
                 async login() {
-                    const { username, password } = this;
-                    console.log(username + "logged in")
+                    const { email, password } = this;
+                    console.log(email + "logged in")
                     fetch('http://localhost:81/user/login', {
                         method: "POST",
                         body: JSON.stringify({
-                            "name": "Mariana Virginia",
-                            "lastname": "Juarez",
-                            "email": "marthaa2sa@gmail.com",
-                            "password": "12345678",
+                            "email": email,
+                            "password": password,
                             "oldPassword": "20242024",
                             "newPassword": "20242024"
                         }),
@@ -362,6 +553,9 @@
                             console.error(err);
                         });
                 },
+            },
+            setToken(respVerification) {
+                this.respVerification = respVerification.message
             },
             checkForm: function (e) {
                 if (this.name && this.password) {
