@@ -121,15 +121,7 @@
                         </v-card>
                     </template>
                 </v-dialog>
-                <v-container class="mb-6 fill-height">
-                    <template>
-                        <v-badge
-                        color="success"
-                        content="Se ha actualizado la constraseña exitosamente"
-                        inline
-                      ></v-badge>
-                      </template>
-                    <v-row class="fill-height" align="center" justify="center">
+                    <v-row class="fill-height" justify="center" v-if="seeRegister" style="padding: 10px;">
                         <v-col cols="6" v-for="n in 1" :key="n">
                             <v-sheet style="background: whitesmoke !important; width: 100%;">
                                 <v-card class="elevation-12">
@@ -187,7 +179,7 @@
                                             <div class="d-flex flex-colum"
                                                 style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 100%;">
                                                 <v-sheet>
-                                                    <span>Iniciar Sesión</span>
+                                                    <span @click.self="setSeeLogin()">Iniciar Sesión</span>
                                                 </v-sheet>
 
 
@@ -253,7 +245,7 @@
                                     <div class="d-flex flex-colum"
                                         style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 100%;">
                                         <v-sheet>
-                                            <span>Crear cuenta</span>
+                                            <span   @click.self="setSeeRegister()">Crear cuenta</span>
                                         </v-sheet>
 
 
@@ -267,7 +259,6 @@
 
                         </v-col>
                     </v-row>
-                </v-container>
 
             </div>
             <!--v-main  class="invertDaka">
@@ -376,6 +367,8 @@
                     passwordcheck: "",
                     email: "",
                     seeChangePassword: false,
+                    seeRegister: false,
+                    seeLogin: true,
                     messageProcess: "",
                     viewMessage: false,
                      otp: "",
@@ -407,6 +400,14 @@
                 },
             },
             methods: {
+                setSeeRegister() {
+                    this.seeLogin = false
+                    this.seeRegister = true;
+                },
+                setSeeLogin() {
+                    this.seeLogin = true
+                    this.seeRegister = false;
+                },
                 recoveryPassword() {
                     this.modal.quienes = !this.modal.quienes
                 },
@@ -434,7 +435,7 @@
                     })
                         .then((response) => {
                             response.json().then((data) => {
-                                this.fact = data[0].fact;
+                                console.log('data', data)
                             });
 
                         })
@@ -545,7 +546,7 @@
                     })
                         .then((response) => {
                             response.json().then((data) => {
-                                this.fact = data[0].fact;
+                                console.log('data', data)
                             });
 
                         })
