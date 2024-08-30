@@ -96,7 +96,7 @@
                                     </v-card-actions>
                                     <form ref="form" @submit.prevent="newPassword()" v-if="seeChangePassword">
                                         <v-text-field v-model="password" name="password" label="New Password"
-                                            type="text" placeholder="password" required></v-text-field>
+                                            type="password" placeholder="password" required></v-text-field>
 
                                         <v-text-field v-model="passwordcheck" name="passwordcheck"
                                             label="Confirm Password" type="password" placeholder="password"
@@ -159,11 +159,11 @@
                                                 required></v-text-field>
 
                                             <v-text-field v-validate="'required'" prepend-icon="mdi-lock" ref="password"
-                                                v-model="password" name="password" label="Password" type="text"
+                                                v-model="password" name="password" label="Password" type="password"
                                                 placeholder="password" required></v-text-field>
                                             <v-text-field v-validate="'required|confirmed:password'"
                                                 prepend-icon="mdi-lock" v-model="passwordcheck" name="passwordcheck"
-                                                label="Repeat Password" type="text" placeholder="passwordcheck"
+                                                label="Repeat Password" type="password" placeholder="passwordcheck"
                                                 required>
                                                 <span v-show="errors.has('password_confirmation')"
                                                     class="help is-danger">{{ errors.first('password_confirmation')
