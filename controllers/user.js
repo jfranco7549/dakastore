@@ -52,7 +52,7 @@ var controller = {
             //Comprobar si el usuario existe, 
             const userData = await User.findOne({ email: params.email.toLowerCase() })
 
-            if (!userData) {
+            if (userData) {
                 bcrypt.hash(params.password, null, null, (err, hash) => {
                     user.password = hash;
                 })
