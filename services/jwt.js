@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 var moment = require('moment');
 
 exports.createToken = function (user) {
-    console.log('token', user)
+  
 
     var payload = {
         sub: user._id,

@@ -28,10 +28,22 @@ const mongouri = 'mongodb://localhost:27017/dkstore'
 mongoose.connect(mongouri).then(db => console.log('DB is Conneted')).catch(err => {
   console.log(err)
 })
-
+const session = require('express-session');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+var cookies = require("cookie-parser");
+app.use(cookies());
+app.use(session({
+  secret: 'your_secret_key', // A secret key used to sign the session ID cookie
+  resave: false, // Forces the session to be saved back to the session store
+  saveUninitialized: false, // Forces a session that is "uninitialized" to be saved to the store
+  cookie: {
+    maxAge: 3600000, // Sets the cookie expiration time in milliseconds (1 hour here)
+    httpOnly: true, // Reduces client-side script control over the cookie
+    secure: true, // Ensures cookies are only sent over HTTPS
+  }
+}));
 app.set('view engine', 'ejs');
 app.use(compression())
 
@@ -40,7 +52,6 @@ app.use('/direccion', require('./routes/direccion.js'));
 app.use('/producto', require('./routes/producto.js'));
 app.use('/postventa', require('./routes/tc.js'));
 app.use('/user', require('./routes/user.js'));
-
 app.use(express.static(__dirname + '/public'))
 //app.use('/socket', require('./routes/socket'));
 let port = 81

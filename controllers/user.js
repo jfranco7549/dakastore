@@ -116,12 +116,13 @@ var controller = {
                         message: 'Error al validar'
                     })
                 }
-
-                res.status(200).send({
+               var token = jwt.createToken(userData)
+                res.cookie('access_token', token, { httpOnly: true, sameSite: 'strict' }).send({
                     status: "success",
-                    userData,
-                    token: jwt.createToken(userData)
-                })
+
+                  })
+              
+
 
             })
         }

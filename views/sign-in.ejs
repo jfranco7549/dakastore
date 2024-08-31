@@ -121,87 +121,15 @@
                         </v-card>
                     </template>
                 </v-dialog>
-                    <v-row class="fill-height" justify="center" v-if="seeRegister" style="padding: 10px;">
-                        <v-col cols="6" v-for="n in 1" :key="n">
-                            <v-sheet style="background: whitesmoke !important; width: 100%;">
-                                <v-card class="elevation-12">
-                                    <v-img src="../img/channels4_banner.jpg" contain></v-img>
-                                    <div class="d-flex justify-center pa-2">
-
-                                        <v-card-title>
-                                            Registro
-                                        </v-card-title>
-                                    </div>
-
-
-                                    <v-divider></v-divider>
-
-                                    <v-card-text>
-
-
-                                        <ul>
-                                            <li v-for="error in errors.all()">{{ error }}</li>
-                                        </ul>
-
-
-                                        <form ref="form" @submit.prevent="register()" class="w-full">
-
-                                            <v-text-field v-validate.continues="'required|alpha|min:5'"
-                                                prepend-icon="mdi-account" v-model="username" name="username"
-                                                label="Username" type="text" placeholder="username"
-                                                required></v-text-field>
-                                            <v-text-field v-validate.continues="'required|alpha|min:5'"
-                                                prepend-icon="mdi-account" v-model="lastname" name="lastname"
-                                                prepend-icon="mdi-account" label="Lastname" type="text"
-                                                placeholder="lastname" required></v-text-field>
-                                            <v-text-field v-model="email" prepend-icon="mdi-mail" name="email"
-                                                label="Lastname" type="text" placeholder="email"
-                                                required></v-text-field>
-
-                                            <v-text-field v-validate="'required'" prepend-icon="mdi-lock" ref="password"
-                                                v-model="password" name="password" label="Password" type="password"
-                                                placeholder="password" required></v-text-field>
-                                            <v-text-field v-validate="'required|confirmed:password'"
-                                                prepend-icon="mdi-lock" v-model="passwordcheck" name="passwordcheck"
-                                                label="Repeat Password" type="password" placeholder="passwordcheck"
-                                                required>
-                                                <span v-show="errors.has('password_confirmation')"
-                                                    class="help is-danger">{{ errors.first('password_confirmation')
-                                                    }}</span></v-text-field>
-
-                                            <v-col cols="auto" align="center" justify="center">
-
-                                                <v-btn type="submit" class="mt-4"
-                                                    style="background-color: #192b55; color: white; width: 100%;"
-                                                    value="log in" size="x-large">Registrar</v-btn>
-                                            </v-col>
-
-                                            <div class="d-flex flex-colum"
-                                                style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 100%;">
-                                                <v-sheet>
-                                                    <span @click.self="setSeeLogin()">Iniciar Sesión</span>
-                                                </v-sheet>
-
-
-
-                                            </div>
-                                        </form>
-                                    </v-card-text>
-                                </v-card>
-                            </v-sheet>
-                        </v-col>
-
-
-                    </v-row>
-                    <v-row class="fill-height" align="center" justify="center">
-                      
-                        <v-col cols="6" class="invertDaka">
+                <v-row class="fill-height" justify="center" v-if="seeRegister" style="padding: 10px;">
+                    <v-col cols="6" v-for="n in 1" :key="n">
+                        <v-sheet style="background: whitesmoke !important; width: 100%;">
                             <v-card class="elevation-12">
                                 <v-img src="../img/channels4_banner.jpg" contain></v-img>
                                 <div class="d-flex justify-center pa-2">
 
                                     <v-card-title>
-                                        Iniciar Sesión
+                                        Registro
                                     </v-card-title>
                                 </div>
 
@@ -209,56 +137,125 @@
                                 <v-divider></v-divider>
 
                                 <v-card-text>
-                                    <input type="text" name="first" v-validate.continues="'required|alpha|min:5'">
 
-                                    <input type="text" name="second" v-validate.continues="'required|alpha|min:5'">
 
                                     <ul>
                                         <li v-for="error in errors.all()">{{ error }}</li>
                                     </ul>
-                                    <span>{{ messageProcess }}</span>
-                                 
-                                    <form ref="form" @submit.prevent="login()">
-                                        <v-text-field v-model="email" name="email" label="Email" type="text"
-                                            placeholder="Email" required></v-text-field>
 
-                                        <v-text-field v-model="password" name="password" label="Password"
-                                            type="password" placeholder="password" required></v-text-field>
 
-                                        <div class="d-flex flex-colum w-100 align-end justify-end">
-                                            <v-sheet>
-                                                <span style="color: #192b55;"
-                                                    @click.self="recoveryPassword($event)">Olvidé mi contraseña</span>
-                                            </v-sheet>
-                                        </div>
+                                    <form ref="form" @submit.prevent="register()" class="w-full">
 
+                                        <v-text-field v-validate.continues="'required|alpha|min:5'"
+                                            prepend-icon="mdi-account" v-model="username" name="username"
+                                            label="Username" type="text" placeholder="username" required></v-text-field>
+                                        <v-text-field v-validate.continues="'required|alpha|min:5'"
+                                            prepend-icon="mdi-account" v-model="lastname" name="lastname"
+                                            prepend-icon="mdi-account" label="Lastname" type="text"
+                                            placeholder="lastname" required></v-text-field>
+                                        <v-text-field v-model="email" prepend-icon="mdi-mail" name="email"
+                                            label="Lastname" type="text" placeholder="email" required></v-text-field>
+
+                                        <v-text-field v-validate="'required'" prepend-icon="mdi-lock" ref="password"
+                                            v-model="password" name="password" label="Password" type="password"
+                                            placeholder="password" required></v-text-field>
+                                        <v-text-field v-validate="'required|confirmed:password'" prepend-icon="mdi-lock"
+                                            v-model="passwordcheck" name="passwordcheck" label="Repeat Password"
+                                            type="password" placeholder="passwordcheck" required>
+                                            <span v-show="errors.has('password_confirmation')" class="help is-danger">{{
+                                                errors.first('password_confirmation')
+                                                }}</span></v-text-field>
 
                                         <v-col cols="auto" align="center" justify="center">
 
                                             <v-btn type="submit" class="mt-4"
                                                 style="background-color: #192b55; color: white; width: 100%;"
-                                                value="log in" size="x-large">Login</v-btn>
+                                                value="log in" size="x-large">Registrar</v-btn>
                                         </v-col>
 
+                                        <div class="d-flex flex-colum"
+                                            style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 100%;">
+                                            <v-sheet>
+                                                <span @click.self="setSeeLogin()">Iniciar Sesión</span>
+                                            </v-sheet>
 
+
+
+                                        </div>
                                     </form>
-                                    <div class="d-flex flex-colum"
-                                        style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 100%;">
+                                </v-card-text>
+                            </v-card>
+                        </v-sheet>
+                    </v-col>
+
+
+                </v-row>
+                <v-row class="fill-height" align="center" justify="center">
+
+                    <v-col cols="6" class="invertDaka">
+                        <v-card class="elevation-12">
+                            <v-img src="../img/channels4_banner.jpg" contain></v-img>
+                            <div class="d-flex justify-center pa-2">
+
+                                <v-card-title>
+                                    Iniciar Sesión
+                                </v-card-title>
+                            </div>
+
+
+                            <v-divider></v-divider>
+
+                            <v-card-text>
+                                <input type="text" name="first" v-validate.continues="'required|alpha|min:5'">
+
+                                <input type="text" name="second" v-validate.continues="'required|alpha|min:5'">
+
+                                <ul>
+                                    <li v-for="error in errors.all()">{{ error }}</li>
+                                </ul>
+                                <span>{{ messageProcess }}</span>
+
+                                <form ref="form" @submit.prevent="login()">
+                                    <v-text-field v-model="email" name="email" label="Email" type="text"
+                                        placeholder="Email" required></v-text-field>
+
+                                    <v-text-field v-model="password" name="password" label="Password" type="password"
+                                        placeholder="password" required></v-text-field>
+
+                                    <div class="d-flex flex-colum w-100 align-end justify-end">
                                         <v-sheet>
-                                            <span   @click.self="setSeeRegister()">Crear cuenta</span>
+                                            <span style="color: #192b55;" @click.self="recoveryPassword($event)">Olvidé
+                                                mi contraseña</span>
                                         </v-sheet>
-
-
-
                                     </div>
 
 
-                                </v-card-text>
-                            </v-card>
+                                    <v-col cols="auto" align="center" justify="center">
+
+                                        <v-btn type="submit" class="mt-4"
+                                            style="background-color: #192b55; color: white; width: 100%;" value="log in"
+                                            size="x-large">Login</v-btn>
+                                    </v-col>
 
 
-                        </v-col>
-                    </v-row>
+                                </form>
+                                <div class="d-flex flex-colum"
+                                    style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 100%;">
+                                    <v-sheet>
+                                        <span @click.self="setSeeRegister()">Crear cuenta</span>
+                                    </v-sheet>
+
+
+
+                                </div>
+
+
+                            </v-card-text>
+                        </v-card>
+
+
+                    </v-col>
+                </v-row>
 
             </div>
             <!--v-main  class="invertDaka">
@@ -351,6 +348,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/2.2.9/vee-validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.4.7/dist/vee-validate-rules.min.js"></script>
+
     <script>
         Vue.use(VeeValidate); // good to go.
     </script>
@@ -371,7 +369,7 @@
                     seeLogin: true,
                     messageProcess: "",
                     viewMessage: false,
-                     otp: "",
+                    otp: "",
                     respVerification: "",
                     length: 6,
                     modal: {
@@ -491,7 +489,7 @@
                 async newPassword() {
                     const { email, otp, password } = this;
 
-                     await fetch('http://localhost:81/user/newPassword', {
+                    await fetch('http://localhost:81/user/newPassword', {
                         method: "POST",
                         body: JSON.stringify({
                             "email": email,
@@ -531,6 +529,7 @@
                 async login() {
                     const { email, password } = this;
                     console.log(email + "logged in")
+                    var token = '';
                     fetch('http://localhost:81/user/login', {
                         method: "POST",
                         body: JSON.stringify({
@@ -545,15 +544,40 @@
                         },
                     })
                         .then((response) => {
-                            response.json().then((data) => {
-                                console.log('data', data)
+                            console.log('respooonseee', response)
+                            response.json().then(async (data) => {
+                                token = data.token
+                                localStorage.setItem("accessToken", data.token);
+                                const article = { title: "Vue POST Request Example" };
+                                const headers = {
+                                    "Authorization": token,
+                                    "My-Custom-Header": "foobar"
+                                };
+
+                                fetch('http://localhost:81/repuestos', {
+                                    method: "GET",
+                                    headers: {
+                                        "Content-Type": "application/json",
+
+                                    },
+                                })
+
+                                window.location.reload(true);
+
                             });
+
+
 
                         })
                         .catch((err) => {
+
+                            //window.location.href = 'http://localhost:81/repuestos/',
                             console.error(err);
                         });
-                },
+
+
+
+                }
             },
             setToken(respVerification) {
                 this.respVerification = respVerification.message
