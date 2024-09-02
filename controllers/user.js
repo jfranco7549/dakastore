@@ -48,11 +48,12 @@ var controller = {
             user.lastname = params.lastname;
             user.role = params.role;
             user.email = params.email.toLowerCase();
-            user.temp =  speakeasy.generateSecret();
+            user.temp = speakeasy.generateSecret();
+            user.token = '';
             //Comprobar si el usuario existe, 
             const userData = await User.findOne({ email: params.email.toLowerCase() })
 
-            if (userData) {
+            if (!userData) {
                 bcrypt.hash(params.password, null, null, (err, hash) => {
                     user.password = hash;
                 })
@@ -109,21 +110,36 @@ var controller = {
         user.email = params.email.toLowerCase();
         const userData = await User.findOne({ email: params.email.toLowerCase() })
         if (userData) {
-            bcrypt.compare(params.password, userData.password, function (err, resp) {
+            bcrypt.compare(params.password, userData.password, async function (err, resp) {
 
                 if (err) {
                     res.status(400).send({
                         message: 'Error al validar'
                     })
                 }
-               var token = jwt.createToken(userData)
-                res.cookie('access_token', token, { httpOnly: true, sameSite: 'strict' }).send({
-                    status: "success",
+                var token = jwt.createToken(userData)
 
-                  })
-              
+                console.log('heeeeyy', userData, resp)
+                if (resp) {
 
+                    const filterExist = { email: params.email };
+                    const update = { token: token };
+                    const response = await User.findOneAndUpdate(filterExist, update, {
+                        new: true,
+                        upsert: true,
+                        // Return additional properties about the operation, not just the document
+                        includeResultMetadata: true
+                    });
+                    res.cookie('access_token', token, { httpOnly: true, sameSite: 'strict' }).send({
+                        status: "success",
+                        user: user,
+                    })
 
+                } else {
+                    res.status(400).send({
+                        message: 'Contraseña inválida'
+                    })
+                }
             })
         }
         else {

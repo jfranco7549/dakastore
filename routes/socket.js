@@ -9,6 +9,7 @@ let valor = 0
 const multer = require('multer');
 const upload = multer({ dest: "/img" });
 var md_auth = require('../middleware/authenticated');
+var User = require('../models/user');
 const jwt = require('jsonwebtoken');
 router.get('/c2p', async (req, res) => {
   res.render('c2p')
@@ -35,10 +36,17 @@ router.get('/repuestos/', async (req, res) => {
   if (!req.cookies.access_token) return res.render('sign-in', { menu: '' })
 
 
+  const filterExist = { token: req.cookies.access_token };
+
+  //Comprobar si el email es unico
+  var doc = await User.findOne(filterExist);
+  console.log('doc', doc)
+
 
   try {
     const token = req.cookies.access_token;
     const secretKey = 'mySecretKey';
+
     jwt.verify(token, secretKey)
 
     res.render('repuesto', { menu: '' })

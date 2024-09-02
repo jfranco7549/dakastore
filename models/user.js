@@ -11,6 +11,7 @@ var UserSchema = Schema({
     role: String,
     phone: String,
     temp: Object,
+    token: String,
     date: { type: Date, default: Date.now },
 })
 
