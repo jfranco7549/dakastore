@@ -416,7 +416,7 @@
                 async register() {
                     const { username, lastname, password, email, } = this;
                     console.log(username + "logged in")
-                    fetch('http://localhost:81/user/register', {
+                    fetch('/user/register', {
                         method: "POST",
                         body: JSON.stringify({
                             "name": username,
@@ -444,7 +444,7 @@
                 async sendToken() {
                     const { otp, email } = this;
                     console.log(email + "logged in")
-                    fetch('http://localhost:81/user/validate', {
+                    fetch('/user/validate', {
                         method: "POST",
                         body: JSON.stringify({
                             "email": email,
@@ -468,7 +468,7 @@
                     console.log(email + "logged in")
 
                     try {
-                        const req = await fetch('http://localhost:81/user/resetPasssword', {
+                        const req = await fetch('/user/resetPasssword', {
                             method: "POST",
                             body: JSON.stringify({
                                 "email": email,
@@ -489,7 +489,7 @@
                 async newPassword() {
                     const { email, otp, password } = this;
 
-                    await fetch('http://localhost:81/user/newPassword', {
+                    await fetch('/user/newPassword', {
                         method: "POST",
                         body: JSON.stringify({
                             "email": email,
@@ -530,7 +530,7 @@
                     const { email, password } = this;
                     console.log(email + "logged in")
                     var token = '';
-                    fetch('http://localhost:81/user/login', {
+                    fetch('/user/login', {
                         method: "POST",
                         body: JSON.stringify({
                             "email": email,
@@ -554,7 +554,7 @@
                                     "My-Custom-Header": "foobar"
                                 };
 
-                                fetch('http://localhost:81/repuestos', {
+                                fetch('/repuestos', {
                                     method: "GET",
                                     headers: {
                                         "Content-Type": "application/json",
