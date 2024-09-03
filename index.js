@@ -20,9 +20,9 @@ const router = express.Router();
 const multer = require('multer');
 
 const mongoose = require('mongoose')
-//const mongouri = 'mongodb://mercadeo:sPv8gOnU9c0hzAN00h3h@localhost:27230/'
+const mongouri = 'mongodb://mercadeo:sPv8gOnU9c0hzAN00h3h@localhost:27230/'
 //const mongouri = 'mongodb://sc:Y%3ByzC(Z9f%5ESc%5E%3C58Gx9Jwc0Y0lM5~o@3.23.208.239:27230/?authMechanism=DEFAULT'
-const mongouri = 'mongodb://localhost:27017/dkstore'
+//const mongouri = 'mongodb://localhost:27017/dkstore'
 
 // const mongouri = "mongodb+srv://jfranco:musiuito@cluster0.ogvcv9d.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(mongouri).then(db => console.log('DB is Conneted')).catch(err => {
