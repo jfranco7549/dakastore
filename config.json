@@ -1,0 +1,8 @@
+{
+    "create":"jfranco7549",
+    "db":"mongodb://mercadeo:sPv8gOnU9c0hzAN00h3h@localhost:27230/",
+    "port":{
+        "https":91,
+        "http":81
+    }
+}
