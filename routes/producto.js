@@ -446,7 +446,7 @@ try{
       router.get('/list/:categoria/:incio/:fin',  async (req,res)=>{
       try{
         let list = [];
-        let cand = await  articulo.find({status:true,categoria:req.params.categoria}).count()
+        let cand = await  articulo.find({status:true,categoria:req.params.categoria,}).count()
         let val = await  articulo.find({status:true,categoria:req.params.categoria}).limit(req.params.fin).skip(req.params.inicio)
         for( let articulo of val ){
         
@@ -470,7 +470,9 @@ try{
       router.get('/lists',  async (req,res)=>{
  try{
   let list = [];
-  let val = await  articulo.find( {status:true} )
+  let val = await  articulo.find( {status:true,categoria: {
+    $ne: "repuesto"
+  }} )
   for( let articulo of val ){
     if(articulo.status){
       let ar = await  Producto.findOne({sap:articulo.sap})
