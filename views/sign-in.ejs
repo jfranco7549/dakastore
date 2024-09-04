@@ -245,10 +245,9 @@
                                 </form>
                                 <!--div class="d-flex flex-colum"
                                     style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 100%;">
-                                    <!--v-sheet>
+                                    <v-sheet>
                                         <span @click.self="setSeeRegister()">Crear cuenta</span>
-                                    </v-sheet 
-                            -->
+                                    </v-sheet -->
 
 
 
@@ -561,20 +560,25 @@
                                         "My-Custom-Header": "foobar"
                                     };
 
-                                fetch('http://localhost:81/repuestos', {
-                                    method: "GET",
-                                    headers: {
-                                        "Content-Type": "application/json",
+                                    fetch('/repuestos', {
+                                        method: "GET",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                    })
+                                        .then((login) => {
+                                            window.location.reload(true);
+                                        })
 
-                                    }
-                                })
 
-                                window.location.reload(true);
+                             
                                 
 
                             });
 
-                        }
+                        }else {
+                                this.seeErrorLogin = 'Credenciales inválidas'
+                            }
 
                         })
                         .catch((err) => {
