@@ -272,6 +272,9 @@ async mounted() {
  
   
      methods: {
+      closeSession(){
+        console.log('epale')
+      },
        openModal(a){
           
            if(a == 'quienes'){

@@ -1,0 +1,8 @@
+{
+    "create":"jfranco7549",
+    "db":"mongodb://localhost:27017/dkstore",
+    "port":{
+        "https":91,
+        "http":81
+    }
+}

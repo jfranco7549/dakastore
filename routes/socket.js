@@ -23,35 +23,34 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/sign-in/', async (req, res) => {
-  valor = valor + 1
-  console.log("intervalo" + valor)
-  res.render('sign-in', { menu: '' })
-  //res.redirect('index.html')
+  res.render('sign-in', { menu: 'Epaleee' })
 })
 
 
 router.get('/repuestos/', async (req, res) => {
 
-
-  if (!req.cookies.access_token) return res.render('sign-in', { menu: '' })
+  if (!req.cookies.access_token) return res.status(403).render('sign-in', { menu: 'Ingrese sus credenciales' })
 
 
   const filterExist = { token: req.cookies.access_token };
 
   //Comprobar si el email es unico
   var doc = await User.findOne(filterExist);
-  console.log('doc', doc)
-
 
   try {
+
     const token = req.cookies.access_token;
     const secretKey = 'mySecretKey';
+   
+    if(doc &&  jwt.verify(token, secretKey)){
+      res.render('repuesto', { menu: '' })
+    }else{
+      res.render('sign-in', { menu: 'Error de credenciales' })
+    }
+ 
 
-    jwt.verify(token, secretKey)
-
-    res.render('repuesto', { menu: '' })
   } catch {
-    res.render('sign-in', { menu: '' })
+    return res.status(401).render('sign-in', { menu: 'Acceso no autorizado' })
   }
 
 })

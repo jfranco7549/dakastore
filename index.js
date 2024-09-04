@@ -1,5 +1,5 @@
 const express = require('express');
-
+const config = require('./config.json');
 const app = express();
 var bodyParser = require('body-parser')
 const http = require('http');
@@ -12,7 +12,7 @@ var options = {
   cert: fs.readFileSync('./ssl/code.crt')
 };
 
-https.createServer(options, app).listen(91);
+https.createServer(options, app).listen(config.port.https);
 var compression = require('compression')
 
 const router = express.Router();
@@ -20,9 +20,9 @@ const router = express.Router();
 const multer = require('multer');
 
 const mongoose = require('mongoose')
-//const mongouri = 'mongodb://mercadeo:sPv8gOnU9c0hzAN00h3h@localhost:27230/'
+const mongouri = config.db //'mongodb://mercadeo:sPv8gOnU9c0hzAN00h3h@localhost:27230/'
 //const mongouri = 'mongodb://sc:Y%3ByzC(Z9f%5ESc%5E%3C58Gx9Jwc0Y0lM5~o@3.23.208.239:27230/?authMechanism=DEFAULT'
-const mongouri = 'mongodb://localhost:27017/dkstore'
+//const mongouri = 'mongodb://localhost:27017/dkstore'
 
 // const mongouri = "mongodb+srv://jfranco:musiuito@cluster0.ogvcv9d.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(mongouri).then(db => console.log('DB is Conneted')).catch(err => {
@@ -54,7 +54,7 @@ app.use('/postventa', require('./routes/tc.js'));
 app.use('/user', require('./routes/user.js'));
 app.use(express.static(__dirname + '/public'))
 //app.use('/socket', require('./routes/socket'));
-let port = 81
+let port = config.port.http
 server.listen(port, () => {
   console.log('listening on *:' + port);
 });

@@ -153,8 +153,8 @@
                                             prepend-icon="mdi-account" v-model="lastname" name="lastname"
                                             prepend-icon="mdi-account" label="Lastname" type="text"
                                             placeholder="lastname" required></v-text-field>
-                                        <v-text-field v-model="email" prepend-icon="mdi-mail" name="email"
-                                            label="Email" type="text" placeholder="email" required></v-text-field>
+                                        <v-text-field v-model="email" prepend-icon="mdi-mail" name="email" label="Email"
+                                            type="text" placeholder="email" required></v-text-field>
 
                                         <v-text-field v-validate="'required'" prepend-icon="mdi-lock" ref="password"
                                             v-model="password" name="password" label="Password" type="password"
@@ -192,8 +192,9 @@
                 </v-row>
                 <v-row class="fill-height" align="center" justify="center">
 
-                    <v-col cols="6" class="invertDaka" style="width: 50%; display: flex;justify-content: center; align-items: center;">
-                        <v-card class="elevation-12" style="width: 70%;">
+                    <v-col cols="8" class="invertDaka"
+                        style="width: 100%; display: flex;justify-content: center; align-items: center;">
+                        <v-card class="elevation-12">
                             <v-img src="../img/channels4_banner.jpg" contain></v-img>
                             <div class="d-flex justify-center pa-2">
 
@@ -205,10 +206,9 @@
 
                             <v-divider></v-divider>
 
-                            <v-card-text>
-                                <input type="text" name="first" v-validate.continues="'required|alpha|min:5'">
 
-                                <input type="text" name="second" v-validate.continues="'required|alpha|min:5'">
+                            <v-card-text>
+
 
                                 <ul>
                                     <li v-for="error in errors.all()">{{ error }}</li>
@@ -230,6 +230,10 @@
                                     </div-->
 
 
+                                    <span id="menu" v-if="seeErrorLogin !== ''">
+                                        {{seeErrorLogin}}
+                                    </span>
+
                                     <v-col cols="auto" align="center" justify="center">
 
                                         <v-btn type="submit" class="mt-4"
@@ -239,7 +243,7 @@
 
 
                                 </form>
-                                <div class="d-flex flex-colum"
+                                <!--div class="d-flex flex-colum"
                                     style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 100%;">
                                     <v-sheet>
                                         <span @click.self="setSeeRegister()">Crear cuenta</span>
@@ -247,7 +251,7 @@
 
 
 
-                                </div>
+                                </div-->
 
 
                             </v-card-text>
@@ -353,6 +357,7 @@
         Vue.use(VeeValidate); // good to go.
     </script>
     <script>
+
         new Vue({
             el: '#app',
             vuetify: new Vuetify(),
@@ -364,6 +369,7 @@
                     password: "",
                     passwordcheck: "",
                     email: "",
+                    seeErrorLogin: '',
                     seeChangePassword: false,
                     seeRegister: false,
                     seeLogin: true,
@@ -416,7 +422,7 @@
                 async register() {
                     const { username, lastname, password, email, } = this;
                     console.log(username + "logged in")
-                    fetch('http://localhost:81/user/register', {
+                    fetch('/user/register', {
                         method: "POST",
                         body: JSON.stringify({
                             "name": username,
@@ -433,7 +439,7 @@
                     })
                         .then((response) => {
                             response.json().then((data) => {
-                                console.log('data', data)
+                                console.log('data---', data)
                             });
 
                         })
@@ -444,7 +450,7 @@
                 async sendToken() {
                     const { otp, email } = this;
                     console.log(email + "logged in")
-                    fetch('http://localhost:81/user/validate', {
+                    fetch('/user/validate', {
                         method: "POST",
                         body: JSON.stringify({
                             "email": email,
@@ -468,7 +474,7 @@
                     console.log(email + "logged in")
 
                     try {
-                        const req = await fetch('http://localhost:81/user/resetPasssword', {
+                        const req = await fetch('/user/resetPasssword', {
                             method: "POST",
                             body: JSON.stringify({
                                 "email": email,
@@ -489,7 +495,7 @@
                 async newPassword() {
                     const { email, otp, password } = this;
 
-                    await fetch('http://localhost:81/user/newPassword', {
+                    await fetch('/user/newPassword', {
                         method: "POST",
                         body: JSON.stringify({
                             "email": email,
@@ -530,7 +536,7 @@
                     const { email, password } = this;
                     console.log(email + "logged in")
                     var token = '';
-                    fetch('http://localhost:81/user/login', {
+                    fetch('/user/login', {
                         method: "POST",
                         body: JSON.stringify({
                             "email": email,
@@ -544,35 +550,35 @@
                         },
                     })
                         .then((response) => {
-                            console.log('respooonseee', response)
-                            response.json().then(async (data) => {
-                                token = data.token
-                                localStorage.setItem("accessToken", data.token);
-                                const article = { title: "Vue POST Request Example" };
-                                const headers = {
-                                    "Authorization": token,
-                                    "My-Custom-Header": "foobar"
-                                };
+                            if (response.ok) {
+                                response.json().then(async (data) => {
+                                    token = data.token
+                                    localStorage.setItem("accessToken", data.token);
+                                    const article = { title: "Vue POST Request Example" };
+                                    const headers = {
+                                        "Authorization": token,
+                                        "My-Custom-Header": "foobar"
+                                    };
 
-                                fetch('http://localhost:81/repuestos', {
-                                    method: "GET",
-                                    headers: {
-                                        "Content-Type": "application/json",
+                                    fetch('/repuestos', {
+                                        method: "GET",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                    })
+                                        .then((login) => {
+                                            window.location.reload(true);
+                                        })
 
-                                    },
                                 })
-
-                                window.location.reload(true);
-
-                            });
-
-
-
+                            } else {
+                                this.seeErrorLogin = 'Credenciales inválidas'
+                            }
                         })
                         .catch((err) => {
 
                             //window.location.href = 'http://localhost:81/repuestos/',
-                            console.error(err);
+                            console.error(err.message);
                         });
 
 

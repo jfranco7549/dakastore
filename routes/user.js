@@ -23,6 +23,11 @@ router.put('/update', md_auth.authenticated, UserController.update)
 router.get('/users', UserController.getUsers)
 router.put('/changePassword', md_auth.authenticated, UserController.changePassword)
 router.get('/user/:userId', UserController.getUser)
+router.post('/logout', async (req, res) => {
+   res.clearCookie('access_token').json({
+    message: 'Logout successful'
+   })
+});
 router.post("/resetPasssword", async (req, res) => {
     try {
 

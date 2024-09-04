@@ -79,6 +79,9 @@ new Vue({
 
 
   methods: {
+    closeSession() {
+      console.log('here')
+    },
     Activ(a) {
       console.log('corrio ', a)
       for (let clave in this.vista) {
