@@ -68,7 +68,7 @@ try{
 router.get('/destacado',  async (req,res)=>{
  try{
   let list = [];
-  let val = await  articulo.find({status:true,categoria: {
+  let val = await  articulo.find({status:true,familia: {
     $ne: "repuesto"
   }}).limit(6).sort({uv:-1});
   for(let i of val){
@@ -87,7 +87,7 @@ router.get('/destacado',  async (req,res)=>{
 router.get('/parati',  async (req,res)=>{
   try{
    let list = [];
-   let val = await  articulo.find({status:true,categoria: {
+   let val = await  articulo.find({status:true,familia: {
     $ne: "repuesto"
   }}).limit(6).sort({uv:1});
    for(let i of val){
@@ -106,16 +106,12 @@ router.get('/parati',  async (req,res)=>{
 router.get('/lineas/:linea',  async (req,res)=>{
   try{
     let list = [];
-  let cant  =  await  articulo.find({familia:req.params.linea,status:true,categoria: {
-    $ne: "repuesto"
-  }}).count()
+  let cant  =  await  articulo.find({familia:req.params.linea,status:true}).count()
 
   cant = cant - 3
   cant = Math.round(Math.random() * cant)
 
-  let val = await  articulo.find({familia:req.params.linea,status:true,categoria: {
-    $ne: "repuesto"
-  }}).skip(cant).limit(3)
+  let val = await  articulo.find({familia:req.params.linea,status:true}).skip(cant).limit(3)
   
   for(let i of val){
 
@@ -136,10 +132,10 @@ router.get('/lineas/:linea',  async (req,res)=>{
 router.get('/list',  async (req,res)=>{
 try{
   let list = [];
-  let val = await  articulo.find({status:true,categoria: {
+  let val = await  articulo.find({status:true,familia: {
     $ne: "repuesto"
   }}).limit(20)
-  let cant =  await  articulo.find({status:true,categoria: {
+  let cant =  await  articulo.find({status:true,familia: {
     $ne: "repuesto"
   }}).count() 
 
@@ -153,7 +149,7 @@ try{
     }
      
   }
-
+  console.log(list)
      res.json({valor:list,n:cant})
 }catch(err){
  
@@ -162,17 +158,14 @@ try{
       })
 
       router.get('/listR',  async (req,res)=>{
+        console.log("repuesto lista")
         try{
           let list = [];
           let val = await  articulo.find({
-            sap: {
-              $regex: "^(31|32)"
-            }
+            familia:'repuesto',status:true
           }).limit(20)
-          let cant =  await  articulo.find({
-            sap: {
-              $regex: "^(31|32)"
-            }
+          let cant =  await  articulo.find({ 
+            familia:'repuesto',status:true
           }).count() 
         
           for( let articulo of val ){
@@ -202,10 +195,10 @@ try{
           }
           
           let list = [];
-          let val = await  articulo.find({status:true,promo:true,categoria: {
+          let val = await  articulo.find({status:true,promo:true,familia: {
             $ne: "repuesto"
           }}).skip(req.params.inicio).limit(req.params.fin)
-          let cont = await  articulo.find({status:true,promo:true,categoria: {
+          let cont = await  articulo.find({status:true,promo:true,familia: {
             $ne: "repuesto"
           }}).count()
          
@@ -229,6 +222,7 @@ try{
         }
             })
             router.get('/listR/:inicio/:fin',  async (req,res)=>{
+              console.log("repuesto lista con index")
               try{
                 if(req.params.inicio < 0){
                   req.params.inicio = 0
@@ -239,14 +233,10 @@ try{
                
                 let list = [];
                 let val = await  articulo.find({
-                  sap: {
-                    $regex: "^(31|32)"
-                  }
+                  familia:'repuesto',status:true
                 }).skip(req.params.inicio).limit(req.params.fin)
                 let cont = await  articulo.find({
-                  sap: {
-                    $regex: "^(31|32)"
-                  }
+                  familia:'repuesto',status:true
                 }).count()
        
                 for( let articulo of val ){
@@ -279,10 +269,10 @@ try{
           }
          
           let list = [];
-          let val = await  articulo.find({status:true,categoria: {
+          let val = await  articulo.find({status:true,familia: {
             $ne: "repuesto"
           }}).skip(req.params.inicio).limit(req.params.fin)
-          let cont = await  articulo.find({status:true,categoria: {
+          let cont = await  articulo.find({status:true,familia: {
             $ne: "repuesto"
           }}).count()
  
@@ -296,7 +286,7 @@ try{
             }
              
           }
-        
+          console.log("tv",list)
              res.json({valor:list,n:cont})
 
         }catch(err){
@@ -321,7 +311,7 @@ try{
      
         for( let p of prod ){
 
-          let ar = await  articulo.findOne({sap:p.sap,status:true,categoria: {
+          let ar = await  articulo.findOne({sap:p.sap,status:true,familia: {
             $ne: "repuesto"
           }})
               
@@ -346,7 +336,7 @@ try{
             })
             //descrip producto
             router.get('/list_desr/:desp/:inicio/:fin',  async (req,res)=>{
-
+console.log("repuesto descripcion")
               try{
                        //descripcion para la busqueda
           /*{descripcion: { $regex: '.*' +  + '.*' } }  */
@@ -446,8 +436,12 @@ try{
       router.get('/list/:categoria/:incio/:fin',  async (req,res)=>{
       try{
         let list = [];
-        let cand = await  articulo.find({status:true,categoria:req.params.categoria,}).count()
-        let val = await  articulo.find({status:true,categoria:req.params.categoria}).limit(req.params.fin).skip(req.params.inicio)
+        let cand = await  articulo.find({status:true,categoria:req.params.categoria,familia: {
+          $ne: "repuesto"
+        }}).count()
+        let val = await  articulo.find({status:true,categoria:req.params.categoria,familia: {
+          $ne: "repuesto"
+        }}).limit(req.params.fin).skip(req.params.inicio)
         for( let articulo of val ){
         
             let ar = await  Producto.findOne({sap:articulo.sap})
@@ -470,7 +464,7 @@ try{
       router.get('/lists',  async (req,res)=>{
  try{
   let list = [];
-  let val = await  articulo.find( {status:true,categoria: {
+  let val = await  articulo.find( {status:true,familia: {
     $ne: "repuesto"
   }} )
   for( let articulo of val ){

@@ -366,8 +366,8 @@ new Vue({
       this.pag.cant = cant
     },
     async getproductoR() {
-
-      let res = await fetch('/producto/listR')
+      if(window.location.pathname == "/repuestos"){
+         let res = await fetch('/producto/listR')
       res = await res.json()
       this.articulosR = res.valor
       let cant = res.n
@@ -376,6 +376,8 @@ new Vue({
       }
       this.pag.ruta = '/producto/listR',
         this.pag.cant = cant
+      }
+     
     },
 
     async Getlinea(a) {
