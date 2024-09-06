@@ -349,7 +349,7 @@ console.log("repuesto descripcion")
    
           for( let p of prod ){
  
-            let ar = await  articulo.findOne({sap:p.sap,categoria:'repuesto'})
+            let ar = await  articulo.findOne({sap:p.sap,familia:'repuesto'})
            
              
               if(ar){
