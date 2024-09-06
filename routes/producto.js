@@ -149,7 +149,7 @@ try{
     }
      
   }
-  console.log(list)
+  
      res.json({valor:list,n:cant})
 }catch(err){
  
@@ -158,7 +158,7 @@ try{
       })
 
       router.get('/listR',  async (req,res)=>{
-        console.log("repuesto lista")
+
         try{
           let list = [];
           let val = await  articulo.find({
@@ -343,13 +343,13 @@ console.log("repuesto descripcion")
           let descrip = req.params.desp
          
           let list = [];
-        let cand = await Producto.find( {linea:"repuesto" ,descripcion: { $regex: '.*' + descrip + '.*' } }).count()
+        let cand = await Producto.find( {linea:"repuesto" ,status:true,descripcion: { $regex: '.*' + descrip + '.*' } }).count()
         
-          let prod = await  Producto.find( {linea:"repuesto" ,descripcion: { $regex: '.*' + descrip + '.*' } }).skip(req.params.inicio).limit(req.params.fin)
+          let prod = await  Producto.find( {linea:"repuesto",status:true ,descripcion: { $regex: '.*' + descrip + '.*' } }).skip(req.params.inicio).limit(req.params.fin)
    
           for( let p of prod ){
  
-            let ar = await  articulo.findOne({sap:p.sap,familia:'repuesto'})
+            let ar = await  articulo.findOne({sap:p.sap,status:true,familia:'repuesto'})
            
              
               if(ar){

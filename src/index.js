@@ -271,10 +271,14 @@ new Vue({
       }, "2000")
 
     }
+    if(window.location.pathname == "/repuestos"){
+      this.getproductoR()
+    }else{
+      this.getproducto()
+    }
+   
 
-    this.getproducto()
-
-    this.getproductoR()
+    
   },
 
   methods: {
@@ -366,7 +370,7 @@ new Vue({
       this.pag.cant = cant
     },
     async getproductoR() {
-      if(window.location.pathname == "/repuestos"){
+      
          let res = await fetch('/producto/listR')
       res = await res.json()
       this.articulosR = res.valor
@@ -376,7 +380,7 @@ new Vue({
       }
       this.pag.ruta = '/producto/listR',
         this.pag.cant = cant
-      }
+      
      
     },
 
