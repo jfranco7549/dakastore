@@ -4,6 +4,25 @@
 <head>
   <!-- Google Tag Manager -->
   <!-- Google tag (gtag.js) -->
+   
+    <!-- Global site titanpush (tpush.js) - TITANPush -- v2.1.0a -->
+    <script>
+                    
+      if(!window['_WPN']) {
+      (function(j,l,p,v,n,t,pu){j['_WPN']=n;j[n]=j[n]||function(){(j[n].q=j[n].q
+      ||[]).push(arguments)},j[n].l=1*new
+      Date();t=l.createElement(p),pu=l.getElementsByTagName(p)[0];t.async=1;
+      t.src=v;pu.parentNode.insertBefore(t,pu);})(window,document,'script',
+      'https://d12zyq17vm1xwx.cloudfront.net/v2/wpn.min.js','wpn');
+
+      wpn('initialize', 51601);
+      wpn('checkSubscription');
+      wpn('pageView');
+}   
+ </script>
+              
+
+              
   <link rel="apple-touch-icon" sizes="180x180" href="../img/icondk/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../img/icondk/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../img/icondk/favicon-16x16.png">
@@ -52,6 +71,7 @@
 
     body {
       font-family: "AktivGrotesk";
+      overscroll-behavior-y: contain;
     }
 
     .closeb {
@@ -81,11 +101,7 @@
     }
 
 
-    .noscroll {
-      overflow: hidden;
-
-    }
-
+  
     .invertDaka {
       background-color: #192b55;
       color: #f8e000;
@@ -410,7 +426,7 @@
     <v-app>
       <v-main>
 
-        <v-app-bar absolute hide-on-scroll height='60' style="position: sticky;touch-action: none;" dense
+        <v-app-bar absolute height='60' style="position: sticky; touch-action: none;" dense
           color="#FFDD00">
 
           <v-app-bar-title @click="filtro('inicio')" class="pt-4 m-2">
@@ -438,9 +454,32 @@
 
             <v-tabs background-color="#FFFF" align-with-title>
 
-              <v-tab @click="filtro('inicio')">
-                <h2 class="subtitle-2"> Categorías</h2>
-              </v-tab>
+              <v-tab>
+                <v-menu  offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                     
+                      text
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      Categoria
+                    </v-btn>
+                  </template>
+                 
+                  <v-list  style="overflow-y: visible"    height="120px">
+                    
+                    <v-list-item
+                      v-for="(item, index) in categoria"
+                      :key="index"
+                      style="background-color: #ffffff;"
+                    >
+                      <v-list-item-title  @change="filtroC()"> <v-btn text @click="filtroC(item)"> <h2 class="subtitle-2"> {{ item }}</h2></v-btn></v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              
+              </v-tab> 
               <v-tab @click="getpromo()">
                 <h2 class="subtitle-2"> Promociones</h2>
               </v-tab>

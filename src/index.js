@@ -579,7 +579,7 @@ new Vue({
     async filtro(a) {
       if (a == 'inicio') {
 
-        this.buscador = null
+        this.buscador = ""
         this.banner = true
         this.pag.ruta = '/producto/list'
         this.pag.inicio = 0
