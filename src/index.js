@@ -20,6 +20,7 @@ new Vue({
         quienes: false,
         producto: false
       },
+      prueba:true,
       datosG: {
         estado: null,
         municipio: null,
@@ -282,6 +283,11 @@ new Vue({
   },
 
   methods: {
+    Comprarya(){
+      this.prueba = false
+      this.drawer = !this.drawer
+      
+    },
     closeSession() {
       console.log('here')
     },
