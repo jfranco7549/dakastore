@@ -6,7 +6,7 @@ const Marca = require('../models/marca.js')
 const categoria = require('../models/categoria.js')
 const caracteristica = require('../models/caracteristica.js')
 const multer  = require('multer');
-
+const articulova = require('../models/articulova.js')
 
 //devuelve la marca
 router.get('/marca',  async (req,res)=>{
@@ -36,19 +36,19 @@ try{
     
     if(val2){
      
-      ico[caracteristicas.atributo] = val2.icono
-     
+     // ico[caracteristicas.atributo] = val2.icono
+      caracteristicas["ico"] = val2.icono
      
     }else{
-      
-      ico[caracteristicas.atributo] =  "mdi-tools"
+      caracteristicas["ico"] =  "mdi-tools"
+     // ico[caracteristicas.atributo] =  "mdi-tools"
      
     }
 
   }
   
   
-  res.json({"valor":val,"ico":ico})
+  res.json(val)
 
 }catch(err){
   console.log(err)
@@ -128,6 +128,43 @@ router.get('/lineas/:linea',  async (req,res)=>{
   }
   
 })
+router.get('/va',  async (req,res)=>{
+  let articulosConPrecio = await articulova.aggregate([
+    {
+      $lookup: {
+        from: "articulo",
+        localField: "sap",
+        foreignField: "sap",
+        as: "precio_info"
+      }
+    },
+    {
+      $unwind: {
+        path: "$precio_info",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    { 
+      $project: { 
+        sap:1,
+        Dcomercial:1,
+        Marca:1,
+        Familia:1,
+        Linea:1,
+        Modelo:1,
+        precio: "$precio_info.precio" // Esto incluirá el precio en el resultado
+      }
+    }
+  ])
+  console.log(articulosConPrecio);
+  
+  try{
+    res.json({valor:articulosConPrecio})
+  }catch(err){
+    res.json({valor:[]})
+  }
+ 
+        })
 
 router.get('/list',  async (req,res)=>{
 try{
@@ -142,6 +179,7 @@ try{
   for( let articulo of val ){
     if(articulo.status){
       let ar = await  Producto.findOne({sap:articulo.sap})
+      
      
       if(ar){
         list.push({sap:articulo.sap,categoria:articulo.categoria,promo:articulo.promo,precio:articulo.precio,descripcion:ar.descripcion,marca:articulo.marca,familia:articulo.familia,view:true})
@@ -334,6 +372,73 @@ try{
               res.json([])
             }
             })
+            //162 lista con descripcion 
+      router.get('/va/list_des/:desp/:inicio/:fin',  async (req,res)=>{
+
+        try{
+                 //descripcion para la busqueda
+    /*{descripcion: { $regex: '.*' +  + '.*' } }  */
+    let descrip = req.params.desp
+  
+    let list = [];
+  let cand = await Producto.find( {descripcion: { $regex: '.*' + descrip + '.*' },status:true })
+  
+    let prod = await  Producto.find( {descripcion: { $regex: '.*' + descrip + '.*' },status:true  })
+
+    for( let p of prod ){
+    
+      let ar = await  articulo.findOne({sap:p.sap,status:true,va:true,familia: {
+        $ne: "repuesto"
+      }})
+      
+      let val1 = await  caracteristica.find({q:articulo.sap})
+      var ico=[]
+       
+       for( let caracteristicas in val1){
+
+     let item = {
+       q:val1[caracteristicas].q,
+       atributo:val1[caracteristicas].atributo,
+       caracter:val1[caracteristicas].caracter,
+       unidad:val1[caracteristicas].unidad,
+       ico:''
+
+     }
+         
+         let val2 = await  categoria.findOne({atributo:val1[caracteristicas].atributo})
+         
+         if(val2){
+          
+          // ico[caracteristicas.atributo] = val2.icono
+          item.ico = val2.icono
+          // Object.assign(obj, { nuevaPropiedad: 'valor' });
+         }else{
+           item.ico = "mdi-tools"
+          // Object.assign(obj, { nuevaPropiedad: 'valor' });
+          // ico[caracteristicas.atributo] =  "mdi-tools"
+          
+         }
+     
+     ico.push(item)
+     console.log(ico)
+       }
+        if(ar){
+          if(ar.status){
+            list.push({ caracteristica:ico,sap:ar.sap,categoria:ar.categoria,promo:ar.promo,precio:ar.precio,descripcion:p.descripcion,marca:ar.marca,familia:ar.familia,view:true})
+        }
+      }
+       
+    }
+    
+  
+    
+    res.json({valor:list})
+
+        }catch(err){
+          console.log(err,"162")
+          res.json([])
+        }
+        })
             //descrip producto
             router.get('/list_desr/:desp/:inicio/:fin',  async (req,res)=>{
 console.log("repuesto descripcion")

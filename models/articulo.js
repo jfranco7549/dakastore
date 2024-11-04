@@ -8,6 +8,7 @@ const articulo = new  Schema({
  marca:String,
  familia:String,
  promo:Boolean,
+ va:{ type: Boolean, default: false },
  categoria:String,
  uv:Number
 })

@@ -90,7 +90,7 @@ new Vue({
 
 
       ],
-      comprar: true,
+      comprar: false,
       titulo: '',
       init: false,
       servicios: [
@@ -126,47 +126,7 @@ new Vue({
         { sap: 'LB-00000972' }
       ],
       categoria: [
-        "MICROONDAS",
-        "CAMPANAS",
-        "HORNOS",
-        "SECADORAS PAREJAS",
-        "REFRIGERADORES PAREJA",
-        "CONGELADORES VERTICALES",
-        "LAVAVAJILLAS",
-        "AIRES COMERCIALES",
-        "LAVADORAS AUTOMATICAS",
-        "HORNOS DOBLES",
-        "TOPES ELECTRICOS",
-        "TOPES A GAS",
-        "COCINAS A GAS",
-        "REFRIGERADORES",
-        "LAVADORAS/SECADORAS",
-        "AIRES SPLITS 12 MIL",
-        "DISPENSADORES DE AGUA",
-        "CONGELADORES DOMESTICOS",
-        "AIRES PORTATILES",
-        "AIRES VENTANA 12 MIL",
-        "AIRES VENTANA 05 MIL",
-        "SECADORAS",
-        "COCINAS ELECTRICAS",
-        "LAVADORAS SEMIAUTOMATICAS",
-        "FABRICADORES DE HIELO COMPACTOS",
-        "NEVERAS EJECUTIVAS",
-        "MANTAS",
-        "CORNETAS",
-        "TV 55 PULG",
-        "TV 65 PULG",
-        "TV 58 PULG",
-        "TV 50 PULG",
-        "TV 70 PULG",
-        "TV 75 PULG",
-        "TV 43 PULG",
-        "ACCESORIOS P/TV",
-        "TV 86 PULG",
-        "TV 85 PULG",
-        "TV 32 PULG",
-        "TV 98 PULG",
-        "TV 77 PULG"
+       
       ],
       videoP: "video/servicio1.mp4",
       map: null,
@@ -247,9 +207,9 @@ new Vue({
     this.updateCarouselHeight();
     window.addEventListener('resize', this.updateCarouselHeight);
 
-    this.ProductoDestacado()
-    this.productoparati()
-    this.ProductoLinea()
+    //this.ProductoDestacado()
+   // this.productoparati()
+    //this.ProductoLinea()
     this.getTiendas()
     this.getstado()
     let that = this;
@@ -272,12 +232,7 @@ new Vue({
       }, "2000")
 
     }
-    if(window.location.pathname == "/repuestos"){
-      this.getproductoR()
-    }else{
-      this.getproducto()
-    }
-   
+    this.getproducto()
 
     
   },
@@ -366,29 +321,12 @@ new Vue({
     },
     async getproducto() {
 
-      let res = await fetch('/producto/list')
+      let res = await fetch('/producto/va')
       res = await res.json()
       this.articulos = res.valor
-      let cant = res.n
-      if (cant == 0) {
-        cant = 1;
-      }
-      this.pag.cant = cant
-    },
-    async getproductoR() {
-      
-         let res = await fetch('/producto/listR')
-      res = await res.json()
-      this.articulosR = res.valor
-      let cant = res.n
-      if (cant == 0) {
-        cant = 1;
-      }
-      this.pag.ruta = '/producto/listR',
-        this.pag.cant = cant
-      
      
     },
+  
 
     async Getlinea(a) {
 
@@ -480,6 +418,13 @@ new Vue({
         this.modal.producto = true
 
       }
+    },
+    async GetCaracteristica(sap){
+      let res = await fetch('/producto/caracterisctica/' +sap)
+        res = await res.json()
+        console.log(res)
+       return res
+
     },
     colorPromo(a) {
       if (a == 'PROMO') {
@@ -587,7 +532,7 @@ new Vue({
 
         this.buscador = ""
         this.banner = true
-        this.pag.ruta = '/producto/list'
+        this.pag.ruta = '/producto/va'
         this.pag.inicio = 0
         this.pag.fin = 20
         this.pag.actual = 1
@@ -596,15 +541,14 @@ new Vue({
       }
       let categoria = [];
 
-      let res = await fetch('/producto/list_des/' + this.buscador.toUpperCase() + '/0/20')
-      this.pag.inicio = 0
-      this.pag.fin = 20
-      this.pag.ruta = '/producto/list_des/' + this.buscador.toUpperCase()
+      let res = await fetch('/producto/va/list_des/' + this.buscador.toUpperCase() + '/0/20')
+      
+      this.pag.ruta = '/producto/va/list_des/' + this.buscador.toUpperCase()
       this.pag.actual = 1
       res = await res.json()
       this.banner = false
       this.articulos = res.valor
-      this.pag.cant = res.n
+    
       this.titulo = this.buscador;
     },
     async filtror(a) {

@@ -55,6 +55,34 @@ router.get('/repuestos/', async (req, res) => {
 
 })
 
+router.get('/VAM/', async (req, res) => {
+
+  if (!req.cookies.access_token) return res.status(403).render('sign-in', { menu: 'Ingrese sus credenciales' })
+
+
+  const filterExist = { token: req.cookies.access_token };
+
+  //Comprobar si el email es unico
+  var doc = await User.findOne(filterExist);
+
+  try {
+
+    const token = req.cookies.access_token;
+    const secretKey = 'mySecretKey';
+   
+    if(doc &&  jwt.verify(token, secretKey)){
+      res.render('VentaAlmayor', { menu: '' })
+    }else{
+      res.render('sign-in', { menu: 'Error de credenciales' })
+    }
+ 
+
+  } catch {
+    return res.status(401).render('sign-in', { menu: 'Acceso no autorizado' })
+  }
+
+})
+
 router.get('/repuesto-detail/', async (req, res) => {
 
   res.render('repuesto', { menu: '' })

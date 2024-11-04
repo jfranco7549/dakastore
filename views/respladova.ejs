@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Google Tag Manager -->
+  <!-- Google tag (gtag.js) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../img/icondk/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/icondk/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/icondk/favicon-16x16.png">
+
+  <link rel="mask-icon" href="../img/icondk/safari-pinned-tab.svg" color="#5bbad5">
+
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TGLKCXNL');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HJQ6P5CZ8H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-HJQ6P5CZ8H');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <meta name="description"
+    content="La tienda número 1 en venta de electrodomésticos en Venezuela, con marcas de respaldo internacional, calidad, variedad y precios insuperables en: tecnología, hogar, casa, lencería y más.¡Entra y descubre lo que tenemos para ti!">
+
+  <meta name="keywords"
+    content="electrodomésticos,tv ,televisor,aires acondicionados,cafetera,router,celular,telefono,corneta,refrigerador,congelador, Venezuela, calidad, variedad, precios, tecnología, hogar, casa, lencería">
+
+  <meta property="og:title" content="Tienda Líder en Electrodomésticos de Venezuela">
+
+  <meta property="og:image" content="https://tiendasdaka.com/img/daka.webp">
+  <link rel="canonical" href="https://tiendasdaka.com" />
+  <title>Tiendas Daka - Se Feliz </title>
+
+  <style>
+    @font-face {
+      font-family: "AktivGrotesk";
+      src: url("AktivGrotesk-Regular.ttf") format('truetype');
+    }
+
+    body {
+      font-family: "AktivGrotesk";
+    }
+
+    .closeb {
+      position: absolute !important;
+      right: 0;
+      transform: translate(0%, 0%);
+
+    }
+
+    .colorgray {
+      color: gray
+    }
+
+    .bluDaka {
+      color: #192b55;
+    }
+
+    .bodyCard {
+      overflow-y: scroll;
+      height: 35vh;
+    }
+
+    .bannerCard {
+
+      bottom: 0;
+      transform: translate(0%, 0%);
+    }
+
+
+    .noscroll {
+      overflow: hidden;
+
+    }
+
+    .invertDaka {
+      background-color: #192b55;
+      color: #f8e000;
+
+    }
+
+    .Daka {
+      background-color: #f8e000;
+      color: #192b55;
+
+    }
+
+    .whiteDaka {
+      background-color: #192b55;
+      color: #ffffff;
+
+    }
+   
+    .fondoscuro {
+      background-color: #f7f5f5fc;
+
+    }
+
+    .modal3 {
+      overflow: hidden;
+    }
+
+    .noscroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .bannerAzul {
+      background-color: #192b55;
+      color: white;
+    }
+
+    .precio {
+      color: #192b55;
+    }
+
+    .bodyf {
+
+
+      font-family: "Comic Sans";
+    }
+
+    .buscador {
+      opacity: 0.7;
+      border-radius: 1;
+      border-color: white;
+      color: black;
+
+    }
+
+    .map {
+      height: 50vh;
+      ;
+
+    }
+
+    .hides {
+      visibility: none;
+      display: none;
+    }
+
+    .load {
+      height: 100vh;
+      width: 100vw;
+
+      position: fixed;
+      z-index: 2;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    * {
+      border: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --hue: 5663;
+      --bg: hsl(var(--hue), 10%, 90%);
+      --fg: hsl(var(--hue), 10%, 10%);
+      --primary: hsl(var(--hue), 90%, 55%);
+      --trans-dur: 0.3s;
+      font-size: calc(16px + (20 - 16) * (100vw - 320px) / (1280 - 320));
+    }
+
+    .centeC {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    .espacioinicio {
+      padding-top: 18rem;
+    }
+
+    .preloader {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      max-width: 20em;
+      width: 100%;
+    }
+
+    .preloader__text {
+      position: relative;
+      height: 1.5em;
+    }
+
+    .preloader__msg {
+      color: white;
+      animation: msg 0.3s 13.7s linear forwards;
+      position: absolute;
+      width: 100%;
+    }
+
+    .preloader__msg--last {
+      color: white;
+      animation-direction: reverse;
+      animation-delay: 14s;
+      visibility: hidden;
+    }
+
+    .cart {
+      display: block;
+      margin: 0 auto 1.5em auto;
+      width: 12em;
+      height: 12em;
+    }
+
+    .cart__lines,
+    .cart__top,
+    .cart__wheel1,
+    .cart__wheel2,
+    .cart__wheel-stroke {
+      animation: cartLines 2s ease-in-out infinite;
+    }
+
+    .cart__lines {
+      stroke: var(--primary);
+    }
+
+    .cart__top {
+      animation-name: cartTop;
+    }
+
+    .cart__wheel1 {
+      animation-name: cartWheel1;
+      transform: rotate(-0.25turn);
+      transform-origin: 43px 111px;
+
+    }
+
+    .daki {
+      animation: myAnim2 2s cubic-bezier(0.32, 0, 0.67, 0) 0s infinite normal forwards;
+    }
+
+    .daki:hover {
+      animation: myAnim 2s cubic-bezier(0.32, 0, 0.67, 0) 0s infinite normal forwards;
+    }
+
+    @keyframes myAnim {
+      0% {
+        animation-timing-function: ease-out;
+
+        transform: rotate(0deg);
+      }
+
+      38% {
+        animation-timing-function: ease-in;
+        transform: rotate(45deg);
+
+      }
+
+      55% {
+        animation-timing-function: ease-out;
+        transform: rotate(0deg);
+      }
+
+      72% {
+        animation-timing-function: ease-in;
+        transform: rotate(-45deg);
+      }
+
+
+
+      95% {
+        animation-timing-function: ease-out;
+        transform: rotate(0deg);
+      }
+
+      100% {
+        animation-timing-function: ease-in;
+        transform: rotate(0deg);
+      }
+    }
+
+    @keyframes myAnim2 {
+
+      0% {
+        animation-timing-function: ease-out;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      25% {
+        animation-timing-function: ease-in;
+        transform: translateY(-65px);
+      }
+
+      50% {
+        animation-timing-function: ease-out;
+        transform: translateY(0);
+      }
+
+      75% {
+        animation-timing-function: ease-in;
+        transform: translateY(-28px);
+      }
+
+      90% {
+        animation-timing-function: ease-out;
+        transform: translateY(0);
+      }
+
+      95% {
+        animation-timing-function: ease-in;
+        transform: translateY(-8px);
+      }
+
+      100% {
+        animation-timing-function: ease-out;
+        transform: translateY(0);
+      }
+    }
+
+    @media (height >=1400px) {
+      .carrusel23 {
+        height: 500px;
+      }
+    }
+
+    @media (width <=1400px) {
+
+      .espacioinicio {
+        padding-top: 10rem;
+      }
+
+      .nav43 {
+        height: 38vh;
+      }
+
+      .bodyCard {
+
+        height: 28vh;
+      }
+
+      .closeb {
+        position: relative !important;
+        right: 0;
+        transform: translate(0%, 0%);
+
+      }
+
+    }
+
+    @media (width <=750px) {
+
+      .imgcard {
+        height: 30vh;
+        width: 15vw;
+      }
+
+      .bodyCard {
+
+        height: 23vh;
+      }
+
+      .closeb {
+        position: relative !important;
+        right: 0;
+        transform: translate(0%, 0%);
+
+      }
+
+    }
+  </style>
+
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="../vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body class="noscroll">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGLKCXNL" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div id="loads" class="invertDaka load">
+
+    <div class="preloader">
+      <img class="cart daki" src="../img/daki/daki-min.webp" width="400px" height="400px" />
+      <div class="preloader__text">
+        <h2>Iniciando</h2>
+
+      </div>
+    </div>
+
+  </div>
+  <div id="app">
+    <v-app>
+      <v-main>
+
+        <v-app-bar absolute height='60' style="position: sticky;touch-action: none;" dense color="#FFDD00">
+
+          <v-app-bar-title @click="filtro('inicio')" class="pt-4 m-2">
+            <v-img width="80" @click="filtro('inicio')" class="mb-4 m-2 p-4" src="../img/logoF.webp"></v-img>
+          </v-app-bar-title>
+
+
+
+          <v-text-field style="margin-left: 5rem; margin-right: 5rem; color: #f3f3f3;" color="white"
+            class="pt-9 p-4 mb-4 buscador rounded-lg" flat dense solo filled v-model="buscador" @keyup="filtro()"
+            append-icon="mdi-magnify">
+          </v-text-field>
+
+
+
+      
+          <!--v-btn @click.stop="drawer = !drawer" icon>
+            <v-badge :value="carrito.length > 0" overlap color="#192b55" :content="carrito.length">
+              <v-icon>mdi-cart</v-icon>
+            </v-badge>
+          </v-btn-->
+          <v-btn @click="logout()" icon>
+            
+              <v-icon>mdi-account-arrow-right</v-icon>
+           
+          </v-btn>
+
+
+          <template v-slot:extension>
+
+            <v-tabs background-color="#FFFF" align-with-title>
+
+            
+
+              <v-tab>
+              <v-menu  offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                   
+                    text
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    Categoria
+                  </v-btn>
+                </template>
+               
+                <v-list   height="120px">
+                  <v-list-item
+                    v-for="(item, index) in MenuCategoria"
+                    :key="index"
+                    style="background-color: #ffffff;"
+                  >
+                    <v-list-item-title  @change="filtroC()"> <v-btn text @click="filtroC(item)"> <h2 class="subtitle-2"> {{ item.Nombre }}</h2></v-btn></v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            
+
+            </v-tab> 
+
+              <v-spacer></v-spacer>
+            <!--  <v-tab>
+
+              <v-combobox :items="categoria"></v-combobox>  <v-btn @click="openModal('servicio')"   color="#192b55" text>Acerca de nosotros</v-btn> 
+           -@click="openModal('quienes')"-->
+              <v-tab @click="">
+                <h3 class="subtitle-1 bluDaka font-weight-black"> Generar PDF</h3>
+              </v-tab> <!--
+                 <v-tab @click="openModal('servicio')">Servicios</v-tab>-->
+
+            </v-tabs>
+
+          </template>
+
+
+        </v-app-bar>
+      
+
+        <v-sheet id="scrolling-techniques-3" class="overflow-y-auto" max-height="1080">
+
+          <v-row>
+
+
+            <v-col cols="12">
+
+              <v-row>
+ 
+                <v-col class="fondoscuro" cols="12">
+                  <v-row>
+
+                    <v-col   cols="12">
+                      <v-container>
+                        <v-row >
+                          <v-col cols="12" v-for="producto in articulos">
+                         
+                          
+                            <v-card
+                            shaped
+                            tile
+                         
+                            >
+                            <v-card-title>
+                              
+                            </v-card-title>
+                              <v-card-text>
+                              <v-row >
+                                <v-col cols="12"  md="3" lg="3" sm="3">
+                                  <v-img   height="170" :src="'/img/producto/'+producto.sap+'.webp'">
+                                    
+                                  </v-img>
+                                </v-col>
+                                <v-col cols="12"  md="9" lg="9" sm="9">
+                                  <v-row>
+                                    <v-col cols="12">
+                                      <v-row no-gutters>
+                                        <v-col cols="12" md="8" lg="8" sm="8">
+                                          <p class="caption" style="padding: 3px;">{{producto.descripcion}}</p> 
+                                        </v-col>
+                                        <v-spacer></v-spacer>
+                                         <v-col   cols="12" md="4" lg="4" sm="4">
+                                  
+                                          <v-img  contain height="40" :src="'/img/marca/'+producto.marca.toUpperCase()+'.webp'"></v-img>
+                                         </v-col>
+                                      </v-row>
+                                   
+                                    </v-col>
+                                    <v-col  cols="12">
+                                      <v-row no-gutters>
+                                      <v-col  style=" font-size: 1vh;"  cols="4" ms="2"   md="2" lg="2" sm="2" v-for="caracter of producto.caracteristica">
+                                     
+                                        <v-icon>{{caracter.ico}}</v-icon> 
+                                        {{caracter.caracter}}
+                                        
+                                      </v-col>
+                                    </v-row>
+                                   
+                                    </v-col>
+                                    
+                                 
+                                  </v-row>
+                                      </v-col>
+                              </v-row>
+                              <v-card-actions  style="height: 30px;" color="blue">
+                                <v-spacer></v-spacer>  {{producto.precio}}$
+                              </v-card-actions>
+                            </v-card-text>
+                           
+                            
+                            </v-card>
+                            </v-col>
+                          
+                      
+                            
+                      
+                        </v-row>
+                      </v-container>
+                        
+                    </v-col>
+
+                    <v-col cols="12">
+                   
+                    </v-col>
+                  </v-row>
+                </v-col>
+
+              </v-row>
+
+              </v-card>
+              <v-col class="fondoscuro" cols="12">
+                <template>
+                  <div class="text-center">
+                    <!--v-pagination total-visible="5" v-if="pag.cant>20" v-model="pag.actual" @next="nextpr('up')"
+                      @input="nextpr('click')" @previous="nextpr('down')" :length="Math.round(pag.cant/20)"
+                      prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination-->
+
+                  </div>
+                </template>
+              </v-col>
+            </v-col>
+          </v-row>
+
+
+
+          <v-col class="fondoscuro" cols="12">
+            <v-footer dark padless color="#192b55">
+              <v-card flat tile color="#192b55" width="100%" class=" lighten-1 white--text text-center">
+                <v-card-text>
+                  <v-btn v-for="icon of icons" class="mx-4 white--text" icon Target="_blank" :href="icon.url">
+                    <v-icon size="24px">
+                      {{ icon.ico }}
+                    </v-icon>
+                  </v-btn>
+                </v-card-text>
+
+                <v-card-text class="white--text pt-0">
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-text class="white--text">
+                  {{ new Date().getFullYear() }} — <strong>Daka</strong>
+                </v-card-text>
+              </v-card>
+            </v-footer>
+          </v-col>
+          </v-col>
+          </v-row>
+
+        </v-sheet>
+        <div style="display: none;">
+
+          {{preload('<%-menu-%>')}}
+
+        </div>
+
+      </v-main>
+    </v-app>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  
+
+  <script src='../dist/main2.js'>
+  </script>
+ 
+  <!-- Start of tiendasdaka6919 Zendesk Widget script 
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=eebf7265-cb0a-47a4-9f1b-5d7568e59f24"> </script>
+ End of tiendasdaka6919 Zendesk Widget script -->
+</body>
+
+</html>
