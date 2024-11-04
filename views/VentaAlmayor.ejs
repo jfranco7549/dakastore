@@ -502,18 +502,18 @@
                   <v-row>
                     <v-col cols="12">
                       <div id="paginas"></div>
-                    <canvas id="canvas1" width="640" height="853"></canvas>
+                   <!--  <canvas id="canvas1" width="640" height="853"></canvas>
                       <canvas id="canvas2" width="640" height="853"></canvas>
-                      <!-- 
+                      
                       <img alt="Imagen" v-for="(foto, key) in articulos" :id="'image'+(parseInt(key) + 1)" style="display: none" 
                       :src="'../img/producto/' + foto.sap + '.webp'" /> 
                      
                       -->
 
                       <img alt="Imagen" :lazy-src="'../img/producto/' + foto.sap + '.webp'"   v-for="(foto, key) in articulos"  :id="'image-'+foto.sap" style="display: none"  :src="'../img/producto/' + foto.sap + '.webp'"          />
-                     
+                      <img alt="Imagen" id="image2" style="display: none" src="../elige.png" />
                        <!--
-                     <img alt="Imagen" id="image2" style="display: none" src="image2.png" />
+                     <
                      <img alt="Imagen" id="image3" style="display: none" src="image3.png" />
                      <img alt="Imagen" id="image4" style="display: none" src="image4.png" />
                      <img alt="Imagen" id="image5" style="display: none" src="image5.png" />

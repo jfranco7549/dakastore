@@ -208,14 +208,8 @@ new Vue({
 
 
   async mounted() {
-  this.getproducto()
-  //console.log(this.articulos.length)
-    //this.insertarCanvas("paginas",2)
-    this.canvas = document.getElementById("canvas1");
-    this.ctx =  this.canvas.getContext("2d");
-    let canvas = document.getElementById("canvas2");
- let ctx = canvas.getContext("2d");
-
+   this.getproducto()
+ 
 
    
     this.updateCarouselHeight();
@@ -238,14 +232,34 @@ new Vue({
        
         that.initLayers();
     });*/
-
+  
+        that.insertarCanvas("paginas",5)
+        that.canvas = document.getElementById("canvas1");
+        that.ctx =  this.canvas.getContext("2d");
+        let canvas = []
+        canvas[0] = document.getElementById("canvas2");
+        let ctx = []
+        ctx[0] = canvas[0].getContext("2d")
     document.body.onload = function () {
       let loading = document.getElementById('loads')
       setTimeout(function () {
         loading.setAttribute("class", "hides");
+      
+console.log( that.articulos.length)
         that.draw(that.ctx);
-        var valor = that.articulos.slice(15, that.articulos.length);
-        that.hoja(ctx,valor)
+        var valor = that.articulos.slice(16, that.articulos.length);
+      
+        let inicio = 16 , fin = 40 ;
+   
+        for (let i = 0; i < 4; i++) { 
+          
+          canvas[i] = document.getElementById("canvas"+(i+2));
+          ctx[i]    = canvas[i].getContext("2d")
+          var valor = that.articulos.slice(inicio, fin);
+          inicio = inicio + 24
+          fin = fin + 24 
+           that.hoja(ctx[i], valor); 
+          }
       }, "2000")
     //  
 
@@ -780,7 +794,7 @@ new Vue({
       //ctx.fillText("INVERTER", 466.7, 314.2);
 
       // capa1/1099
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
+       ctx.font = "11px 'Roboto'";
       ctx.fillText("$"+this.articulos[3].precio, 536.5, 385.3);
 
       // capa1/99
@@ -4188,131 +4202,89 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/300
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
+       ctx.font = "11px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      ctx.fillText('$'+articulos[0].precio, 544.5, 747.8);
+     //precio 24
+     if(articulos[23].precio){
+      ctx.fillText('$'+articulos[23].precio, 544.5, 747.8);
+     }else{
+      ctx.fillText('', 544.5, 747.8);
+     }
+    
 
-      // capa1/Recortar grupo/00
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-     // ctx.fillText("00", 575.1, 744.2);
-
-      // capa1/Recortar grupo/DABH659N
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-     // ctx.fillText("DABH659N", 461.5, 674.5);
-
+  
       // capa1/Recortar grupo/HORNO ELECT 65 CM 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[0].Dcomercial ,  462.2, 658.4, 125, 13);
+      this.wrapText(ctx,articulos[23].Dcomercial ,  462.2, 658.4, 125, 13);
 
       // capa1/Recortar grupo/ACERO INOX TOUCH
-      this.wrapText(ctx,articulos[1].Dcomercial ,  462.2, 667.5, 125, 13);
+      //this.wrapText(ctx,articulos[1].Dcomercial ,  462.2, 667.5, 125, 13);
 
       // capa1/Recortar grupo/259
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[1].precio, 310.4, 748.0);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[22].precio, 310.4, 748.0);
 
       // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 339.3, 744.3);
-
-      // capa1/Recortar grupo/DA10BT4
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("DA10BT4", 309.2, 674.5);
-
+     
+   
       // capa1/Recortar grupo/LAVADORA 10 KG 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[2].Dcomercial , 310.2, 658.4, 125, 13);
+      this.wrapText(ctx,articulos[22].Dcomercial , 310.2, 658.4, 125, 13);
 
       // capa1/Recortar grupo/SEMIAUTOMATICA
       //ctx.fillText("SEMIAUTOMATICA", 310.2, 667.5);
 
       // capa1/Recortar grupo/185
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[2].precio, 264.9, 747.8);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[21].precio, 264.9, 747.8);
 
-      // capa1/Recortar grupo/00
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("00", 291.9, 744.2);
-
-      // capa1/Recortar grupo/DA7BT4
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText(" DA7BT4", 175.8, 674.5);
-
+    
+     
       // capa1/Recortar grupo/LAVADORA 07 KG 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[3].Dcomercial , 178.5, 658.4, 125, 13);
+      this.wrapText(ctx,articulos[21].Dcomercial , 178.5, 658.4, 125, 13);
 
       // capa1/Recortar grupo/SEMIAUTOMATICA
       //ctx.fillText("SEMIAUTOMATICA", 178.5, 667.5);
 
       // capa1/Recortar grupo/394
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[3].precio, 27.8, 747.8);
+       ctx.font = "11px 'Roboto'";
+      // precio 21
+      ctx.fillText('$'+articulos[20].precio, 27.8, 747.8);
 
-      // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 57.7, 744.2);
-
-      // capa1/Recortar grupo/DA16BT4
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("DA16BT4", 27.1, 674.5);
-
+     
+      
       // capa1/Recortar grupo/LAVADORA 16 KG 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[4].Dcomercial , 27.8, 658.4, 125, 13);
+      this.wrapText(ctx,articulos[20].Dcomercial , 27.8, 658.4, 125, 13);
 
       // capa1/Recortar grupo/SEMIAUTOMATICA
       //ctx.fillText("SEMIAUTOMATICA", 27.8, 667.5);
 
       // capa1/Recortar grupo/269
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[4].precio, 544.9, 626.9);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText(articulos[19].precio, 544.9, 626.9);
 
-      // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 574.4, 623.3);
-
-      // capa1/Recortar grupo/HYNAV13600R24
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("HYNAV13600R24", 460.6, 563.1);
+   
 
       // capa1/Recortar grupo/AIRE ACONDICIONADO
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[5].Dcomercial , 462.0, 537.7, 125, 13);
+      this.wrapText(ctx,articulos[19].Dcomercial , 462.0, 537.7, 125, 13);
 
-      // capa1/Recortar grupo/12000 BTU DE VENTANA
-      //ctx.fillText("12000 BTU DE VENTANA", 462.0, 546.7);
-
-      // capa1/Recortar grupo/CON CONTROL 220V
-      //ctx.fillText("CON CONTROL 220V", 462.0, 555.7);
-
+ 
       // capa1/Recortar grupo/22
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[5].precio, 309.8, 626.9);
-
-      // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-     // ctx.fillText("99", 332.4, 623.3);
-
-      // capa1/Recortar grupo/V010220V
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText(" V010-220V", 307.3, 563.3);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[18].precio, 309.8, 626.9);
 
       // capa1/Recortar grupo/PROTECTOR DE VOLTAJE 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[6].Dcomercial ,309.8, 537.9, 125, 13);
+      this.wrapText(ctx,articulos[18].Dcomercial ,309.8, 537.9, 125, 13);
 
       // capa1/Recortar grupo/PARA EQUIPOS DE
       //ctx.fillText("PARA EQUIPOS DE", 309.8, 546.9);
@@ -4321,71 +4293,50 @@ new Vue({
       //ctx.fillText("REFRIGERACI�N ", 309.8, 555.9);
 
       // capa1/Recortar grupo/79
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[6].precio, 269.7, 626.9);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[17].precio, 269.7, 626.9);
 
       // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 292.0, 623.3);
-
-      // capa1/Recortar grupo/BREXSS
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("BREXSS", 178.2, 553.8);
-
+      
+   
       // capa1/Recortar grupo/EXTRACTOR DE JUGO 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[7].Dcomercial , 178.7, 537.9, 125, 13);
+      this.wrapText(ctx,articulos[17].Dcomercial , 178.7, 537.9, 125, 13);
 
       // capa1/Recortar grupo/CSILVER
       //ctx.fillText("C/SILVER", 178.7, 546.9);
 
       // capa1/Recortar grupo/20
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[7].precio, 27.8, 626.9);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[16].precio, 27.8, 626.9);
 
       // capa1/Recortar grupo/00
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("00", 51.2, 623.3);
 
-      // capa1/Recortar grupo/DASIBLK24
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("DASIBLK24", 27.3, 553.8);
 
       // capa1/Recortar grupo/PLANCHA A VAPOR 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[8].Dcomercial , 28.4, 537.7, 125, 13);
+      this.wrapText(ctx,'$'+articulos[16].Dcomercial , 28.4, 537.7, 125, 13);
 
       // capa1/Recortar grupo/INALAMBRICA
       //ctx.fillText("INALAMBRICA", 28.4, 546.7);
 
       // capa1/Recortar grupo/69
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[8].precio, 551.7, 506.0);
-
-      // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 574.7, 502.4);
-
-      // capa1/Recortar grupo/BREX124
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("BREX124", 461.0, 433.5);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[15].precio, 551.7, 506.0);
 
       // capa1/Recortar grupo/EXTRACTOR DE JUGO 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[9].Dcomercial , 461.3, 416.6, 125, 13);
+      this.wrapText(ctx,articulos[15].Dcomercial , 461.3, 416.6, 125, 13);
 
       // capa1/Recortar grupo/CSILVER
       //ctx.fillText("C/SILVER", 461.3, 425.6);
 
       // capa1/Recortar grupo/15
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[9].precio, 309.4, 506.0);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[14].precio, 309.4, 506.0);
 
       // capa1/Recortar grupo/00
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -4397,34 +4348,26 @@ new Vue({
       //ctx.fillText("17291PS", 309.8, 423.4);
 
       // capa1/Recortar grupo/PLANCHA A VAPOR 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[10].Dcomercial , 310.2, 416.6, 125, 13);
+      this.wrapText(ctx,articulos[14].Dcomercial , 310.2, 416.6, 125, 13);
 
       // capa1/Recortar grupo/79
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[10].precio, 269.8, 506.0);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[13].precio, 269.8, 506.0);
 
-      // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 292.1, 502.4);
-
-      // capa1/Recortar grupo/HMB002B
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("HMB002B", 178.1, 433.5);
-
+      
       // capa1/Recortar grupo/REFRIGERADOR 20 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[11].Dcomercial , 178.9, 416.8, 125, 13);
+      this.wrapText(ctx,articulos[13].Dcomercial , 178.9, 416.8, 125, 13);
 
       // capa1/Recortar grupo/PIE EJECUTIVO
       //ctx.fillText("PIE EJECUTIVO", 178.9, 425.8);
 
       // capa1/Recortar grupo/64
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[11].precio, 28.1, 506.0);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[12].precio, 28.1, 506.0);
 
       // capa1/Recortar grupo/99
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -4436,7 +4379,7 @@ new Vue({
      // ctx.fillText("DA04FN", 27.8, 433.5);
 
       // capa1/Recortar grupo/FREIDORA DE AIRE 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
       this.wrapText(ctx,articulos[12].Dcomercial , 27.4, 416.8, 125, 13);
 
@@ -4444,190 +4387,120 @@ new Vue({
       //ctx.fillText("MANUAL 3.5L", 27.4, 425.8);
 
       // capa1/Recortar grupo/60
-      ctx.fillText('$'+articulos[12].precio, 554.0, 385.3);
+      ctx.fillText('$'+articulos[11].precio, 554.0, 385.3);
 
-      // capa1/Recortar grupo/00
-      ctx.font = "UltraItalic 5.8px 'Myriad Pro'";
-     // ctx.fillText("00", 575.6, 382.0);
-
-      // capa1/Recortar grupo/DAE1BLK
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-     // ctx.fillText("DAE1BLK", 460.9, 312.4);
 
       // capa1/Recortar grupo/EXTRACTOR DE JUGO 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[13].Dcomercial , 461.3, 295.8, 125, 13);
+      this.wrapText(ctx,articulos[11].Dcomercial , 461.3, 295.8, 125, 13);
 
       // capa1/Recortar grupo/CNEGRO
       //ctx.fillText("C/NEGRO", 461.3, 304.8);
 
       // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[13].precio, 309.4, 385.3);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[10].precio, 309.4, 385.3);
 
-      // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-     // ctx.fillText("99", 332.4, 381.6);
-
-      // capa1/Recortar grupo/HYND65W
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-     // ctx.fillText("HYND65W", 309.4, 312.4);
 
       // capa1/Recortar grupo/DISPENSADOR DE AGUA 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[14].Dcomercial , 309.8, 296.0, 125, 13);
+      this.wrapText(ctx,articulos[10].Dcomercial , 309.8, 296.0, 125, 13);
 
       // capa1/Recortar grupo/CBLANCO
       //ctx.fillText("C/BLANCO", 309.8, 305.0);
 
       // capa1/Recortar grupo/139
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[14].precio, 265.3, 385.3);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[9].precio, 265.3, 385.3);
 
-      // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 292.1, 381.6);
-
-      // capa1/Recortar grupo/BM50WS
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("BM50WS", 177.9, 312.4);
 
       // capa1/Recortar grupo/DISPENSADOR DE AGUA 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[15].Dcomercial , 178.5, 295.8, 125, 13);
+      this.wrapText(ctx,articulos[9].Dcomercial , 178.5, 295.8, 125, 13);
 
       // capa1/Recortar grupo/CPLATA
       //ctx.fillText("C/PLATA", 178.5, 304.8);
 
       // capa1/Recortar grupo/25
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[15].precio, 27.8, 385.3);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[8].precio, 27.8, 385.3);
 
-      // capa1/Recortar grupo/00
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("00", 50.4, 381.6);
-
-      // capa1/Recortar grupo/BREPC53N
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("BREPC53N", 27.6, 312.4);
-
+      
       // capa1/Recortar grupo/COTUFERA ELECTRICA 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[16].Dcomercial , 27.6, 295.8, 125, 13);
+      this.wrapText(ctx,articulos[8].Dcomercial , 27.6, 295.8, 125, 13);
 
       // capa1/Recortar grupo/10 TZAS 
       //ctx.fillText("10 TZAS ", 27.6, 304.8);
 
       // capa1/Recortar grupo/109
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[16].precio, 546.7, 264.1);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[9].precio, 546.7, 264.1);
 
-      // capa1/Recortar grupo/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-     // ctx.fillText("99", 574.5, 260.4);
-
-      // capa1/Recortar grupo/DAWDB3
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-     // ctx.fillText("DAWDB3", 460.9, 193.5);
 
       // capa1/Recortar grupo/DISPENSADOR DE AGUA 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[17].Dcomercial ,461.3, 176.6, 125, 13);
+      this.wrapText(ctx,articulos[9].Dcomercial ,461.3, 176.6, 125, 13);
 
       // capa1/Recortar grupo/CBLANCO
       //ctx.fillText("C/BLANCO", 461.3, 185.7);
 
       // capa1/Recortar grupo/30
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[17].precio, 310.3, 264.4);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[8].precio, 310.3, 264.4);
 
-      // capa1/Recortar grupo/00
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("00", 333.4, 260.7);
-
-      // capa1/Recortar grupo/BREPC88R
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("BREPC88R", 309.4, 193.5);
+   
 
       // capa1/Recortar grupo/COTUFERA ELECTRICA 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[18].Dcomercial , 309.7, 176.6, 125, 13);
+      this.wrapText(ctx,articulos[8].Dcomercial , 309.7, 176.6, 125, 13);
 
       // capa1/Recortar grupo/16 TZAS
       //ctx.fillText("16 TZAS", 309.7, 185.7);
 
       // capa1/Recortar grupo/30
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[18].precio, 268.9, 264.2);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[5].precio, 268.9, 264.2);
 
-      // capa1/Recortar grupo/00
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("00", 292.1, 260.5);
-
-      // capa1/Recortar grupo/BREPC88N
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("BREPC88N", 178.4, 193.5);
-
+     
       // capa1/Recortar grupo/COTUFERA ELECTRICA 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[19].Dcomercial ,179.1, 176.8, 125, 13);
+      this.wrapText(ctx,articulos[5].Dcomercial ,179.1, 176.8, 125, 13);
 
       // capa1/Recortar grupo/16 TZAS
      // ctx.fillText("16 TZAS", 179.1, 185.8);
 
       // capa1/Recortar grupo/25
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[19].precio, 28.3, 264.8);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[4].precio, 28.3, 264.8);
 
-      // capa1/Recortar grupo/00
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("00", 51.0, 261.2);
-
-      // capa1/Recortar grupo/BREPC53R
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("BREPC53R", 27.2, 193.5);
 
       // capa1/Recortar grupo/COTUFERA ELECTRICA
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[20].Dcomercial , 27.8, 176.9, 125, 13);
+      this.wrapText(ctx,articulos[4].Dcomercial , 27.8, 176.9, 125, 13);
 
       // capa1/Recortar grupo/10 TZAS
       //ctx.fillText("10 TZAS", 27.8, 186.0);
 
       // capa1/Recortar grupo/40
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText('$'+articulos[20].precio, 550.5, 143.1);
+       ctx.font = "11px 'Roboto'";
+      ctx.fillText('$'+articulos[3].precio, 550.5, 143.1);
 
-      // capa1/Recortar grupo/00
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("00", 574.6, 139.4);
-
-      // capa1/Recortar grupo/BREPC91R
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      //ctx.fillText("BREPC91R", 460.7, 72.6);
+      
 
       // capa1/Recortar grupo/COTUFERA  ELECTRICA 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[21].Dcomercial , 461.3, 56.1, 125, 13);
-
+      this.wrapText(ctx,articulos[3].Dcomercial , 461.3, 56.1, 125, 13);
+     
       // capa1/Recortar grupo/CBOWL 16 TZAS
      // ctx.fillText("C/BOWL 16 TZAS", 461.3, 65.1);
 
@@ -4645,7 +4518,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[0].sap), 488.7, 677.1,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[23].sap), 488.7, 677.1,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4675,7 +4548,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[0].sap), 345.0, 671.7,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[22].sap), 345.0, 671.7,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4706,7 +4579,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[0].sap), 204.3, 677.0,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[21].sap), 204.3, 687.0,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4737,7 +4610,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[1].sap), 59.7, 672.6,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[20].sap), 69.7, 682.6,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4768,7 +4641,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[2].sap), 483.5, 565.7,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[19].sap), 483.5, 565.7,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4786,7 +4659,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[3].sap), 346.3, 557.7,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[18].sap), 346.3, 557.7,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4803,7 +4676,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[4].sap), 205.5, 549.6,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[17].sap), 205.5, 559.6,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4820,7 +4693,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[5].sap), 49.0, 544.1,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[16].sap), 49.0, 564.1,54,69);
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4836,7 +4709,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[6].sap), 490.3, 423.2,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[15].sap), 490.3, 443.2,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4866,7 +4739,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[7].sap), 317.5, 421.5,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[14].sap), 317.5, 431.5,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4884,7 +4757,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[8].sap), 204.2, 435.0,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[13].sap), 204.2, 435.0,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4914,7 +4787,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[9].sap), 65.8, 427.9,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[12].sap), 65.8, 437.9,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4932,7 +4805,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[10].sap), 470.2, 295.7,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[11].sap), 470.2, 320.7,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4949,7 +4822,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[11].sap), 367.4, 304.1,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[10].sap), 367.4, 310,54,69);
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4965,7 +4838,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[12].sap), 217.1, 300.3,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[9].sap), 217.1, 310.3,54,69);
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4981,7 +4854,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[13].sap), 63.1, 301.4,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[8].sap), 80.1, 311.4,64,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4992,14 +4865,13 @@ new Vue({
       ctx.moveTo(506.4, 264.2);
       ctx.lineTo(531.5, 264.2);
       ctx.lineTo(531.5, 189.1);
-      ctx.lineTo(506.4, 189.1);
-      ctx.lineTo(506.4, 264.2);
+      
       ctx.closePath();
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[14].sap), 506.4, 189.1,54,69);
-
+      ctx.drawImage(document.getElementById("image-"+articulos[7].sap),476.4, 189.1,100,120);
+console.log(articulos[7].sap)
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -5015,7 +4887,7 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[15].sap), 356.8, 182.9,54,69);
+      ctx.drawImage(document.getElementById("image-"+articulos[6].sap), 360.8, 192.9,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5032,8 +4904,9 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[16].sap), 210.6, 185.3,54,69);
-
+      //imagen  6 
+      ctx.drawImage(document.getElementById("image-"+articulos[5].sap), 194, 205.3,54,69);
+console.log(articulos[5])
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -5049,7 +4922,8 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[17].sap), 67.6, 180.1,54,69);
+      //imagen 5
+      ctx.drawImage(document.getElementById("image-"+articulos[4].sap), 67.6, 190.1,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5079,49 +4953,43 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[18].sap), 482.8, 67.2,54,69);
+      //imagen 4
+      ctx.drawImage(document.getElementById("image-"+articulos[3].sap), 482.8, 90.2,54,69);
+      
+     
 
       // capa1/Recortar grupo/25
       ctx.restore();
       ctx.restore();
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText("$25.", 309.9, 143.2);
-
-      // capa1/Recortar grupo/00
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      ctx.fillText("00", 332.5, 139.6);
-
-      // capa1/Recortar grupo/BREPC14R
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 2)";
-      ctx.fillText("BREPC14R", 309.4, 72.8);
-
-      // capa1/Recortar grupo/COTUFERA ELECTRICA 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+       ctx.font = "11px 'Roboto'";
+      //Precio 3
+      ctx.fillText('$'+articulos[2].precio,309.9, 143.2);
+      
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      ctx.fillText("COTUFERA ELECTRICA ", 309.6, 56.0);
-
-      // capa1/Recortar grupo/14 TZAS
-      ctx.fillText("14 TZAS", 309.6, 65.0);
-
-      // capa1/Recortar grupo/134
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
-      ctx.fillText("$134.", 264.9, 143.1);
-
+     // NOMBRE 3
+      this.wrapText(ctx,articulos[2].Dcomercial ,  309.6, 56.0, 125, 13);
+      
+       ctx.font = "11px 'Roboto'";
+      //ctx.fillText("$134.", 264.9, 143.1);
+      //PRECIO 2
+      ctx.fillText('$'+articulos[1].precio,264.9, 143.1);
+      //PRECIO 1
+      ctx.fillText('$'+articulos[0].precio, 27.7, 143.1);
       // capa1/Recortar grupo/99
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      ctx.fillText("99", 292.0, 139.4);
+      //ctx.fillText("99", 292.0, 139.4);
 
       // capa1/Recortar grupo/DA610P
       ctx.font = "Light 6.0px 'Myriad Pro'";
       ctx.fillStyle = "rgb(1, 2, 2)";
-      ctx.fillText(" DA610P", 175.8, 81.4);
+      //ctx.fillText(" DA610P", 175.8, 81.4);
 
       // capa1/Recortar grupo/PARTY SPEAKER 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      //ctx.fillText("PARTY SPEAKER ", 178.5, 56.2);
-
+      //ctx.fillText("PARTY SPEAKER ", );
+      this.wrapText(ctx,articulos[2].Dcomercial , 178.5, 56.2, 125, 13);
       // capa1/Recortar grupo/CBLUETOOTH
      // ctx.fillText("C/BLUETOOTH", 178.5, 65.2);
 
@@ -5129,9 +4997,9 @@ new Vue({
      // ctx.fillText("DE 6.5 PULG.", 178.5, 74.2);
 
       // capa1/Recortar grupo/15
-      ctx.font = "UltraItalic 11.0px 'Myriad Pro'";
+       ctx.font = "11px 'Roboto'";
      // ctx.fillText("$15.", 27.7, 143.1);
-     ctx.fillText('$'+articulos[15].precio, 27.7, 143.1);
+     //ctx.fillText('$3'+articulos[15].precio, 27.7, 143.1);
       // capa1/Recortar grupo/00
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
       //ctx.fillText("00", 48.0, 139.4);
@@ -5142,10 +5010,11 @@ new Vue({
      // ctx.fillText(" 62507PS", 25.4, 72.8);
 
       // capa1/Recortar grupo/BATIDORA DE MANO 
-      ctx.font = "UltraItalic 10.0px 'Myriad Pro'";
+      ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
       //ctx.fillText("BATIDORA DE MANO ", );
-      this.wrapText(ctx,articulos[9].Dcomercial , 28.1, 56.1, 125, 13);
+      //titulo 1
+      this.wrapText(ctx,articulos[0].Dcomercial , 28.1, 56.1, 125, 13);
 
       // capa1/Recortar grupo/5 VELOCIDADES
       //ctx.fillText("5 VELOCIDADES", 28.1, 65.1);
@@ -5177,8 +5046,10 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[19].sap), 359.0, 59.6,54,69);
-
+      //ctx.drawImage(document.getElementById("image-"+articulos[2].sap), 359.0, 59.6,54,69);
+      //imagen 3
+      ctx.drawImage(document.getElementById("image-"+articulos[2].sap), 359.0, 79.6,54,69);
+      //ctx.drawImage(document.getElementById("image2"), 482.8, 90.2,54,69);
       // capa1/Recortar grupo/Trazado
       ctx.restore();
       ctx.restore();
@@ -7524,7 +7395,8 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[0].sap), 209.9, 77.2,54,69);
+      //imagen 2
+      ctx.drawImage(document.getElementById("image-"+articulos[1].sap), 209.9, 77.2,54,69);
 
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -7555,7 +7427,8 @@ new Vue({
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[0].sap), 66.2, 66.9,54,69);
+      //imagen 1
+      ctx.drawImage(document.getElementById("image-"+articulos[0].sap), 90, 80.9,54,69);
       ctx.restore();
       ctx.restore();
       ctx.restore();
