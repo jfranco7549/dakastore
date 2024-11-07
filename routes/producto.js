@@ -24,6 +24,7 @@ router.get('/marca',  async (req,res)=>{
 router.get('/caracterisctica/:sap',  async (req,res)=>{
 try{
 
+  
   let list = [];
   
   let val = await  caracteristica.find({q:req.params.sap})
@@ -36,19 +37,19 @@ try{
     
     if(val2){
      
-     // ico[caracteristicas.atributo] = val2.icono
-      caracteristicas["ico"] = val2.icono
+      ico[caracteristicas.atributo] = val2.icono
+     
      
     }else{
-      caracteristicas["ico"] =  "mdi-tools"
-     // ico[caracteristicas.atributo] =  "mdi-tools"
+      
+      ico[caracteristicas.atributo] =  "mdi-tools"
      
     }
 
   }
   
   
-  res.json(val)
+  res.json({"valor":val,"ico":ico})
 
 }catch(err){
   console.log(err)

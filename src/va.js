@@ -255,6 +255,7 @@ console.log( that.articulos.length)
           
           canvas[i] = document.getElementById("canvas"+(i+2));
           ctx[i]    = canvas[i].getContext("2d")
+      
           var valor = that.articulos.slice(inicio, fin);
           inicio = inicio + 24
           fin = fin + 24 
@@ -278,6 +279,7 @@ console.log( that.articulos.length)
 
           var canvas = document.createElement('canvas');
           canvas.id = 'canvas'+(i+1)
+          canvas.class = 'myCanvas'
           canvas.width = 630;  // Ajusta el ancho del canvas
           canvas.height = 853; // Ajusta la altura del canvas
           //canvas.style.border = '1px solid black'; // Opcional: agrega un borde para ver el canvas
@@ -289,11 +291,34 @@ console.log( that.articulos.length)
   
   
     print(){
+           const scale = 4; 
       const canvas = document.getElementById('canvas1');
+      const context = canvas.getContext('2d'); // Configura una resolución interna alta
+  
+      // Escalar 2x para alta resolución 
+       context.scale(scale, scale);
       const canvas2 = document.getElementById('canvas2');
+      const context2 = canvas2.getContext('2d');
+     
+       context2.scale(scale, scale);
+       const canvas3 = document.getElementById('canvas3');
+       const context3 = canvas3.getContext('2d'); // Configura una resolución interna alta
+   
+       // Escalar 2x para alta resolución 
+     
+        context3.scale(scale, scale);
+        const canvas4 = document.getElementById('canvas3');
+        const context4 = canvas4.getContext('2d'); // Configura una resolución interna alta
+    
+        // Escalar 2x para alta resolución 
+      
+         context4.scale(scale, scale);
       const dataURL = canvas.toDataURL('image/png');
       const dataURL2 = canvas2.toDataURL('image/png');
+      const dataURL3 = canvas2.toDataURL('image/png')
+      const dataURL4 = canvas2.toDataURL('image/png')
       const printWindow = window.open('', '_blank');
+      
       printWindow.document.write(`
         <html>
           <head>
@@ -305,8 +330,10 @@ console.log( that.articulos.length)
           </head>
           <body>
             <div class="print-container">
-              <img width= "1700" src="${dataURL}" />
-              <img width= "1700" src="${dataURL2}" />
+              <img  src="${dataURL}" />
+              <img width= "100%" height="100%" src="${dataURL2}" />
+               <img width= "100%" height="100%" src="${dataURL3}" />
+                <img width= "100%" height="100%" src="${dataURL4}" />
             </div>
           </body>
         </html>
@@ -365,7 +392,7 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      
+      //imagen 1
       ctx.drawImage(document.getElementById("image-"+this.articulos[0].sap), 79.7, 314.3,54,69);
 
       // capa1/Recortar grupo
@@ -384,6 +411,7 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Imagen
+      //imagen 2
       ctx.drawImage(document.getElementById("image-"+this.articulos[1].sap), 201.3, 314.3, 54,69);
 
       // capa1/Recortar grupo
@@ -414,6 +442,7 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
+      //imagen 3
       ctx.drawImage(document.getElementById("image-"+this.articulos[2].sap), 359.2, 314.3,54,69);
 
       // capa1/Recortar grupo
@@ -783,78 +812,42 @@ console.log( that.articulos.length)
       ctx.font = "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
 
+
+     /// elemento 3
       this.wrapText(ctx, this.articulos[3].Dcomercial ,  466.7, 296.2, 125, 13) 
       
-      //ctx.fillText(this.articulos[3].Dcomercial,, );
-
-      // capa1/24000 BTU SPLIT 
-      //ctx.fillText("24000 BTU SPLIT ", 466.7, 305.2);
-
-      // capa1/INVERTER
-      //ctx.fillText("INVERTER", 466.7, 314.2);
-
-      // capa1/1099
        ctx.font = "11px 'Roboto'";
       ctx.fillText("$"+this.articulos[3].precio, 536.5, 385.3);
 
-      // capa1/99
+      //----------
       
 
-      // capa1/VR242CW
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 3)";
-     // ctx.fillText(this.articulos[3].Modelo, 465.8, 320.8);
     
-      // capa1/AIRE ACONDICIONADO
+   // item 5
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      //ctx.fillText("AIRE ACONDICIONADO", 184.2, 417.4);
- this.wrapText(ctx, this.articulos[1].Dcomercial ,  184.2, 417.4, 130, 13) 
-      // capa1/24000 BTU SPLIT
-      //ctx.fillText("24000 BTU SPLIT", 184.2, 426.4);
-
-      // capa1/549
+ this.wrapText(ctx,this.articulos[5].Dcomercial ,  184.2, 417.4, 130, 13) 
+    
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[1].precio, 261.1, 505.8);
-
-      // capa1/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 290.7, 502.1);
-
-      // capa1/HYNA24000SP24SE
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 3)";
-      //ctx.fillText("HYNA24000SP24SE", 182.1, 433.7);
-
-      // capa1/AIRE ACONDICIONADO
+      ctx.fillText("$"+this.articulos[5].precio, 261.1, 505.8);
+//-------------------------------
+  
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      //ctx.fillText("AIRE ACONDICIONADO", 183.8, 296.1);
+      //2 itemm
       this.wrapText(ctx, this.articulos[1].Dcomercial , 183.8, 296.1, 130, 13) 
-      // capa1/18000 BTU SPLIT 
-      //ctx.fillText("18000 BTU SPLIT ", 183.8, 305.1);
-
-      // capa1/INVERTER 220V 
-      //ctx.fillText("INVERTER 220V ", 183.8, 314.1);
-
-      // capa1/880
+     
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$-"+this.articulos[1].precio, 257.5, 385.3);
-
-      // capa1/00
-      ctx.font = "UltraItalic 6.6px 'Myriad Pro'";
-     // ctx.fillText("00", 289.1, 381.5);
-
-      // capa1/AIRE ACONDICIONADO
+      ctx.fillText("$"+this.articulos[1].precio, 257.5, 385.3);
+      //-----------------------
+      
       ctx.font =  "7px 'Roboto'";;
-      //ctx.fillText("AIRE ACONDICIONADO", 315.1, 296.3);
-      this.wrapText(ctx, this.articulos[2].Dcomercial ,  315.1, 296.3, 130, 13) 
-      // capa1/3 TON GABINETE 
-      //ctx.fillText("3 TON GABINETE ", 315.1, 305.3);
-
-      // capa1/999
+     
+      this.wrapText(ctx,this.articulos[2].Dcomercial ,  315.1, 296.3, 130, 13) 
+      
+     
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$-"+this.articulos[2].precio, 314.8, 385.3);
+      ctx.fillText("$"+this.articulos[2].precio, 314.8, 385.3);
 
       // capa1/99
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -869,13 +862,13 @@ console.log( that.articulos.length)
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
       //ctx.fillText("AIRE ACONDICIONADO", 32.8, 538.2);
-      this.wrapText(ctx, this.articulos[8].Dcomercial ,  32.8, 538.2, 130, 13) 
+      this.wrapText(ctx,this.articulos[8].Dcomercial ,  32.8, 538.2, 130, 13) 
       // capa1/DE VENTANA 5000 BTU
      // ctx.fillText("DE VENTANA 5000 BTU", 32.8, 547.2);
 
       // capa1/145
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$-"+this.articulos[8].precio, 32.1, 626.8);
+      ctx.fillText("$"+this.articulos[8].precio, 32.1, 626.8);
     
       // capa1/00
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -896,7 +889,7 @@ console.log( that.articulos.length)
 
       // capa1/200
       ctx.font = "11px 'Roboto'";
-      ctx.fillText( "$-"+this.articulos[10].precio, 314.3, 626.8);
+      ctx.fillText(this.articulos[10].precio, 314.3, 626.8);
 
       // capa1/00
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -931,7 +924,7 @@ console.log( that.articulos.length)
       // capa1/AIRE ACONDICIONADO
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx, this.articulos[15].Dcomercial , 466.2, 658.8, 130, 13);
+      this.wrapText(ctx,this.articulos[15].Dcomercial , 466.2, 658.8, 130, 13);
 
       // capa1/DE VENTANA 12000 BTU 
       //ctx.fillText("DE VENTANA 12000 BTU ", 466.2, 667.9);
@@ -940,14 +933,7 @@ console.log( that.articulos.length)
       ctx.font = "11px 'Roboto'";
       ctx.fillText("$"+this.articulos[15].precio, 543.0, 747.5);
 
-      // capa1/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 572.6, 743.8);
-
-      // capa1/DA12BW2WAC23
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 3)";
-     // ctx.fillText("DA12BW2WAC23", 465.3, 675.2);
+   
 
       // capa1/CAFETERA 
       ctx.font =  "7px 'Roboto'";;
@@ -959,17 +945,9 @@ console.log( that.articulos.length)
 
       // capa1/25
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$-"+this.articulos[7].precio, 549.9, 505.9);
+      ctx.fillText("$"+this.articulos[7].precio, 549.9, 505.9);
 
-      // capa1/00
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("00", 572.5, 502.2);
-
-      // capa1/49631
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 3)";
-     // ctx.fillText("49631", 465.5, 433.7);
-
+      
       // capa1/COCINA ELECTRICA
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
@@ -980,59 +958,34 @@ console.log( that.articulos.length)
 
       // capa1/12
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$-"+this.articulos[9].precio, 270.8, 626.8);
+      ctx.fillText("$"+this.articulos[9].precio, 270.8, 626.8);
 
-      // capa1/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 291.1, 623.1);
-
-      // capa1/34106
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 3)";
-     // ctx.fillText("34106", 182.8, 554.8);
 
       // capa1/CONGELADOR HORIZONTAL
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx, this.articulos[9].Dcomercial , 465.5, 538.3, 130, 13);
+      this.wrapText(ctx,this.articulos[9].Dcomercial , 465.5, 538.3, 130, 13);
 
       // capa1/CBLANCO
       //ctx.fillText("C/BLANCO", 465.5, 547.4);
 
       // capa1/209
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$-"+this.articulos[9].precio, 543.3, 626.2);
-
-      // capa1/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 573.4, 622.5);
-
-      // capa1/HYN05FH23
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 3)";
-      //ctx.fillText("HYN05FH23", 465.1, 554.8);
+      ctx.fillText("$"+this.articulos[9].precio, 543.3, 626.2);
 
       // capa1/CONGELADOR HORIZONTAL
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx, this.articulos[13].Dcomercial , 183.5, 658.8, 130, 13);
+      this.wrapText(ctx,this.articulos[13].Dcomercial , 183.5, 658.8, 130, 13);
 
       // capa1/CGRIS
       //ctx.fillText("C/GRIS", 183.5, 667.9);
 
       // capa1/274
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$-"+this.articulos[13].precio, 262.3, 747.5);
+      ctx.fillText("$"+this.articulos[13].precio, 262.3, 747.5);
 
-      // capa1/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 290.8, 743.8);
-
-      // capa1/HYNFH2060S 
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 3)";
-      //ctx.fillText("HYNFH2060S ", 182.3, 675.1);
-
+   
       // capa1/AIRE ACONDICIONADO
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
@@ -1043,39 +996,19 @@ console.log( that.articulos.length)
 
       // capa1/279
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$-"+this.articulos[4].precio, 32.7, 505.9);
+      ctx.fillText("$"+this.articulos[4].precio, 32.7, 505.9);
 
-      // capa1/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 61.5, 502.3);
-
-      // capa1/DA12BWSAC23
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 3)";
-      //ctx.fillText("DA12BWSAC23", 31.8, 433.7);
-
+    
       // capa1/AIRE ACONDICIONADO
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
       this.wrapText(ctx, this.articulos[6].Dcomercial , 314.2, 417.4, 130, 13);
 
-      // capa1/12000 BTU SPLIT
-      //ctx.fillText("12000 BTU SPLIT", 314.2, 426.4);
-
-      // capa1/274
+   
       ctx.font = "11px 'Roboto'";
       ctx.fillText("$"+this.articulos[6].precio, 314.5, 506.0);
 
-      // capa1/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 343.1, 502.3);
-
-      // capa1/HYNA12000SP24SE
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 3)";
-      //ctx.fillText("HYNA12000SP24SE", 313.5, 433.5);
-
-      // capa1/AIRE ACONDICIONADO
+     
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
       this.wrapText(ctx, this.articulos[14].Dcomercial , 315.2, 658.8, 130, 13);
@@ -1087,15 +1020,7 @@ console.log( that.articulos.length)
       ctx.font = "11px 'Roboto'";
       ctx.fillText("$"+this.articulos[14].precio, 314.4, 747.8);
 
-      // capa1/99
-      ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
-      //ctx.fillText("99", 343.5, 744.1);
-
-      // capa1/DA24BWSAC23
-      ctx.font = "Light 6.0px 'Myriad Pro'";
-      ctx.fillStyle = "rgb(1, 2, 3)";
-      //ctx.fillText("DA24BWSAC23", 313.7, 675.1);
-
+      
       // capa1/Trazado
       ctx.beginPath();
       ctx.moveTo(4.4, 269.3);
@@ -1191,12 +1116,9 @@ console.log( that.articulos.length)
       // capa1/AIRE ACONDICIONADO
       ctx.restore();
       ctx.font =  "7px 'Roboto'";;
-     // ctx.fillText("AIRE ACONDICIONADO", 32.9, 296.4);
-
-      // capa1/5TON PISO TECHO
-      //ctx.fillText("5TON PISO TECHO", );
+   //item1
       this.wrapText(ctx, this.articulos[0].Dcomercial , 32.9, 296.4, 130, 13) 
-      // capa1/HYNA60000PT19
+      
       ctx.font = "Light 6.0px 'Myriad Pro'";
       ctx.fillStyle = "rgb(1, 2, 3)";
       //ctx.fillText("HYNA60000PT19", 32.5, 312.6);
