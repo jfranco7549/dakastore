@@ -246,7 +246,7 @@ new Vue({
         loading.setAttribute("class", "hides");
       
 console.log( that.articulos.length)
-        that.draw(that.ctx);
+        that.draw(that.ctx,that.canvas);
         var valor = that.articulos.slice(16, that.articulos.length);
       
         let inicio = 16 , fin = 40 ;
@@ -362,7 +362,7 @@ console.log( that.articulos.length)
                   } } 
                   context.fillText(line, x, yPosition);
                  },
-    draw(ctx) {
+    draw(ctx,canvas) {
 
       // capa1/Recortar grupo
       ctx.save();
@@ -805,7 +805,8 @@ console.log( that.articulos.length)
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
       ctx.drawImage(document.getElementById("image-"+this.articulos[15].sap), 489.1, 678.4,54,69);
-
+      
+      this.opeww(489.1, 678.4,54,69,this.articulos[15].sap,canvas)
       // capa1/AIRE ACONDICIONADO 
       ctx.restore();
       ctx.restore();
@@ -4107,6 +4108,26 @@ console.log( that.articulos.length)
       ctx.restore();
       ctx.restore();
     },
+    opeww(x,y,w,h,sap,canvas1){
+    
+      const imgX = x; 
+      const imgY = y;
+       const imgWidth = w;
+        const imgHeight = h;
+         // Evento de clic del mouse en el canvas 
+         let canvas = document.getElementById('canvas1')
+            canvas.addEventListener('click', function(event) {
+         // Obtener la posición del clic 
+        const rect = canvas.getBoundingClientRect(); 
+        const x = event.clientX - rect.left; const y = event.clientY - rect.top;
+         // Verificar si el clic está dentro de la imagen 
+         if (x >= imgX && x <= imgX + imgWidth && y >= imgY && y <= imgHeight) {
+           // Ejecuta la acción deseada aquí alert('¡Has hecho clic en la imagen!');
+            // Por ejemplo, podrías ejecutar una función personalizada:
+            this.openModal('producto',sap)
+          
+           } });
+    },
     hoja(ctx,articulos) {
 
       // capa1/Recortar grupo
@@ -4127,25 +4148,36 @@ console.log( that.articulos.length)
        ctx.font = "11px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
      //precio 24
-     if(articulos[23].precio){
+     try{
       ctx.fillText('$'+articulos[23].precio, 544.5, 747.8);
-     }else{
+     }catch(err){
       ctx.fillText('', 544.5, 747.8);
      }
-    
+     
 
   
       // capa1/Recortar grupo/HORNO ELECT 65 CM 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[23].Dcomercial ,  462.2, 658.4, 125, 13);
+      try{
+       this.wrapText(ctx,articulos[23].Dcomercial ,  462.2, 658.4, 125, 13);
+      }catch(err){
+        this.wrapText(ctx,'' ,  462.2, 658.4, 125, 13);
+      }
+    
 
       // capa1/Recortar grupo/ACERO INOX TOUCH
       //this.wrapText(ctx,articulos[1].Dcomercial ,  462.2, 667.5, 125, 13);
 
       // capa1/Recortar grupo/259
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[22].precio, 310.4, 748.0);
+
+       try{
+        ctx.fillText('$'+articulos[22].precio, 310.4, 748.0);
+       }catch(err){
+        ctx.fillText('', 310.4, 748.0);
+       }
+    
 
       // capa1/Recortar grupo/99
      
@@ -4153,8 +4185,16 @@ console.log( that.articulos.length)
       // capa1/Recortar grupo/LAVADORA 10 KG 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[22].Dcomercial , 310.2, 658.4, 125, 13);
+      try{
+        this.wrapText(ctx,articulos[22].Dcomercial , 310.2, 658.4, 125, 13);
 
+       }catch(err){
+       
+        this.wrapText(ctx,'' , 310.2, 658.4, 125, 13);
+
+       }
+    
+      
       // capa1/Recortar grupo/SEMIAUTOMATICA
       //ctx.fillText("SEMIAUTOMATICA", 310.2, 667.5);
 
@@ -4162,12 +4202,28 @@ console.log( that.articulos.length)
        ctx.font = "11px 'Roboto'";
       ctx.fillText('$'+articulos[21].precio, 264.9, 747.8);
 
+      try{
+        this.wrapText(ctx,articulos[22].Dcomercial , 310.2, 658.4, 125, 13);
+
+       }catch(err){
+       
+        this.wrapText(ctx,'' , 310.2, 658.4, 125, 13);
+
+       }
+    
     
      
       // capa1/Recortar grupo/LAVADORA 07 KG 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[21].Dcomercial , 178.5, 658.4, 125, 13);
+      try{
+        this.wrapText(ctx,articulos[21].Dcomercial , 178.5, 658.4, 125, 13);
+
+       }catch(err){
+       
+        this.wrapText(ctx,'' , 178.5, 658.4, 125, 13);
+       }
+    
 
       // capa1/Recortar grupo/SEMIAUTOMATICA
       //ctx.fillText("SEMIAUTOMATICA", 178.5, 667.5);
@@ -4175,39 +4231,88 @@ console.log( that.articulos.length)
       // capa1/Recortar grupo/394
        ctx.font = "11px 'Roboto'";
       // precio 21
-      ctx.fillText('$'+articulos[20].precio, 27.8, 747.8);
+      try{
+        ctx.fillText('$'+articulos[20].precio, 27.8, 747.8);
+       }catch(err){
+       
+        ctx.fillText('', 27.8, 747.8);
+       }
+    
+      
 
      
       
       // capa1/Recortar grupo/LAVADORA 16 KG 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[20].Dcomercial , 27.8, 658.4, 125, 13);
-
+      
+      try{
+        this.wrapText(ctx,articulos[20].Dcomercial , 27.8, 658.4, 125, 13);
+       }catch(err){
+       
+        this.wrapText(ctx,'' , 27.8, 658.4, 125, 13);
+       }
+    
+      
       // capa1/Recortar grupo/SEMIAUTOMATICA
       //ctx.fillText("SEMIAUTOMATICA", 27.8, 667.5);
 
       // capa1/Recortar grupo/269
        ctx.font = "11px 'Roboto'";
-      ctx.fillText(articulos[19].precio, 544.9, 626.9);
+       try{
+        ctx.fillText(articulos[19].precio, 544.9, 626.9);
+       }catch(err){
+       
+        ctx.fillText('', 544.9, 626.9);
+       }
+    
+      
 
    
 
       // capa1/Recortar grupo/AIRE ACONDICIONADO
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[19].Dcomercial , 462.0, 537.7, 125, 13);
+      try{
+        this.wrapText(ctx,articulos[19].Dcomercial , 462.0, 537.7, 125, 13);
 
+       }catch(err){
+       
+        this.wrapText(ctx,'' , 462.0, 537.7, 125, 13);
+
+       }
+    
+     
  
       // capa1/Recortar grupo/22
        ctx.font = "11px 'Roboto'";
+       try{
+         
       ctx.fillText('$'+articulos[18].precio, 309.8, 626.9);
+
+       }catch(err){
+       
+         
+      ctx.fillText('', 309.8, 626.9);
+
+       }
+  
 
       // capa1/Recortar grupo/PROTECTOR DE VOLTAJE 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[18].Dcomercial ,309.8, 537.9, 125, 13);
+      try{
+         
+        this.wrapText(ctx,articulos[18].Dcomercial ,309.8, 537.9, 125, 13);
 
+         }catch(err){
+         
+           
+          this.wrapText(ctx,'' ,309.8, 537.9, 125, 13);
+
+         }
+    
+     
       // capa1/Recortar grupo/PARA EQUIPOS DE
       //ctx.fillText("PARA EQUIPOS DE", 309.8, 546.9);
 
@@ -4216,7 +4321,17 @@ console.log( that.articulos.length)
 
       // capa1/Recortar grupo/79
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[17].precio, 269.7, 626.9);
+       try{
+         
+        ctx.fillText('$'+articulos[17].precio, 269.7, 626.9);
+
+         }catch(err){
+         
+           
+          ctx.fillText('', 269.7, 626.9);
+
+         }
+     
 
       // capa1/Recortar grupo/99
       
@@ -4224,41 +4339,113 @@ console.log( that.articulos.length)
       // capa1/Recortar grupo/EXTRACTOR DE JUGO 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[17].Dcomercial , 178.7, 537.9, 125, 13);
+      try{
+         
+        this.wrapText(ctx,articulos[17].Dcomercial , 178.7, 537.9, 125, 13);
 
+
+         }catch(err){
+         
+           
+          this.wrapText(ctx,'' , 178.7, 537.9, 125, 13);
+
+
+         }
+      
       // capa1/Recortar grupo/CSILVER
       //ctx.fillText("C/SILVER", 178.7, 546.9);
 
       // capa1/Recortar grupo/20
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[16].precio, 27.8, 626.9);
 
+
+       try{
+         
+        ctx.fillText('$'+articulos[16].precio, 27.8, 626.9);
+
+
+         }catch(err){
+         
+           
+          ctx.fillText('', 27.8, 626.9);
+
+
+         }
+     
       // capa1/Recortar grupo/00
 
 
       // capa1/Recortar grupo/PLANCHA A VAPOR 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,'$'+articulos[16].Dcomercial , 28.4, 537.7, 125, 13);
+
+      try{
+         
+        this.wrapText(ctx,articulos[16].Dcomercial , 28.4, 537.7, 125, 13);
+
+
+         }catch(err){
+         
+           
+          this.wrapText(ctx,'' , 28.4, 537.7, 125, 13);
+
+
+         }
+     
 
       // capa1/Recortar grupo/INALAMBRICA
       //ctx.fillText("INALAMBRICA", 28.4, 546.7);
 
       // capa1/Recortar grupo/69
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[15].precio, 551.7, 506.0);
+       try{
+         
+        ctx.fillText('$'+articulos[15].precio, 551.7, 506.0);
+
+
+         }catch(err){
+         
+           
+          ctx.fillText('', 551.7, 506.0);
+
+
+         }
+    
 
       // capa1/Recortar grupo/EXTRACTOR DE JUGO 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[15].Dcomercial , 461.3, 416.6, 125, 13);
+      try{
+         
+        this.wrapText(ctx,articulos[15].Dcomercial , 461.3, 416.6, 125, 13);
+
+
+         }catch(err){
+         
+           
+          this.wrapText(ctx,'' , 461.3, 416.6, 125, 13);
+
+
+         }
+     
 
       // capa1/Recortar grupo/CSILVER
       //ctx.fillText("C/SILVER", 461.3, 425.6);
 
       // capa1/Recortar grupo/15
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[14].precio, 309.4, 506.0);
+       try{
+         
+        ctx.fillText('$'+articulos[14].precio, 309.4, 506.0);
+
+         }catch(err){
+         
+           
+          ctx.fillText('', 309.4, 506.0);
+
+
+         }
+      
 
       // capa1/Recortar grupo/00
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -4272,24 +4459,58 @@ console.log( that.articulos.length)
       // capa1/Recortar grupo/PLANCHA A VAPOR 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[14].Dcomercial , 310.2, 416.6, 125, 13);
+      try{
+         
+        this.wrapText(ctx,articulos[14].Dcomercial , 310.2, 416.6, 125, 13);
+
+         }catch(err){
+         
+          this.wrapText(ctx,'' , 310.2, 416.6, 125, 13);
+
+
+         }
+      
 
       // capa1/Recortar grupo/79
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[13].precio, 269.8, 506.0);
+       try{
+         
+        ctx.fillText('$'+articulos[13].precio, 269.8, 506.0);
+
+         }catch(err){
+         
+          ctx.fillText('', 269.8, 506.0);
+
+         }
+     
 
       
       // capa1/Recortar grupo/REFRIGERADOR 20 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[13].Dcomercial , 178.9, 416.8, 125, 13);
+      try{
+         
+        this.wrapText(ctx,articulos[13].Dcomercial , 178.9, 416.8, 125, 13);
+
+         }catch(err){
+         
+          this.wrapText(ctx,'', 178.9, 416.8, 125, 13);
+
+         }
+     
+    
 
       // capa1/Recortar grupo/PIE EJECUTIVO
       //ctx.fillText("PIE EJECUTIVO", 178.9, 425.8);
 
       // capa1/Recortar grupo/64
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[12].precio, 28.1, 506.0);
+       try{
+        ctx.fillText('$'+articulos[12].precio, 28.1, 506.0);
+       }catch(err){
+        ctx.fillText('', 28.1, 506.0);
+       }
+      
 
       // capa1/Recortar grupo/99
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -4303,126 +4524,236 @@ console.log( that.articulos.length)
       // capa1/Recortar grupo/FREIDORA DE AIRE 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[12].Dcomercial , 27.4, 416.8, 125, 13);
+      try{
+        this.wrapText(ctx,articulos[12].Dcomercial , 27.4, 416.8, 125, 13);
 
+       }catch(err){
+        this.wrapText(ctx,'' , 27.4, 416.8, 125, 13);
+
+       }
+     
       // capa1/Recortar grupo/MANUAL 35L
       //ctx.fillText("MANUAL 3.5L", 27.4, 425.8);
 
       // capa1/Recortar grupo/60
-      ctx.fillText('$'+articulos[11].precio, 554.0, 385.3);
+      try{
+        ctx.fillText('$'+articulos[11].precio, 554.0, 385.3);
+
+       }catch(err){
+        ctx.fillText('', 554.0, 385.3);
+
+       }
+     
+    
 
 
       // capa1/Recortar grupo/EXTRACTOR DE JUGO 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[11].Dcomercial , 461.3, 295.8, 125, 13);
+      try{
+        this.wrapText(ctx,articulos[11].Dcomercial , 461.3, 295.8, 125, 13);
+
+       }catch(err){
+        this.wrapText(ctx,'', 461.3, 295.8, 125, 13);
+
+       }
+      
 
       // capa1/Recortar grupo/CNEGRO
       //ctx.fillText("C/NEGRO", 461.3, 304.8);
 
       // capa1/Recortar grupo/99
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[10].precio, 309.4, 385.3);
+       try{
+        ctx.fillText('$'+articulos[10].precio, 309.4, 385.3);
+
+       }catch(err){
+        ctx.fillText('', 309.4, 385.3);
+       }
+     
 
 
       // capa1/Recortar grupo/DISPENSADOR DE AGUA 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[10].Dcomercial , 309.8, 296.0, 125, 13);
+      try{
+        this.wrapText(ctx,articulos[10].Dcomercial , 309.8, 296.0, 125, 13);
+
+       }catch(err){
+        this.wrapText(ctx,'' , 309.8, 296.0, 125, 13);
+       }
+     
+      
 
       // capa1/Recortar grupo/CBLANCO
       //ctx.fillText("C/BLANCO", 309.8, 305.0);
 
       // capa1/Recortar grupo/139
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[9].precio, 265.3, 385.3);
+       try{
+        ctx.fillText('$'+articulos[9].precio, 265.3, 385.3);
+
+       }catch(err){
+        ctx.fillText('', 265.3, 385.3);
+       }
+     
+      
 
 
       // capa1/Recortar grupo/DISPENSADOR DE AGUA 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[9].Dcomercial , 178.5, 295.8, 125, 13);
+      try{
+        this.wrapText(ctx,articulos[9].Dcomercial , 178.5, 295.8, 125, 13);
+
+       }catch(err){
+        this.wrapText(ctx,'' , 178.5, 295.8, 125, 13);
+       }
+      
 
       // capa1/Recortar grupo/CPLATA
       //ctx.fillText("C/PLATA", 178.5, 304.8);
 
       // capa1/Recortar grupo/25
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[8].precio, 27.8, 385.3);
+       try{
+        ctx.fillText('$'+articulos[8].precio, 27.8, 385.3);
+       }catch(err){
+        ctx.fillText('', 27.8, 385.3);
+       }
+      
+      
 
       
       // capa1/Recortar grupo/COTUFERA ELECTRICA 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[8].Dcomercial , 27.6, 295.8, 125, 13);
+      try{
+        this.wrapText(ctx,articulos[8].Dcomercial , 27.6, 295.8, 125, 13);
+       }catch(err){
+        this.wrapText(ctx,'' , 27.6, 295.8, 125, 13);
+       }
+      
 
       // capa1/Recortar grupo/10 TZAS 
       //ctx.fillText("10 TZAS ", 27.6, 304.8);
 
       // capa1/Recortar grupo/109
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[9].precio, 546.7, 264.1);
+       try{
+        ctx.fillText('$'+articulos[9].precio, 546.7, 264.1);
+       }catch(err){
+        ctx.fillText('', 546.7, 264.1);
+       }
+      
 
 
       // capa1/Recortar grupo/DISPENSADOR DE AGUA 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[9].Dcomercial ,461.3, 176.6, 125, 13);
+      try{
+        this.wrapText(ctx,articulos[9].Dcomercial ,461.3, 176.6, 125, 13);
+       }catch(err){
+        this.wrapText(ctx,'',461.3, 176.6, 125, 13);
+       }
+      
+      
 
       // capa1/Recortar grupo/CBLANCO
       //ctx.fillText("C/BLANCO", 461.3, 185.7);
 
       // capa1/Recortar grupo/30
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[8].precio, 310.3, 264.4);
-
+      
+      try{
+        ctx.fillText('$'+articulos[8].precio, 310.3, 264.4);
+       }catch(err){
+        ctx.fillText('', 310.3, 264.4);
+       }
+      
    
 
       // capa1/Recortar grupo/COTUFERA ELECTRICA 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[8].Dcomercial , 309.7, 176.6, 125, 13);
-
+      
+      try{
+        this.wrapText(ctx,articulos[8].Dcomercial , 309.7, 176.6, 125, 13);
+       }catch(err){
+        this.wrapText(ctx,'' , 309.7, 176.6, 125, 13);
+       }
+      
       // capa1/Recortar grupo/16 TZAS
       //ctx.fillText("16 TZAS", 309.7, 185.7);
 
       // capa1/Recortar grupo/30
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[5].precio, 268.9, 264.2);
+       try{
+        ctx.fillText('$'+articulos[5].precio, 268.9, 264.2);
+       }catch(err){
+        ctx.fillText('', 268.9, 264.2);
+       }
+    
 
      
       // capa1/Recortar grupo/COTUFERA ELECTRICA 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[5].Dcomercial ,179.1, 176.8, 125, 13);
-
+     
+      try{
+        this.wrapText(ctx,articulos[5].Dcomercial ,179.1, 176.8, 125, 13);
+       }catch(err){
+        this.wrapText(ctx,'',179.1, 176.8, 125, 13);
+       }
+    
       // capa1/Recortar grupo/16 TZAS
      // ctx.fillText("16 TZAS", 179.1, 185.8);
 
       // capa1/Recortar grupo/25
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[4].precio, 28.3, 264.8);
+       try{
+        ctx.fillText('$'+articulos[4].precio, 28.3, 264.8);
+       }catch(err){
+        ctx.fillText('', 28.3, 264.8);
+       }
+    
+      
 
 
       // capa1/Recortar grupo/COTUFERA ELECTRICA
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[4].Dcomercial , 27.8, 176.9, 125, 13);
-
+      
+      try{
+        this.wrapText(ctx,articulos[4].Dcomercial , 27.8, 176.9, 125, 13);
+       }catch(err){
+        this.wrapText(ctx,'' , 27.8, 176.9, 125, 13);
+       }
+    
       // capa1/Recortar grupo/10 TZAS
       //ctx.fillText("10 TZAS", 27.8, 186.0);
 
       // capa1/Recortar grupo/40
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[3].precio, 550.5, 143.1);
+       try{
+        ctx.fillText('$'+articulos[3].precio, 550.5, 143.1);
+       }catch(err){
+        ctx.fillText('', 550.5, 143.1);
+       }
+    
 
       
 
       // capa1/Recortar grupo/COTUFERA  ELECTRICA 
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
-      this.wrapText(ctx,articulos[3].Dcomercial , 461.3, 56.1, 125, 13);
-     
+      
+      try{
+        this.wrapText(ctx,articulos[3].Dcomercial , 461.3, 56.1, 125, 13);
+       }catch(err){
+        this.wrapText(ctx,'', 461.3, 56.1, 125, 13);
+       }
+    
       // capa1/Recortar grupo/CBOWL 16 TZAS
      // ctx.fillText("C/BOWL 16 TZAS", 461.3, 65.1);
 
@@ -4440,8 +4771,13 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[23].sap), 488.7, 677.1,54,69);
-
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[23].sap), 488.7, 677.1,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 488.7, 677.1,54,69);
+       }
+    
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4470,8 +4806,13 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[22].sap), 345.0, 671.7,54,69);
-
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[22].sap), 345.0, 671.7,54,69);;
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 345.0, 671.7,54,69);
+       }
+    
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -4501,8 +4842,13 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[21].sap), 204.3, 687.0,54,69);
-
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[21].sap), 204.3, 687.0,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 204.3, 687.0,54,69);
+       }
+    
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -4532,8 +4878,13 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[20].sap), 69.7, 682.6,54,69);
-
+      
+     
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[20].sap), 69.7, 682.6,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 69.7, 682.6,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -4563,8 +4914,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[19].sap), 483.5, 565.7,54,69);
-
+     
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[19].sap), 483.5, 565.7,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 483.5, 565.7,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -4582,7 +4937,12 @@ console.log( that.articulos.length)
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
       ctx.drawImage(document.getElementById("image-"+articulos[18].sap), 346.3, 557.7,54,69);
-
+  
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[19].sap), 483.5, 565.7,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 483.5, 565.7,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4598,8 +4958,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[17].sap), 205.5, 559.6,54,69);
-
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[17].sap), 205.5, 559.6,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 205.5, 559.6,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4615,7 +4979,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[16].sap), 49.0, 564.1,54,69);
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[16].sap), 49.0, 564.1,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 49.0, 564.1,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4631,8 +5000,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[15].sap), 490.3, 443.2,54,69);
-
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[15].sap), 490.3, 443.2,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 49.0, 564.1,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4661,8 +5034,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[14].sap), 317.5, 431.5,54,69);
 
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[14].sap), 317.5, 431.5,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 317.5, 431.5,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -4679,8 +5056,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[13].sap), 204.2, 435.0,54,69);
-
+     
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[13].sap), 204.2, 435.0,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 204.2, 435.0,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4709,8 +5090,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[12].sap), 65.8, 437.9,54,69);
-
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[12].sap), 65.8, 437.9,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 65.8, 437.9,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -4728,7 +5113,12 @@ console.log( that.articulos.length)
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
       ctx.drawImage(document.getElementById("image-"+articulos[11].sap), 470.2, 320.7,54,69);
-
+  
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[11].sap), 470.2, 320.7,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 65.8, 437.9,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4744,7 +5134,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[10].sap), 367.4, 310,54,69);
+   
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[10].sap), 367.4, 310,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 367.4, 310,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4760,7 +5155,13 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[9].sap), 217.1, 310.3,54,69);
+      
+
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[9].sap), 217.1, 310.3,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 217.1, 310.3,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4776,8 +5177,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[8].sap), 80.1, 311.4,64,69);
-
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[8].sap), 80.1, 311.4,64,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 80.1, 311.4,64,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4792,8 +5197,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[7].sap),476.4, 189.1,100,120);
-console.log(articulos[7].sap)
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[7].sap),476.4, 189.1,100,120);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"),476.4, 189.1,100,120);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4809,8 +5218,12 @@ console.log(articulos[7].sap)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[6].sap), 360.8, 192.9,54,69);
-
+     
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[6].sap), 360.8, 192.9,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 360.8, 192.9,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4827,8 +5240,12 @@ console.log(articulos[7].sap)
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
       //imagen  6 
-      ctx.drawImage(document.getElementById("image-"+articulos[5].sap), 194, 205.3,54,69);
-console.log(articulos[5])
+    
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[5].sap), 194, 205.3,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 194, 205.3,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4845,8 +5262,12 @@ console.log(articulos[5])
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
       //imagen 5
-      ctx.drawImage(document.getElementById("image-"+articulos[4].sap), 67.6, 190.1,54,69);
-
+     
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[4].sap), 67.6, 190.1,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 67.6, 190.1,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
 
@@ -4876,8 +5297,12 @@ console.log(articulos[5])
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
       //imagen 4
-      ctx.drawImage(document.getElementById("image-"+articulos[3].sap), 482.8, 90.2,54,69);
-      
+     
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[3].sap), 482.8, 90.2,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 482.8, 90.2,54,69);
+       }
      
 
       // capa1/Recortar grupo/25
@@ -4885,19 +5310,40 @@ console.log(articulos[5])
       ctx.restore();
        ctx.font = "11px 'Roboto'";
       //Precio 3
-      ctx.fillText('$'+articulos[2].precio,309.9, 143.2);
+    
+      try{
+        ctx.fillText('$'+articulos[2].precio,309.9, 143.2);
+       }catch(err){
+        ctx.fillText('',309.9, 143.2);
+       }
+     
       
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
      // NOMBRE 3
-      this.wrapText(ctx,articulos[2].Dcomercial ,  309.6, 56.0, 125, 13);
-      
+     
+      try{
+        this.wrapText(ctx,articulos[2].Dcomercial ,  309.6, 56.0, 125, 13);
+       }catch(err){
+        this.wrapText(ctx,'' ,  309.6, 56.0, 125, 13);
+       }
+     
        ctx.font = "11px 'Roboto'";
       //ctx.fillText("$134.", 264.9, 143.1);
       //PRECIO 2
-      ctx.fillText('$'+articulos[1].precio,264.9, 143.1);
+      try{
+        ctx.fillText('$'+articulos[1].precio,264.9, 143.1);
+       }catch(err){
+        ctx.fillText('',264.9, 143.1);
+       }
+       try{
+        ctx.fillText('$'+articulos[0].precio, 27.7, 143.1);
+       }catch(err){
+        ctx.fillText('', 27.7, 143.1);
+       }
+      
       //PRECIO 1
-      ctx.fillText('$'+articulos[0].precio, 27.7, 143.1);
+      
       // capa1/Recortar grupo/99
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
       //ctx.fillText("99", 292.0, 139.4);
@@ -4911,7 +5357,13 @@ console.log(articulos[5])
       ctx.font = "7px 'Roboto'";
       ctx.fillStyle = "rgb(12, 74, 153)";
       //ctx.fillText("PARTY SPEAKER ", );
-      this.wrapText(ctx,articulos[2].Dcomercial , 178.5, 56.2, 125, 13);
+      
+     
+      try{
+        this.wrapText(ctx,articulos[2].Dcomercial , 178.5, 56.2, 125, 13);
+       }catch(err){
+        this.wrapText(ctx,'' , 178.5, 56.2, 125, 13);
+       }
       // capa1/Recortar grupo/CBLUETOOTH
      // ctx.fillText("C/BLUETOOTH", 178.5, 65.2);
 
@@ -4936,8 +5388,12 @@ console.log(articulos[5])
       ctx.fillStyle = "rgb(12, 74, 153)";
       //ctx.fillText("BATIDORA DE MANO ", );
       //titulo 1
-      this.wrapText(ctx,articulos[0].Dcomercial , 28.1, 56.1, 125, 13);
-
+      
+      try{
+        this.wrapText(ctx,articulos[0].Dcomercial , 28.1, 56.1, 125, 13);
+       }catch(err){
+        this.wrapText(ctx,'', 28.1, 56.1, 125, 13);
+       }
       // capa1/Recortar grupo/5 VELOCIDADES
       //ctx.fillText("5 VELOCIDADES", 28.1, 65.1);
 
@@ -4970,7 +5426,12 @@ console.log(articulos[5])
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
       //ctx.drawImage(document.getElementById("image-"+articulos[2].sap), 359.0, 59.6,54,69);
       //imagen 3
-      ctx.drawImage(document.getElementById("image-"+articulos[2].sap), 359.0, 79.6,54,69);
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[2].sap), 359.0, 79.6,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 359.0, 79.6,54,69);
+       }
       //ctx.drawImage(document.getElementById("image2"), 482.8, 90.2,54,69);
       // capa1/Recortar grupo/Trazado
       ctx.restore();
@@ -7318,8 +7779,12 @@ console.log(articulos[5])
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
       //imagen 2
-      ctx.drawImage(document.getElementById("image-"+articulos[1].sap), 209.9, 77.2,54,69);
-
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[1].sap), 209.9, 77.2,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 209.9, 77.2,54,69);
+       }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -7350,8 +7815,14 @@ console.log(articulos[5])
 
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
       //imagen 1
-      ctx.drawImage(document.getElementById("image-"+articulos[0].sap), 90, 80.9,54,69);
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[0].sap), 90, 80.9,54,69);
+       }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 90, 80.9,54,69);
+       }
       ctx.restore();
+
       ctx.restore();
       ctx.restore();
       ctx.restore();
