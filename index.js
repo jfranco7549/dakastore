@@ -17,7 +17,7 @@ var compression = require('compression')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 const router = express.Router();
-
+const OneSignal = require('@onesignal/node-onesignal');
 const multer = require('multer');
 
 const mongoose = require('mongoose')
@@ -29,7 +29,6 @@ const mongouri = 'mongodb://localhost:27017/dkstore'
 mongoose.connect(mongouri).then(db => console.log('DB is Conneted')).catch(err => {
   console.log(err)
 })
-
 
 app.set('view engine', 'ejs');
 app.use(compression())
