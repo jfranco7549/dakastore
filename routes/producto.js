@@ -130,6 +130,7 @@ router.get('/lineas/:linea',  async (req,res)=>{
   
 })
 router.get('/va',  async (req,res)=>{
+  let val = []
   let articulosConPrecio = await articulova.aggregate([
     {
       $lookup: {
@@ -157,11 +158,15 @@ router.get('/va',  async (req,res)=>{
       }
     }
   ])
-  console.log(articulosConPrecio);
-  
+
+ 
   try{
+ 
+    console.log("se en vio ",val)
     res.json({valor:articulosConPrecio})
   }catch(err){
+    
+  console.log("no se envio ",err)
     res.json({valor:[]})
   }
  

@@ -170,6 +170,7 @@ new Vue({
         },
 
       ],
+      test:null,
       items: [
         {
           src: 'img/banner/1.webp',
@@ -233,35 +234,70 @@ new Vue({
         that.initLayers();
     });*/
   
-        that.insertarCanvas("paginas",5)
-        that.canvas = document.getElementById("canvas1");
-        that.ctx =  this.canvas.getContext("2d");
-        let canvas = []
-        canvas[0] = document.getElementById("canvas2");
-        let ctx = []
-        ctx[0] = canvas[0].getContext("2d")
+       
     document.body.onload = function () {
       let loading = document.getElementById('loads')
       setTimeout(function () {
+        
+       // that.canvas = document.getElementById("canvas1");
+        //that.ctx =  that.canvas.getContext("2d");
+        let canvas = []
+       // canvas[1] = document.getElementById("canvas2");
+        let ctx = []
+        //ctx[1] = canvas[1].getContext("2d")
         loading.setAttribute("class", "hides");
-      
-console.log( that.articulos.length)
-        that.draw(that.ctx,that.canvas);
-        var valor = that.articulos.slice(16, that.articulos.length);
-      
-        let inicio = 16 , fin = 40 ;
-   
-        for (let i = 0; i < 4; i++) { 
+        console.log(that.test[0])
+        for(let item in that.test){
+          let inicio = 0  , fin = 24 ;
+          that.insertarCanvas("paginas",Math.round((that.test[item].length/24)),item)
+          for (let i = 1; i <= (Math.round((that.test[item].length/24))); i++) { 
+            console.log(i)
+         
+            canvas[i] = document.getElementById(item+(i))
+            try{
+              ctx[i] = canvas[i].getContext("2d")
+            }catch(err){
+              console.log(err,i)
+            }
+             
           
-          canvas[i] = document.getElementById("canvas"+(i+2));
-          ctx[i]    = canvas[i].getContext("2d")
+           
+      
+          var valor = that.test[item].slice(inicio, fin);
+          inicio = inicio + 24
+          fin = fin + 24 
+       
+           that.hoja(ctx[i], valor,item); 
+          }
+
+         }
+       /* //that.draw(that.ctx,that.canvas,that.articulos);
+        var valor = that.articulos.slice(16, that.articulos.length);
+        let inicio = 16 , fin = 40 ;
+        console.log( Math.round((that.articulos.length/24)))
+  
+       for (let i = 0; i <(Math.round((that.articulos.length/24))); i++) { 
+          
+            canvas[i] = document.getElementById("canvas"+(i+2));
+            console.log('error'+i)
+            try{
+               ctx[i]= canvas[i].getContext("2d")
+            }catch(err){
+              console.log(err)
+              console.log(i+2)
+              console.log(canvas[i])
+              console.log(canvas[i-1])
+            }
+           
       
           var valor = that.articulos.slice(inicio, fin);
           inicio = inicio + 24
           fin = fin + 24 
+       
            that.hoja(ctx[i], valor); 
           }
-      }, "2000")
+    */
+      }, "7000")
     //  
 
     }
@@ -270,15 +306,15 @@ console.log( that.articulos.length)
   },
 
   methods: {
-     insertarCanvas(divId,total) {
+     insertarCanvas(divId,total,name) {
       // Obtén el div por su id
       var div = document.getElementById(divId);
       
       // Crea y añade tres elementos canvas
-      for (var i = 0; i < total; i++) {
+      for (var i = 1; i <= total; i++) {
 
           var canvas = document.createElement('canvas');
-          canvas.id = 'canvas'+(i+1)
+          canvas.id = name+(i)
           canvas.class = 'myCanvas'
           canvas.width = 630;  // Ajusta el ancho del canvas
           canvas.height = 853; // Ajusta la altura del canvas
@@ -362,7 +398,7 @@ console.log( that.articulos.length)
                   } } 
                   context.fillText(line, x, yPosition);
                  },
-    draw(ctx,canvas) {
+    draw(ctx,canvas,articulos) {
 
       // capa1/Recortar grupo
       ctx.save();
@@ -393,7 +429,12 @@ console.log( that.articulos.length)
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
       //imagen 1
-      ctx.drawImage(document.getElementById("image-"+this.articulos[0].sap), 79.7, 314.3,54,69);
+    try{
+      ctx.drawImage(document.getElementById("image-"+articulos[0].sap), 79.7, 314.3,54,69);
+    }catch(err){
+      ctx.drawImage(document.getElementById("image2"), 79.7, 314.3,54,69);
+    }
+      
 
       // capa1/Recortar grupo
       ctx.restore();
@@ -412,8 +453,12 @@ console.log( that.articulos.length)
 
       // capa1/Recortar grupo/Imagen
       //imagen 2
-      ctx.drawImage(document.getElementById("image-"+this.articulos[1].sap), 201.3, 314.3, 54,69);
-
+   
+try{
+  ctx.drawImage(document.getElementById("image-"+articulos[1].sap), 201.3, 314.3, 54,69);
+}catch(err){
+  ctx.drawImage(document.getElementById("image2"), 201.3, 314.3, 54,69);
+}
       // capa1/Recortar grupo
       ctx.restore();
 
@@ -443,8 +488,12 @@ console.log( that.articulos.length)
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
       //imagen 3
-      ctx.drawImage(document.getElementById("image-"+this.articulos[2].sap), 359.2, 314.3,54,69);
-
+     
+try{
+  ctx.drawImage(document.getElementById("image-"+articulos[2].sap), 359.2, 314.3,54,69);
+}catch(err){
+  ctx.drawImage(document.getElementById("image2"), 359.2, 314.3,54,69);
+}
       // capa1/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -474,8 +523,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[3].sap), 489.1, 314.3,54,69);
-
+     
+try{
+  ctx.drawImage(document.getElementById("image-"+articulos[3].sap), 489.1, 314.3,54,69);
+}catch(err){
+  ctx.drawImage(document.getElementById("image2"), 489.1, 314.3,54,69);
+}
       // capa1/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -505,8 +558,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[4].sap), 79.7, 435.6,54,69);
-
+     
+try{
+  ctx.drawImage(document.getElementById("image-"+articulos[4].sap), 79.7, 435.6,54,69);
+}catch(err){
+  ctx.drawImage(document.getElementById("image2"), 79.7, 435.6,54,69);
+}
       // capa1/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -523,8 +580,16 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[5].sap), 201.3, 435.6,54,69);
+      try{
+        
+        ctx.drawImage(document.getElementById("image-"+articulos[5].sap), 201.3, 435.6,54,69);
 
+      }catch(err){
+       
+        ctx.drawImage(document.getElementById("image2"), 201.3, 435.6,54,69);
+
+      }
+      
       // capa1/Recortar grupo
       ctx.restore();
 
@@ -553,8 +618,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[6].sap), 359.2, 435.6,54,69);
-
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[6].sap), 359.2, 435.6,54,69);
+      }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 359.2, 435.6,54,69);
+      }
       // capa1/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -584,8 +653,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[7].sap), 489.1, 435.6,54,69);
-
+      
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[7].sap), 489.1, 435.6,54,69);
+      }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 489.1, 435.6,54,69);
+      }
       // capa1/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -615,8 +688,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[8].sap), 79.7, 557.0,54,69);
-
+      
+try{
+  ctx.drawImage(document.getElementById("image-"+articulos[8].sap), 79.7, 557.0,54,69);
+}catch(err){
+  ctx.drawImage(document.getElementById("image2"), 79.7, 557.0,54,69);
+}
       // capa1/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -633,7 +710,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[9].sap), 201.3, 557.0,54,69);
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[9].sap), 201.3, 557.0,54,69);
+      }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 201.3, 557.0,54,69);
+      }
+   
 
       // capa1/Recortar grupo
       ctx.restore();
@@ -663,7 +745,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[10].sap), 359.2, 557.0,54,69);
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[10].sap), 359.2, 557.0,54,69);
+      }catch{
+        ctx.drawImage(document.getElementById("image2"), 359.2, 557.0,54,69);
+      }
+      
 
       // capa1/Recortar grupo
       ctx.restore();
@@ -694,7 +781,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[11].sap), 489.1, 557.0,54,69);
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[11].sap), 489.1, 557.0,54,69);
+      }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 489.1, 557.0,54,69);
+      }
+      
 
       // capa1/Recortar grupo
       ctx.restore();
@@ -725,8 +817,14 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[12].sap), 79.7, 678.4,54,69);
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[12].sap), 79.7, 678.4,54,69);
 
+      }catch(Err){
+        ctx.drawImage(document.getElementById("image2"), 79.7, 678.4,54,69);
+
+      }
+     
       // capa1/Recortar grupo
       ctx.restore();
       ctx.restore();
@@ -743,71 +841,85 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[13].sap), 201.3, 678.4,54,69);
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[13].sap), 201.3, 678.4,54,69);
 
-      // capa1/Recortar grupo
-      ctx.restore();
+      }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 201.3, 678.4,54,69);
 
-      // capa1/Recortar grupo/Trazado de recorte
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(359.2, 746.0);
-      ctx.lineTo(413.8, 746.0);
-      ctx.lineTo(413.8, 678.4);
-      ctx.lineTo(359.2, 678.4);
-      ctx.lineTo(359.2, 746.0);
-      ctx.closePath();
-      ctx.clip();
-
-      // capa1/Recortar grupo/Recortar grupo
-
-      // capa1/Recortar grupo/Recortar grupo/Trazado de recorte
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(359.2, 746.0);
-      ctx.lineTo(413.8, 746.0);
-      ctx.lineTo(413.8, 678.4);
-      ctx.lineTo(359.2, 678.4);
-      ctx.lineTo(359.2, 746.0);
-      ctx.closePath();
-      ctx.clip();
-
-      // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[14].sap), 359.2, 678.4,54,69);
-
-      // capa1/Recortar grupo
-      ctx.restore();
-      ctx.restore();
-
-      // capa1/Recortar grupo/Trazado de recorte
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(489.1, 746.0);
-      ctx.lineTo(543.6, 746.0);
-      ctx.lineTo(543.6, 678.4);
-      ctx.lineTo(489.1, 678.4);
-      ctx.lineTo(489.1, 746.0);
-      ctx.closePath();
-      ctx.clip();
-
-      // capa1/Recortar grupo/Recortar grupo
-
-      // capa1/Recortar grupo/Recortar grupo/Trazado de recorte
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(489.1, 746.0);
-      ctx.lineTo(543.6, 746.0);
-      ctx.lineTo(543.6, 678.4);
-      ctx.lineTo(489.1, 678.4);
-      ctx.lineTo(489.1, 746.0);
-      ctx.closePath();
-      ctx.clip();
-
-      // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+this.articulos[15].sap), 489.1, 678.4,54,69);
+      }
       
-      this.opeww(489.1, 678.4,54,69,this.articulos[15].sap,canvas)
-      // capa1/AIRE ACONDICIONADO 
+      // capa1/Recortar grupo
+      ctx.restore();
+
+      // capa1/Recortar grupo/Trazado de recorte
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(359.2, 746.0);
+      ctx.lineTo(413.8, 746.0);
+      ctx.lineTo(413.8, 678.4);
+      ctx.lineTo(359.2, 678.4);
+      ctx.lineTo(359.2, 746.0);
+      ctx.closePath();
+      ctx.clip();
+
+      // capa1/Recortar grupo/Recortar grupo
+
+      // capa1/Recortar grupo/Recortar grupo/Trazado de recorte
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(359.2, 746.0);
+      ctx.lineTo(413.8, 746.0);
+      ctx.lineTo(413.8, 678.4);
+      ctx.lineTo(359.2, 678.4);
+      ctx.lineTo(359.2, 746.0);
+      ctx.closePath();
+      ctx.clip();
+
+      // capa1/Recortar grupo/Recortar grupo/Imagen
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[14].sap), 359.2, 678.4,54,69);
+      }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 359.2, 678.4,54,69);
+      }
+      
+
+      // capa1/Recortar grupo
+      ctx.restore();
+      ctx.restore();
+
+      // capa1/Recortar grupo/Trazado de recorte
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(489.1, 746.0);
+      ctx.lineTo(543.6, 746.0);
+      ctx.lineTo(543.6, 678.4);
+      ctx.lineTo(489.1, 678.4);
+      ctx.lineTo(489.1, 746.0);
+      ctx.closePath();
+      ctx.clip();
+
+      // capa1/Recortar grupo/Recortar grupo
+
+      // capa1/Recortar grupo/Recortar grupo/Trazado de recorte
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(489.1, 746.0);
+      ctx.lineTo(543.6, 746.0);
+      ctx.lineTo(543.6, 678.4);
+      ctx.lineTo(489.1, 678.4);
+      ctx.lineTo(489.1, 746.0);
+      ctx.closePath();
+      ctx.clip();
+
+      // capa1/Recortar grupo/Recortar grupo/Imagen
+    
+      try{
+        ctx.drawImage(document.getElementById("image-"+articulos[15].sap), 489.1, 678.4,54,69);
+      }catch(err){
+        ctx.drawImage(document.getElementById("image2"), 489.1, 678.4,54,69);
+      }
+    
       ctx.restore();
       ctx.restore();
       ctx.font = "7px 'Roboto'";;
@@ -815,11 +927,19 @@ console.log( that.articulos.length)
 
 
      /// elemento 3
-      this.wrapText(ctx, this.articulos[3].Dcomercial ,  466.7, 296.2, 125, 13) 
+     try{
+      this.wrapText(ctx, articulos[3].Dcomercial ,  466.7, 296.2, 125, 13) 
+     }catch(err){
+      this.wrapText(ctx, '' ,  466.7, 296.2, 125, 13) 
+     }
       
        ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[3].precio, 536.5, 385.3);
-
+    
+try{
+  ctx.fillText("$"+articulos[3].precio, 536.5, 385.3);
+}catch(err){
+  ctx.fillText("", 536.5, 385.3);
+}
       //----------
       
 
@@ -827,28 +947,67 @@ console.log( that.articulos.length)
    // item 5
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
- this.wrapText(ctx,this.articulos[5].Dcomercial ,  184.2, 417.4, 130, 13) 
+ 
+
+ try{
+  this.wrapText(ctx,articulos[5].Dcomercial ,  184.2, 417.4, 130, 13) 
+  
+ }catch(err){
+  this.wrapText(ctx,'' ,  184.2, 417.4, 130, 13) 
+ }
     
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[5].precio, 261.1, 505.8);
+      try{
+        ctx.fillText("$"+articulos[5].precio, 261.1, 505.8);
+      }catch(err){
+        console.log(err)
+        ctx.fillText("", 261.1, 505.8);
+      }
+     
 //-------------------------------
   
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
       //2 itemm
-      this.wrapText(ctx, this.articulos[1].Dcomercial , 183.8, 296.1, 130, 13) 
+      try{
+        this.wrapText(ctx, articulos[1].Dcomercial , 183.8, 296.1, 130, 13) 
      
+      }catch(err){
+        this.wrapText(ctx, "" , 183.8, 296.1, 130, 13) 
+     
+      }
+      
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[1].precio, 257.5, 385.3);
+      try{
+        this.wrapText(ctx, articulos[1].Dcomercial , 183.8, 296.1, 130, 13) 
+      }catch(err){
+        this.wrapText(ctx, '' , 183.8, 296.1, 130, 13) 
+      }
+
+      try{
+        ctx.fillText("$"+articulos[1].precio, 257.5, 385.3);
+      }catch(err){
+        ctx.fillText("", 257.5, 385.3);
+      }
+     
       //-----------------------
       
       ctx.font =  "7px 'Roboto'";;
-     
-      this.wrapText(ctx,this.articulos[2].Dcomercial ,  315.1, 296.3, 130, 13) 
+     try{
+      this.wrapText(ctx,articulos[2].Dcomercial ,  315.1, 296.3, 130, 13) 
+     }catch(err){
+      this.wrapText(ctx,'' ,  315.1, 296.3, 130, 13) 
+     }
+    
       
      
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[2].precio, 314.8, 385.3);
+      try{
+        ctx.fillText("$"+articulos[2].precio, 314.8, 385.3);
+      }catch(err){
+        ctx.fillText("", 314.8, 385.3);
+      }
+     
 
       // capa1/99
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -863,13 +1022,23 @@ console.log( that.articulos.length)
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
       //ctx.fillText("AIRE ACONDICIONADO", 32.8, 538.2);
-      this.wrapText(ctx,this.articulos[8].Dcomercial ,  32.8, 538.2, 130, 13) 
+      try{
+        this.wrapText(ctx,articulos[8].Dcomercial ,  32.8, 538.2, 130, 13) 
+      }catch(err){
+        this.wrapText(ctx,'' ,  32.8, 538.2, 130, 13) 
+      }
+      
       // capa1/DE VENTANA 5000 BTU
      // ctx.fillText("DE VENTANA 5000 BTU", 32.8, 547.2);
 
       // capa1/145
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[8].precio, 32.1, 626.8);
+      try{
+        ctx.fillText("$"+articulos[8].precio, 32.1, 626.8);
+      }catch(err){
+        ctx.fillText("", 32.1, 626.8);
+      }
+      
     
       // capa1/00
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -884,13 +1053,23 @@ console.log( that.articulos.length)
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
      // ctx.fillText("AIRE ACONDICIONADO", 314.6, 538.3);
-      this.wrapText(ctx, this.articulos[10].Dcomercial , 314.6, 538.3 , 130, 13) 
+     try{
+      this.wrapText(ctx, articulos[10].Dcomercial , 314.6, 538.3 , 130, 13) 
+     }catch(err){
+      this.wrapText(ctx,'' , 314.6, 538.3 , 130, 13) 
+     }
+      
       // capa1/DE VENTANA 8000 BTU 
      // ctx.fillText("DE VENTANA 8000 BTU ", 314.6, 547.4);
 
       // capa1/200
       ctx.font = "11px 'Roboto'";
-      ctx.fillText(this.articulos[10].precio, 314.3, 626.8);
+      try{
+        ctx.fillText(articulos[10].precio, 314.3, 626.8);
+      }catch(err){
+        ctx.fillText('', 314.3, 626.8);
+      }
+     
 
       // capa1/00
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -904,14 +1083,23 @@ console.log( that.articulos.length)
       // capa1/AIRE ACONDICIONADO
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx, this.articulos[12].Dcomercial ,  33.0, 658.5, 127, 13);
-
+      
+try{
+  this.wrapText(ctx, articulos[12].Dcomercial ,  33.0, 658.5, 127, 13);
+}catch(err){
+  this.wrapText(ctx, '' ,  33.0, 658.5, 127, 13);
+}
       // capa1/DE VENTANA 12000 BTU
       //ctx.fillText("DE VENTANA 12000 BTU", 33.0, 667.5);
 
       // capa1/269
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[12].precio, 32.4, 747.5);
+      try{
+        ctx.fillText("$"+articulos[12].precio, 32.4, 747.5);
+      }catch(err){
+        ctx.fillText("", 32.4, 747.5);
+      }
+     
 
       // capa1/99
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -925,101 +1113,178 @@ console.log( that.articulos.length)
       // capa1/AIRE ACONDICIONADO
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx,this.articulos[15].Dcomercial , 466.2, 658.8, 130, 13);
+      try{
+        this.wrapText(ctx,articulos[15].Dcomercial , 466.2, 658.8, 130, 13);
+      }catch(err){
+        this.wrapText(ctx,'' , 466.2, 658.8, 130, 13);
+      }
+     
 
       // capa1/DE VENTANA 12000 BTU 
       //ctx.fillText("DE VENTANA 12000 BTU ", 466.2, 667.9);
 
       // capa1/249
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[15].precio, 543.0, 747.5);
+      try{
+        ctx.fillText("$"+articulos[15].precio, 543.0, 747.5);
+      }catch(err){
+        ctx.fillText("", 543.0, 747.5);
+      }
+     
 
    
 
       // capa1/CAFETERA 
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx, this.articulos[7].Dcomercial , 465.6, 417.5, 130, 13);
+      try{
+        this.wrapText(ctx, articulos[7].Dcomercial , 465.6, 417.5, 130, 13);
+      }catch(err){
+        this.wrapText(ctx, '' , 465.6, 417.5, 130, 13);
+      }
+  
 
       // capa1/12 TZAS
       //ctx.fillText("12 TZAS", 465.6, 426.5);
 
       // capa1/25
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[7].precio, 549.9, 505.9);
-
+      
+try{
+  ctx.fillText("$"+articulos[7].precio, 549.9, 505.9);
+}catch(err){
+  ctx.fillText("", 549.9, 505.9);
+}
       
       // capa1/COCINA ELECTRICA
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx, this.articulos[9].Dcomercial , 182.1, 538.3, 130, 13);
-
+      
+      try{
+        this.wrapText(ctx, articulos[9].Dcomercial , 182.1, 538.3, 130, 13);
+      }catch(err){
+        this.wrapText(ctx, '', 182.1, 538.3, 130, 13);
+      }
       // capa1/1 HORNILLA
      // ctx.fillText("1 HORNILLA", 182.1, 547.4);
 
       // capa1/12
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[9].precio, 270.8, 626.8);
+      try{
+        ctx.fillText("$"+articulos[9].precio, 270.8, 626.8);
+      }catch(err){
+        ctx.fillText("", 270.8, 626.8);
+      }
+     
 
 
       // capa1/CONGELADOR HORIZONTAL
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx,this.articulos[9].Dcomercial , 465.5, 538.3, 130, 13);
+      try{
+        this.wrapText(ctx,articulos[9].Dcomercial , 465.5, 538.3, 130, 13);
+      }catch(err){
+        this.wrapText(ctx,'' , 465.5, 538.3, 130, 13);
+      }
+      
 
       // capa1/CBLANCO
       //ctx.fillText("C/BLANCO", 465.5, 547.4);
 
       // capa1/209
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[9].precio, 543.3, 626.2);
+      try{
+        ctx.fillText("$"+articulos[9].precio, 543.3, 626.2);
+      }catch(err){
+        ctx.fillText("", 543.3, 626.2);
+      }
+   
 
       // capa1/CONGELADOR HORIZONTAL
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx,this.articulos[13].Dcomercial , 183.5, 658.8, 130, 13);
+      try{
+        this.wrapText(ctx,articulos[13].Dcomercial , 183.5, 658.8, 130, 13);
+      }catch(err){
+        this.wrapText(ctx,'' , 183.5, 658.8, 130, 13);
+      }
+      
 
       // capa1/CGRIS
       //ctx.fillText("C/GRIS", 183.5, 667.9);
 
       // capa1/274
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[13].precio, 262.3, 747.5);
+      try{
+        ctx.fillText("$"+articulos[13].precio, 262.3, 747.5);
+      }catch(err){
+        ctx.fillText("", 262.3, 747.5);
+      }
+     
 
    
       // capa1/AIRE ACONDICIONADO
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx, this.articulos[4].Dcomercial ,33.0, 417.4, 127, 13);
+      try{
+        this.wrapText(ctx, articulos[4].Dcomercial ,33.0, 417.4, 127, 13);
+      }catch(err){
+        this.wrapText(ctx, "" ,33.0, 417.4, 127, 13);
+      }
+      
 
       // capa1/12000 BTU SPLIT
       //ctx.fillText("12000 BTU SPLIT", 33.0, 426.4);
 
       // capa1/279
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[4].precio, 32.7, 505.9);
+      try{
+        ctx.fillText("$"+articulos[4].precio, 32.7, 505.9);
+      }catch(err){
+        ctx.fillText("", 32.7, 505.9);
+      }
+     
 
     
       // capa1/AIRE ACONDICIONADO
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx, this.articulos[6].Dcomercial , 314.2, 417.4, 130, 13);
-
+     
+try{
+  this.wrapText(ctx, articulos[6].Dcomercial , 314.2, 417.4, 130, 13);
+}catch(err){
+  this.wrapText(ctx, "" , 314.2, 417.4, 130, 13);
+}
    
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[6].precio, 314.5, 506.0);
+      try{
+        ctx.fillText("$"+articulos[6].precio, 314.5, 506.0);
+      }catch(err){
+        ctx.fillText("", 314.5, 506.0);
+      }
+    
 
      
       ctx.font =  "7px 'Roboto'";;
       ctx.fillStyle = "rgb(14, 75, 154)";
-      this.wrapText(ctx, this.articulos[14].Dcomercial , 315.2, 658.8, 130, 13);
+      try{
+        this.wrapText(ctx, articulos[14].Dcomercial , 315.2, 658.8, 130, 13);
+      }catch(err){
+        this.wrapText(ctx, "", 315.2, 658.8, 130, 13);
+      }
+     
 
       // capa1/24000 BTU SPLIT
       //ctx.fillText("24000 BTU SPLIT", 315.2, 667.8);
 
       // capa1/529
       ctx.font = "11px 'Roboto'";
-      ctx.fillText("$"+this.articulos[14].precio, 314.4, 747.8);
+      try{
+        ctx.fillText("$"+articulos[14].precio, 314.4, 747.8);
+      }catch(err){
+        ctx.fillText("", 314.4, 747.8);
+      }
+ 
 
       
       // capa1/Trazado
@@ -1118,7 +1383,12 @@ console.log( that.articulos.length)
       ctx.restore();
       ctx.font =  "7px 'Roboto'";;
    //item1
-      this.wrapText(ctx, this.articulos[0].Dcomercial , 32.9, 296.4, 130, 13) 
+   try{
+    this.wrapText(ctx, articulos[0].Dcomercial , 32.9, 296.4, 130, 13) 
+   }catch(err){
+    this.wrapText(ctx, '', 32.9, 296.4, 130, 13) 
+   }
+     
       
       ctx.font = "Light 6.0px 'Myriad Pro'";
       ctx.fillStyle = "rgb(1, 2, 3)";
@@ -1127,7 +1397,12 @@ console.log( that.articulos.length)
       // capa1/1350
       ctx.font = "11px 'Roboto'";
       ctx.fillStyle = "rgb(14, 75, 154)";
-      ctx.fillText('$'+this.articulos[0].precio, 32.0, 385.3);
+      try{
+        ctx.fillText('$'+articulos[0].precio, 32.0, 385.3);
+      }catch(err){
+        ctx.fillText('', 32.0, 385.3);
+      }
+     
 
       // capa1/00
       ctx.font = "UltraItalic 6.4px 'Myriad Pro'";
@@ -4128,7 +4403,7 @@ console.log( that.articulos.length)
           
            } });
     },
-    hoja(ctx,articulos) {
+    hoja(ctx,articulos,linea) {
 
       // capa1/Recortar grupo
       ctx.save();
@@ -4200,17 +4475,14 @@ console.log( that.articulos.length)
 
       // capa1/Recortar grupo/185
        ctx.font = "11px 'Roboto'";
-      ctx.fillText('$'+articulos[21].precio, 264.9, 747.8);
-
-      try{
-        this.wrapText(ctx,articulos[22].Dcomercial , 310.2, 658.4, 125, 13);
-
+       try{
+        ctx.fillText('$'+articulos[21].precio, 264.9, 747.8);
        }catch(err){
-       
-        this.wrapText(ctx,'' , 310.2, 658.4, 125, 13);
-
+        ctx.fillText('', 264.9, 747.8);
        }
-    
+   
+
+      
     
      
       // capa1/Recortar grupo/LAVADORA 07 KG 
@@ -4536,6 +4808,7 @@ console.log( that.articulos.length)
       //ctx.fillText("MANUAL 3.5L", 27.4, 425.8);
 
       // capa1/Recortar grupo/60
+      ctx.font = "11px 'Roboto'";
       try{
         ctx.fillText('$'+articulos[11].precio, 554.0, 385.3);
 
@@ -4736,6 +5009,7 @@ console.log( that.articulos.length)
       // capa1/Recortar grupo/40
        ctx.font = "11px 'Roboto'";
        try{
+        console.log(articulos[3])
         ctx.fillText('$'+articulos[3].precio, 550.5, 143.1);
        }catch(err){
         ctx.fillText('', 550.5, 143.1);
@@ -4775,7 +5049,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[23].sap), 488.7, 677.1,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 488.7, 677.1,54,69);
+      //  ctx.drawImage(document.getElementById("image2"), 488.7, 677.1,54,69);
        }
     
       // capa1/Recortar grupo/Recortar grupo
@@ -4808,9 +5082,9 @@ console.log( that.articulos.length)
       // capa1/Recortar grupo/Recortar grupo/Recortar grupo/Imagen
       
       try{
-        ctx.drawImage(document.getElementById("image-"+articulos[22].sap), 345.0, 671.7,54,69);;
+        ctx.drawImage(document.getElementById("image-"+articulos[22].sap), 345.0, 691.7,54,69);;
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 345.0, 671.7,54,69);
+       // ctx.drawImage(document.getElementById("image2"), 345.0, 671.7,54,69);
        }
     
       // capa1/Recortar grupo/Recortar grupo
@@ -4846,7 +5120,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[21].sap), 204.3, 687.0,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 204.3, 687.0,54,69);
+     //   ctx.drawImage(document.getElementById("image2"), 204.3, 687.0,54,69);
        }
     
       // capa1/Recortar grupo/Recortar grupo
@@ -4883,7 +5157,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[20].sap), 69.7, 682.6,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 69.7, 682.6,54,69);
+     //   ctx.drawImage(document.getElementById("image2"), 69.7, 682.6,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4918,7 +5192,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[19].sap), 483.5, 565.7,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 483.5, 565.7,54,69);
+     //   ctx.drawImage(document.getElementById("image2"), 483.5, 565.7,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4936,12 +5210,12 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[18].sap), 346.3, 557.7,54,69);
+     // 
   
       try{
-        ctx.drawImage(document.getElementById("image-"+articulos[19].sap), 483.5, 565.7,54,69);
+        ctx.drawImage(document.getElementById("image-"+articulos[18].sap), 346.3, 557.7,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 483.5, 565.7,54,69);
+       // ctx.drawImage(document.getElementById("image2"), 483.5, 565.7,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4962,7 +5236,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[17].sap), 205.5, 559.6,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 205.5, 559.6,54,69);
+       // ctx.drawImage(document.getElementById("image2"), 205.5, 559.6,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -4983,7 +5257,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[16].sap), 49.0, 564.1,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 49.0, 564.1,54,69);
+       // ctx.drawImage(document.getElementById("image2"), 49.0, 564.1,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5004,7 +5278,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[15].sap), 490.3, 443.2,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 49.0, 564.1,54,69);
+       // ctx.drawImage(document.getElementById("image2"), 49.0, 564.1,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5038,7 +5312,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[14].sap), 317.5, 431.5,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 317.5, 431.5,54,69);
+      //  ctx.drawImage(document.getElementById("image2"), 317.5, 431.5,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5060,7 +5334,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[13].sap), 204.2, 435.0,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 204.2, 435.0,54,69);
+     //   ctx.drawImage(document.getElementById("image2"), 204.2, 435.0,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5094,7 +5368,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[12].sap), 65.8, 437.9,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 65.8, 437.9,54,69);
+      //  ctx.drawImage(document.getElementById("image2"), 65.8, 437.9,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5112,12 +5386,11 @@ console.log( that.articulos.length)
       ctx.clip();
 
       // capa1/Recortar grupo/Recortar grupo/Imagen
-      ctx.drawImage(document.getElementById("image-"+articulos[11].sap), 470.2, 320.7,54,69);
-  
+   
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[11].sap), 470.2, 320.7,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 65.8, 437.9,54,69);
+      //  ctx.drawImage(document.getElementById("image2"), 65.8, 437.9,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5138,7 +5411,9 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[10].sap), 367.4, 310,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 367.4, 310,54,69);
+
+       // ctx.drawImage(document.getElementById("image2"), 367.4, 310,54,69);
+       
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5160,7 +5435,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[9].sap), 217.1, 310.3,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 217.1, 310.3,54,69);
+      //  ctx.drawImage(document.getElementById("image2"), 217.1, 310.3,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5171,8 +5446,8 @@ console.log( that.articulos.length)
       ctx.moveTo(63.1, 386.4);
       ctx.lineTo(121.0, 386.4);
       ctx.lineTo(121.0, 301.4);
-      ctx.lineTo(63.1, 301.4);
-      ctx.lineTo(63.1, 386.4);
+      ctx.lineTo( 80.1, 301.4);
+      ctx.lineTo( 80.1, 386.4);
       ctx.closePath();
       ctx.clip();
 
@@ -5181,7 +5456,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[8].sap), 80.1, 311.4,64,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 80.1, 311.4,64,69);
+      //  ctx.drawImage(document.getElementById("image2"), 80.1, 311.4,64,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5199,9 +5474,9 @@ console.log( that.articulos.length)
       // capa1/Recortar grupo/Recortar grupo/Imagen
       
       try{
-        ctx.drawImage(document.getElementById("image-"+articulos[7].sap),476.4, 189.1,100,120);
+        ctx.drawImage(document.getElementById("image-"+articulos[7].sap),500.4, 189.1,100,120);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"),476.4, 189.1,100,120);
+       // ctx.drawImage(document.getElementById("image2"),476.4, 189.1,100,120);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5222,7 +5497,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[6].sap), 360.8, 192.9,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 360.8, 192.9,54,69);
+       // ctx.drawImage(document.getElementById("image2"), 360.8, 192.9,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5244,7 +5519,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[5].sap), 194, 205.3,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 194, 205.3,54,69);
+       // ctx.drawImage(document.getElementById("image2"), 194, 205.3,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5266,7 +5541,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[4].sap), 67.6, 190.1,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 67.6, 190.1,54,69);
+      //  ctx.drawImage(document.getElementById("image2"), 67.6, 190.1,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -5301,7 +5576,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[3].sap), 482.8, 90.2,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 482.8, 90.2,54,69);
+      //  ctx.drawImage(document.getElementById("image2"), 482.8, 90.2,54,69);
        }
      
 
@@ -5430,7 +5705,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[2].sap), 359.0, 79.6,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 359.0, 79.6,54,69);
+       // ctx.drawImage(document.getElementById("image2"), 359.0, 79.6,54,69);
        }
       //ctx.drawImage(document.getElementById("image2"), 482.8, 90.2,54,69);
       // capa1/Recortar grupo/Trazado
@@ -6426,7 +6701,10 @@ console.log( that.articulos.length)
       ctx.lineTo(416.8, 823.4);
       ctx.closePath();
       ctx.fill();
-
+      ctx.fillStyle = "rgb(255, 255, 255)";
+      ctx.font =  "15px 'Roboto'";;
+      ctx.fillText(linea, 400, 25);
+      ctx.fillStyle = "rgb(1, 1, 1)";
       // capa1/Recortar grupo/Recortar grupo/Trazado
       ctx.beginPath();
       ctx.moveTo(431.8, 823.4);
@@ -6597,6 +6875,7 @@ console.log( that.articulos.length)
       ctx.bezierCurveTo(479.8, 816.7, 480.1, 816.9, 480.3, 817.1);
       ctx.bezierCurveTo(480.5, 817.3, 480.7, 817.6, 480.9, 817.9);
       ctx.lineTo(480.9, 812.4);
+   
       ctx.lineTo(482.3, 812.4);
       ctx.lineTo(482.3, 825.2);
       ctx.lineTo(480.9, 825.2);
@@ -7783,7 +8062,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[1].sap), 209.9, 77.2,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 209.9, 77.2,54,69);
+     //   ctx.drawImage(document.getElementById("image2"), 209.9, 77.2,54,69);
        }
       // capa1/Recortar grupo/Recortar grupo
       ctx.restore();
@@ -7819,7 +8098,7 @@ console.log( that.articulos.length)
       try{
         ctx.drawImage(document.getElementById("image-"+articulos[0].sap), 90, 80.9,54,69);
        }catch(err){
-        ctx.drawImage(document.getElementById("image2"), 90, 80.9,54,69);
+       // ctx.drawImage(document.getElementById("image2"), 90, 80.9,54,69);
        }
       ctx.restore();
 
@@ -7912,8 +8191,24 @@ console.log( that.articulos.length)
 
       let res = await fetch('/producto/va')
       res = await res.json()
+      console.log(res)
       this.articulos = res.valor
+      let val = []
+      this.articulos.forEach(function(item){
      
+        if(typeof val[item.Linea] == 'undefined'){
+          
+          val[item.Linea] = []
+          val[item.Linea].push(item)
+        }else{
+         
+          val[item.Linea].push(item)
+        }
+        //
+  
+      })
+      this.test = val
+     console.log(this.test)
     },
   
 
